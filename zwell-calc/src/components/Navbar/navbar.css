@@ -1,0 +1,70 @@
+/* Navbar styles */
+.navbar {
+    box-shadow: 0 0 20px lightgray;
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+}
+
+/* Icon circle styles */
+.icon-circle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.icon-circle svg {
+    fill: lightgray;
+    z-index: 2;
+}
+
+.icon-circle::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid lightgray;
+    z-index: 1;
+    top: -5px;
+}
+
+.icon-circle::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 75%;
+    background: lightgray;
+    left: 47.5%;
+    bottom: -90%;
+}
+
+/* Last icon styles */
+.last-icon::after,
+.icon-circle:last-child::after {
+    display: none;
+}
+
+/* Active icon styles */
+.active::before,
+.active svg {
+    fill: teal;
+    border-color: teal;
+}
+
+/* Completed icon styles */
+.completed::before,
+.completed svg {
+    fill: white;
+    border-color: teal;
+    background-color: teal;
+}
+
+/* Responsive styles */
+@media (max-width: 700px) {
+    .list-item-text {
+      display: none;
+    }
+}
