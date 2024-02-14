@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // Where files should be sent once they are bundled
-  cache: false,
+cache: false,
  output: {
    path: path.join(__dirname, '/dist'),
    filename: 'index.bundle.js'
