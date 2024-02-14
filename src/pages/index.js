@@ -7,11 +7,13 @@ import HomeType from "./HomeType";
 import Lighting from "./Lighting";
 import Location from "./Location";
 import Results from "./Results";
-import Roof from "./Roof";
+// import Roof from "./Roof";
 import Water from "./Water";
 import Windows from "./Windows";
 
-export {
+export * from './Roof';
+
+export { 
     Appliances,
     Cooling,
     Energy,
@@ -21,7 +23,7 @@ export {
     Lighting,
     Location,
     Results,
-    Roof,
+    // Roof,
     Water,
     Windows
 };

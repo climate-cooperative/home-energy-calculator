@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
 
-const Results = (props) => {
+const Results = () => {
     return (
         <div className="page">
             <h1>Results</h1>

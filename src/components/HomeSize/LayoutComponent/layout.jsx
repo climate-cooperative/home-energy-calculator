@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import House from '@mui/icons-material/House';
 import Cottage from '@mui/icons-material/Cottage';
