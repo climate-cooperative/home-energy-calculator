@@ -1,2 +1,2 @@
-import SubmitButton from "./submit";
+import SubmitButton from './submit';
 export default SubmitButton;

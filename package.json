@@ -23,7 +23,8 @@
     "build": "webpack --mode production",
     "lint": "eslint ./src/",
     "babel:build": "npx babel src/ --out-dir build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format": "prettier --write './src/**/*.{js,jsx,css,json}' --config ./.prettierrc"
   },
   "browserslist": {
     "production": [
@@ -46,9 +47,13 @@
     "babel-loader": "^9.1.3",
     "css-loader": "^6.10.0",
     "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^27.8.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.33.2",
     "html-webpack-plugin": "^5.6.0",
     "husky": "^9.0.11",
+    "prettier": "^3.2.5",
     "style-loader": "^3.3.4",
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4",

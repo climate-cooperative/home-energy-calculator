@@ -1,15 +1,15 @@
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 20%;
-    overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 20%;
+  overflow: auto;
 }
 
 .page {
-    overflow: auto;
-    width: 80%;
-    margin-left: 20%;
-    background-color: #f5f5f5;
+  overflow: auto;
+  width: 80%;
+  margin-left: 20%;
+  background-color: #f5f5f5;
 }

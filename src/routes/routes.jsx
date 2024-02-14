@@ -8,18 +8,21 @@ const MainRoutes = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const pathToStep = useMemo(() => ({
-    '/': 0,
-    '/location': 1,
-    '/homesize': 2,
-    // add more paths as needed
-  }), []);
+  const pathToStep = useMemo(
+    () => ({
+      '/': 0,
+      '/location': 1,
+      '/homesize': 2
+      // add more paths as needed
+    }),
+    []
+  );
 
   const [step, setStep] = useState(pathToStep[location.pathname]);
 
   useEffect(() => {
     setStep(pathToStep[location.pathname]);
-  },[location.pathname, pathToStep]);
+  }, [location.pathname, pathToStep]);
 
   const handleNext = () => {
     const currentPath = window.location.pathname;
@@ -46,7 +49,7 @@ const MainRoutes = () => {
 
   return (
     <div>
-      <Navbar className="navbar" index={step}/>
+      <Navbar className="navbar" index={step} />
       <Routes>
         <Route path="/" element={<HomeType className="page" handleNext={handleNext} />} />
         <Route path="/location" element={<Location handleNext={handleNext} />} />
@@ -55,6 +58,6 @@ const MainRoutes = () => {
       </Routes>
     </div>
   );
-}
+};
 
 export default MainRoutes;

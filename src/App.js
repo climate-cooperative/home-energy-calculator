@@ -15,6 +15,6 @@ const App = () => {
       </FormDataProvider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

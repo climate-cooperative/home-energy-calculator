@@ -4,7 +4,11 @@ module.exports = {
     "es2021": true,
     "jest": true
   },
-  extends: ['eslint:recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended'
+  ],
   parser: '@babel/eslint-parser',
   plugins: ["jest"],
   parserOptions: {

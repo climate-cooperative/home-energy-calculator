@@ -3,11 +3,11 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ffffff', // white
+      main: '#ffffff' // white
     },
     secondary: {
-      main: '#008080', // teal
-    },
+      main: '#008080' // teal
+    }
   },
   components: {
     MuiButton: {
@@ -20,12 +20,12 @@ const theme = createTheme({
           overflow: 'hidden',
           margin: '10px',
           font: 'inherit',
-          textTransform: 'none', // Add this line
+          textTransform: 'none' // Add this line
         },
         containedPrimary: {
           '&:hover': {
-            backgroundColor: '#008080', // teal
-          },
+            backgroundColor: '#008080' // teal
+          }
         },
         // Define a new style
         imageButton: {
@@ -34,14 +34,14 @@ const theme = createTheme({
           height: '150px', // Increased height
           // stack content on top of each other
           flexDirection: 'column',
-          justifyContent: 'center',
-        },
+          justifyContent: 'center'
+        }
       },
       defaultProps: {
-        variant: 'contained',
-      },
-    },
-  },
+        variant: 'contained'
+      }
+    }
+  }
 });
 
 export default theme;
