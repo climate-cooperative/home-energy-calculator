@@ -5,6 +5,15 @@
     align-items: center;
 }
 
+.component {
+    margin-top: 2rem;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 .error {
     color: red;
     font-size: 1.5rem;

@@ -1,10 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { EnergyScore } from "../components/Results"; 
 
 const Results = (props) => {
     return (
-        <div className="page">
-            <h1>Results</h1>
+        <div>
+            <EnergyScore />
         </div>
     );
 }

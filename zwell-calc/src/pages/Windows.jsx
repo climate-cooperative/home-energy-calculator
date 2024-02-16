@@ -1,11 +1,18 @@
 import { useState } from "react";
+import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import { WindowConverage, Panes, Sun, Treatments } from "../components/Windows";
 
 const Windows = (props) => {
+    const [windows, setWindows] = useState(props.windows || '');
+    const [panes, setPanes] = useState(props.panes || '');
+    const [sun, setSun] = useState(props.sun || '');
+    const [treatments, setTreatments] = useState(props.treatments || '');
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
-        if (true) {
+        if (!windows || !panes || !sun || !treatments) {
+            console.log(windows, panes, sun, treatments);
             setError('All fields must be filled out');
             return null;
         } else {
@@ -17,8 +24,13 @@ const Windows = (props) => {
 
     return (
         <div className="page">
-            {error && <div className="error">{error}</div>}
+            <BackButton pageName={"Home Size"} route={"/homesize"}/>
+            <WindowConverage windows={windows} setWindows={setWindows}/>
+            <Panes panes={panes} setPanes={setPanes}/>
+            <Sun sun={sun} setSun={setSun}/>
+            <Treatments treatments={treatments} setTreatments={setTreatments}/>
             <SubmitButton handleNext={validateAndProceed}/>
+            {error && <div className="error">{error}</div>}
         </div>
     );
 }

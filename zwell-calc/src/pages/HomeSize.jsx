@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
 import '../styles/page.css';
 import { SqrFeet, Rooms, Layout, CrawlSpace } from "../components/HomeSize";
@@ -6,9 +7,9 @@ import { SqrFeet, Rooms, Layout, CrawlSpace } from "../components/HomeSize";
 const HomeSize = (props) => {
     const [sqrfeet, setSqrfeet] = useState(props.homeSize || '');
     const [rooms, setRooms] = useState(props.rooms || {
-        bedrooms: 0,
-        bathrooms: 0,
-        kitchens: 0,
+        Bedrooms: 0,
+        Bathrooms: 0,
+        Kitchens: 0,
     });
     const [crawlspace, setCrawlspace] = useState(props.layout || '');
     const [layout, setLayout] = useState(props.crawlspace || {
@@ -34,12 +35,13 @@ const HomeSize = (props) => {
 
     return (
         <div className="page">
-            {error && <div className="error">{error}</div>}
+            <BackButton pageName={"Location"} route={"/location"}/>
             <SqrFeet sqrfeet={sqrfeet} setSqrfeet={setSqrfeet}/>
             <Rooms rooms={rooms} setRooms={setRooms}/>
             <CrawlSpace crawlspace={crawlspace} setCrawlspace={setCrawlspace}/>
             <Layout layout={layout} setLayout={setLayout}/>
             <SubmitButton handleNext={validateAndProceed}/>
+            {error && <div className="error">{error}</div>}
         </div>
     );
 }

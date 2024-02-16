@@ -1,57 +1,40 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-import { HomeType, Location, HomeSize } from '../pages';
+import { HomeType, Location, HomeSize, Windows, Insulation, Heating, Cooling, WaterHeating, Lighting, Appliances, Energy, Results } from '../pages';
 import './main.css';
 
 const MainRoutes = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const pathToStep = useMemo(() => ({
-    '/': 0,
-    '/location': 1,
-    '/homesize': 2,
-    // add more paths as needed
-  }), []);
+  const paths = ['/', '/location', '/homesize', '/windows', '/insulation', '/heating', '/cooling', '/waterheating', '/lighting', '/appliances', '/energy', '/score'];
+  const pathToStep = new Map(paths.map((path, index) => [path, index]));
 
-  const [step, setStep] = useState(pathToStep[location.pathname]);
+  const [step, setStep] = useState(pathToStep.get(location.pathname));
 
   useEffect(() => {
-    setStep(pathToStep[location.pathname]);
-  },[location.pathname, pathToStep]);
+    setStep(pathToStep.get(location.pathname));
+  }, [location.pathname]);
 
   const handleNext = () => {
     const currentPath = window.location.pathname;
-    let nextPath;
+    const currentIndex = paths.indexOf(currentPath);
+    const nextPath = paths[(currentIndex + 1) % paths.length];
 
-    switch (currentPath) {
-      case '/':
-        nextPath = '/location';
-        break;
-      case '/location':
-        nextPath = '/homesize';
-        break;
-      case '/homesize':
-        nextPath = '/nextPage'; // replace with the path to the next page
-        break;
-      // add more cases as needed
-      default:
-        nextPath = '/';
-    }
-
-    setStep(pathToStep[nextPath]);
+    setStep(pathToStep.get(nextPath));
     navigate(nextPath);
   };
 
   return (
     <div>
-      <Navbar className="navbar" index={step}/>
+      {location.pathname !== '/score' && <Navbar className="navbar" index={step}/>}
       <Routes>
-        <Route path="/" element={<HomeType className="page" handleNext={handleNext} />} />
-        <Route path="/location" element={<Location handleNext={handleNext} />} />
-        <Route path="/homesize" element={<HomeSize handleNext={handleNext} />} />
-        {/* Add more routes as needed */}
+        {paths.map((path, index) => {
+          const Component = [HomeType, Location, HomeSize, Windows, Insulation, Heating, Cooling, WaterHeating, Lighting, Appliances, Energy, Results][index];
+          return <Route key={path} path={path} element={<Component handleNext={handleNext} />} />;
+        })}
+        <Route path="/score" element={<Results />} />
       </Routes>
     </div>
   );

@@ -9,7 +9,7 @@ const Navbar = ({ index }) => {
     { icon: <MyLocation />, text: 'Location' },
     { icon: <House />, text: 'Home Size' },
     { icon: <Window />, text: 'Windows' },
-    { icon: <Roofing />, text: 'Roof' },
+    { icon: <Roofing />, text: 'Insulation' },
     { icon: <LocalFireDepartment />, text: 'Heating' },
     { icon: <AcUnit />, text: 'Cooling' },
     { icon: <WaterDrop />, text: 'Water' },

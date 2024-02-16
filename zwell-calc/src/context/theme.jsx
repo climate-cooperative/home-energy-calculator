@@ -9,6 +9,18 @@ const theme = createTheme({
       main: '#008080', // teal
     },
   },
+  typography: {
+    h2: {
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      marginBottom: '20px',
+    },
+    h3: {
+      fontSize: '1rem',
+      color: 'gray',
+      marginBottom: '20px',
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -30,8 +42,8 @@ const theme = createTheme({
         // Define a new style
         imageButton: {
           fontSize: 'calc(0.5rem + 0.5vw)',
-          width: '150px', // Increased width
-          height: '150px', // Increased height
+          width: '200px', // Increased width
+          height: '200px', // Increased height
           // stack content on top of each other
           flexDirection: 'column',
           justifyContent: 'center',

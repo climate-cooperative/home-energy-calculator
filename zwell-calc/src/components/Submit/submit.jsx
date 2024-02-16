@@ -17,7 +17,9 @@ const SubmitButton = (props) => {
     <Button 
       onClick={handleSubmit} 
       style={{ 
-        marginTop: '50px',
+        marginTop: '40px',
+        width: '100px',
+        height: '50px',
       }}
     >
       Next

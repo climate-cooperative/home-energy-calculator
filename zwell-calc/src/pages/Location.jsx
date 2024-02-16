@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
+import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import Button from '@mui/material/Button';
 import Zipcode from "../components/Location";
 import { FormDataContext } from '../context/FormDataContext';
 import '../styles/page.css';
@@ -23,7 +25,9 @@ const Location = (props) => {
 
     return (
         <div className="page">
+            <BackButton pageName={"Home Type"} route={"/"}/>
             <Zipcode zipcode={zipcode} setZipcode={setZipcode} hide={hide}/>
+            <Button onClick={() => hide(false)}>Next</Button>
             {error && <div className="error">{error}</div>}
             {hidden ? null : <SubmitButton handleNext={validateAndProceed}/>}
         </div>
