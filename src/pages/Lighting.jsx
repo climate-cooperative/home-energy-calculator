@@ -20,7 +20,7 @@ const Lighting = (props) => {
 
     return (
         <div className="page">
-            <BackButton pageName={"Water"} route={"/water"}/>
+            <BackButton pageName={"Water"} route={"/waterheating"}/>
             <Efficiency efficiency={efficiency} setEfficiency={setEfficiency}/>
             <SubmitButton handleNext={validateAndProceed}/>
             {error && <div className="error">{error}</div>}
