@@ -28,7 +28,7 @@ const CoolingSystem = (props) => {
 
     return (
         <ImageQuestion 
-            question="What type of cooling system do you have?" 
+            question="What types(s) of cooling system do you have?" 
             content={coolingSystemOptions} 
             state={coolingSystem}
             setState={setCoolingSystem} 
