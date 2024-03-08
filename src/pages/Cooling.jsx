@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CoolingSystem, HasAirCond, InstallationYear } from "../components/Cooling";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Cooling = (props) => {
-    const [hasAirCond, setHasAirCond] = useState(props.hasAirCond || 'No');
-    const [installationYear, setInstallationYear] = useState(props.installationYear || '');
-    const [coolingSystem, setCoolingSystem] = useState(props.airCondSystem || '');
+    const { formData } = useContext(FormDataContext);
+
+    const [hasAirCond, setHasAirCond] = useState(formData.hasAirCond || 'No');
+    const [installationYear, setInstallationYear] = useState(formData.installationYear || '');
+    const [coolingSystem, setCoolingSystem] = useState(formData.airCondSystem || '');
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
@@ -16,7 +19,7 @@ const Cooling = (props) => {
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { hasAirCond, installationYear, coolingSystem };
         }
     };
 

@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
 import { WindowConverage, Panes, Sun, Treatments } from "../components/Windows";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Windows = (props) => {
-    const [windows, setWindows] = useState(props.windows || '');
-    const [panes, setPanes] = useState(props.panes || '');
-    const [sun, setSun] = useState(props.sun || '');
-    const [treatments, setTreatments] = useState(props.treatments || '');
+    const { formData } = useContext(FormDataContext);
+
+    const [windows, setWindows] = useState(formData.windows || '');
+    const [panes, setPanes] = useState(formData.panes || '');
+    const [sun, setSun] = useState(formData.sun || '');
+    const [treatments, setTreatments] = useState(formData.treatments || '');
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
@@ -18,7 +21,7 @@ const Windows = (props) => {
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { windows, panes, sun, treatments };
         }
     };
 

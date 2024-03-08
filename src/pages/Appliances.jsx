@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Kitchen, Laundry } from "../components/Appliances";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Appliances = (props) => {
-    const [kitchen, setKitchen] = useState(props.kitchen || {
+    const { formData } = useContext(FormDataContext);
+
+    const [kitchen, setKitchen] = useState(formData.kitchen || {
         'Natural Gas Cooktop': 0,
         'Electric Cooktop': 0,
         'Induction Cooktop': 0,
@@ -12,7 +15,7 @@ const Appliances = (props) => {
         'Electric Oven': 0,
         'Dishwasher': 0
     });
-    const [laundry, setLaundry] = useState(props.laundry || {
+    const [laundry, setLaundry] = useState(formData.laundry || {
         'Washers': 0,
         'Natural Gas Dryer': 0,
         'Electric Dryer': 0,
@@ -22,7 +25,7 @@ const Appliances = (props) => {
 
     const validateAndProceed = () => {
             props.handleNext();
-            return { };
+            return { kitchen, laundry};
     };
 
     return (

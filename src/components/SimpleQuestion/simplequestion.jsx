@@ -16,7 +16,7 @@ const SimpleQuestion = ({ question, subtext, options, answer, setAnswer, popup=n
             }
         } else {
             // If selectMultiple is false, set the clicked option as the only selected option
-            setAnswer([option]);
+            setAnswer(option);
         }
     };
 

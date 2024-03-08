@@ -1,2 +1,3 @@
 import Zipcode from "./ZipcodeComponent/zipcode";
-export default Zipcode;
+import ZipData from "./ZipDataComponent/zipdata";
+export { Zipcode, ZipData };

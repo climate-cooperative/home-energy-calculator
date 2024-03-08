@@ -1,21 +1,23 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { GreenEnergy, Slider } from "../components/Energy";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Energy = (props) => {
-    const [energy, setEnergy] = useState(props.energy || []);
-    const [slider, setSlider] = useState(props.slider || 1);
+    const { formData } = useContext(FormDataContext);
+    const [energy, setEnergy] = useState(formData.energy || []);
+    const [slider, setSlider] = useState(formData.slider || 0);
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
-        if (true) {
+        if (energy.length == 0) {
             setError('All fields must be filled out');
             return null;
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { energy, slider };
         }
     };
 

@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
 import { Siding, HomeInsulation } from "../components/Insulation";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Insulation = (props) => {
-    const [siding, setSiding] = useState(props.siding || '');
-    const [insulation, setInsulation] = useState(props.insulation || '');
+    const { formData } = useContext(FormDataContext);
+
+    const [siding, setSiding] = useState(formData.siding || '');
+    const [insulation, setInsulation] = useState(formData.insulation || '');
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
@@ -15,7 +18,7 @@ const Insulation = (props) => {
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { siding, insulation };
         }
     };
 

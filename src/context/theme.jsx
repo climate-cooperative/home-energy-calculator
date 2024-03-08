@@ -10,6 +10,7 @@ const theme = createTheme({
     },
   },
   typography: {
+    fontFamily: 'Barlow Semi Condensed, sans-serif',
     h2: {
       fontSize: '1.2rem',
       fontWeight: 'bold',

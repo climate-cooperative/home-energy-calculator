@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InstallationYear, Source, WaterHeater } from "../components/WaterHeater";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import { FormDataContext } from '../context/FormDataContext';
 
 const WaterHeating = (props) => {
-    const [waterHeating, setWaterHeating] = useState(props.waterHeating || '');
-    const [fuelSource, setFuelSource] = useState(props.fuelSource || '');
-    const [installationYear, setInstallationYear] = useState(props.installationYear || '');
+    const { formData } = useContext(FormDataContext);
+
+    const [waterHeating, setWaterHeating] = useState(formData.waterHeating || '');
+    const [fuelSource, setFuelSource] = useState(formData.fuelSource || '');
+    const [installationYear, setInstallationYear] = useState(formData.installationYear || '');
     const [error, setError] = useState(null);
 
 
@@ -21,7 +24,7 @@ const WaterHeating = (props) => {
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { waterHeating, fuelSource, installationYear };
         }
     };
 

@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { HasSecondary, Heat, HeatedFloors, InstallationYear, Source } from "../components/Heating";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Heating = (props) => {
-    const [primaryHeat, setPrimaryHeat] = useState(props.primaryHeat || '');
-    const [primarySource, setPrimarySource] = useState(props.primarySource || '');
-    const [installationYear, setInstallationYear] = useState(props.installationYear || '');
-    const [hasSecondary, setHasSecondary] = useState(props.hasSecondaryHeat || 'No');
-    const [secondaryHeat, setSecondaryHeat] = useState(props.secondaryHeat || '');
-    const [secondarySource, setSecondarySource] = useState(props.primarySource || '');
-    const [heatedFloors, setHeatedFloors] = useState(props.heatedFloors || {'Rooms': 0});
+    const { formData } = useContext(FormDataContext);
+
+    const [primaryHeat, setPrimaryHeat] = useState(formData.primaryHeat || '');
+    const [primarySource, setPrimarySource] = useState(formData.primarySource || '');
+    const [installationYear, setInstallationYear] = useState(formData.installationYear || '');
+    const [hasSecondary, setHasSecondary] = useState(formData.hasSecondaryHeat || 'No');
+    const [secondaryHeat, setSecondaryHeat] = useState(formData.secondaryHeat || '');
+    const [secondarySource, setSecondarySource] = useState(formData.primarySource || '');
+    const [heatedFloors, setHeatedFloors] = useState(formData.heatedFloors || {'Rooms': 0});
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
@@ -20,7 +23,7 @@ const Heating = (props) => {
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { primaryHeat, primarySource, installationYear, hasSecondary, secondaryHeat, secondarySource, heatedFloors};
         }
     };
 
@@ -38,13 +41,16 @@ const Heating = (props) => {
             /> 
             <InstallationYear installationYear={installationYear} setInstallationYear={setInstallationYear}/>
             <HasSecondary hasSecondary={hasSecondary} setHasSecondary={setHasSecondary}/>
-            {hasSecondary.includes('Yes') ? <Source source={secondarySource} setSource={setSecondarySource}/> : null}
-            <Heat 
-                question="What is the secondary source of heat for your home?"
-                heat={secondaryHeat} 
-                setHeat={setSecondaryHeat} 
-                source={secondarySource}
-            />
+            {hasSecondary.includes('Yes') ? 
+            <>
+                <Heat 
+                    question="What is the secondary source of heat for your home?"
+                    heat={secondaryHeat} 
+                    setHeat={setSecondaryHeat} 
+                    source={secondarySource}
+                />
+                <Source source={secondarySource} setSource={setSecondarySource}/> 
+            </> : null}
             <HeatedFloors heatedFloors={heatedFloors} setHeatedFloors={setHeatedFloors}/>
             <SubmitButton handleNext={validateAndProceed}/>
             {error && <div className="error">{error}</div>}

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import BackButton from "../components/BackButton";
 import SubmitButton from "../components/Submit";
 import Efficiency from "../components/Lighting";
+import { FormDataContext } from '../context/FormDataContext';
 
 const Lighting = (props) => {
-    const [efficiency, setEfficiency] = useState(props.efficiency || '');
+    const { formData } = useContext(FormDataContext);
+    const [efficiency, setEfficiency] = useState(formData.efficiency || '');
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
@@ -14,7 +16,7 @@ const Lighting = (props) => {
         } else {
             setError(null);
             props.handleNext();
-            return { };
+            return { efficiency };
         }
     };
 
