@@ -26,15 +26,23 @@ const MainRoutes = () => {
     navigate(nextPath);
   };
 
+  const handleClick = (i) => {
+    if (i <= step) {
+      const path = paths[i];
+      setStep(i);
+      navigate(path);
+    }
+  };
+
   return (
     <div>
-      {location.pathname !== '/score' && <Navbar className="navbar" index={step}/>}
+      {location.pathname !== '/score' && <Navbar className="navbar" index={step} handleClick={handleClick}/>}
       <Routes>
         {paths.map((path, index) => {
           const Component = [HomeType, Location, HomeSize, Windows, Insulation, Heating, Cooling, WaterHeating, Lighting, Appliances, Energy, Results][index];
           return <Route key={path} path={path} element={<Component handleNext={handleNext} />} />;
         })}
-        <Route path="/score" element={<Results />} />
+        <Route path="/score" element={<Results/>} />
       </Routes>
     </div>
   );

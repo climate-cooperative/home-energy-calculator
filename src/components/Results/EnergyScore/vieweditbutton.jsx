@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, Typography, Box, Grid  } from '@mui/material';
 import { FormDataContext } from '../../../context/FormDataContext';
+import { pencil } from 'ionicons/icons';
+import { IonIcon } from '@ionic/react';
 
 const ViewEditButton = () => {
     const { formData } = useContext(FormDataContext);
@@ -16,8 +18,9 @@ const ViewEditButton = () => {
 
     return (
         <div>
-            <Button onClick={handleClickOpen}>
-                View/Edit
+            <Button onClick={handleClickOpen} style={{width: '100%'}}>
+                <IonIcon icon={pencil} style={{ fontSize: '30px', margin: '10px' }} />
+                View/Edit Answers
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>

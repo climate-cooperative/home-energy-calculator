@@ -8,18 +8,18 @@ const Cooling = (props) => {
     const { formData } = useContext(FormDataContext);
 
     const [hasAirCond, setHasAirCond] = useState(formData.hasAirCond || 'No');
-    const [installationYear, setInstallationYear] = useState(formData.installationYear || '');
+    const [coolingInstallYear, setCoolingInstallYear] = useState(formData.coolingInstallYear || '');
     const [coolingSystem, setCoolingSystem] = useState(formData.airCondSystem || '');
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
-        if (hasAirCond == 'Yes' && (!installationYear || !coolingSystem)) {
+        if (hasAirCond === 'Yes' && (!coolingInstallYear || !coolingSystem)) {
             setError('All fields must be filled out');
             return null;
         } else {
             setError(null);
             props.handleNext();
-            return { hasAirCond, installationYear, coolingSystem };
+            return { hasAirCond, coolingInstallYear, coolingSystem };
         }
     };
 
@@ -30,7 +30,7 @@ const Cooling = (props) => {
             { hasAirCond.includes('Yes') ? 
                 <>
                     <CoolingSystem coolingSystem={coolingSystem} setCoolingSystem={setCoolingSystem}/>
-                    <InstallationYear installationYear={installationYear} setInstallationYear={setInstallationYear}/>
+                    <InstallationYear installationYear={coolingInstallYear} setInstallationYear={setCoolingInstallYear}/>
                 </>
             : null}
             <SubmitButton handleNext={validateAndProceed}/>

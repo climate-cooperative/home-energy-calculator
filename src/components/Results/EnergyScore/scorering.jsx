@@ -1,46 +1,57 @@
 import React from 'react';
-import { Card, CardContent, Box, Typography } from '@mui/material';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
-const ScoreRing = ({ score, scoreLabel }) => {
-    const radius = 50;
-    const stroke = 4;
-    const normalizedRadius = radius - stroke * 2;
-    const circumference = normalizedRadius * 2 * Math.PI;
-    const strokeDashoffset = circumference - (score / 100) * circumference;
+const COLORS = ['#f00', '#ffbf00', '#00ff00'];
+
+const ScoreRing = ({ value, scoreLabel }) => {
+
+    const score = Math.min(Math.max(value, 0), 100);
+    const colorIndex = score === 100 ? COLORS.length - 1 : Math.floor(score / (100 / COLORS.length))
+
+    const data = [
+        { value: score, fill: COLORS[colorIndex] },
+        { value: 100 - score, fill: '#ccc' },
+    ];
 
     return (
-        <Card style={{ 
-            backgroundColor: 'lightgray', 
-            borderRadius: '20%',
-        }}>
-            <CardContent>
-                <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
-                    <svg
-                        height={radius * 2}
-                        width={radius * 2}
-                    >
-                        <circle
-                            stroke="teal"
-                            fill="transparent"
-                            strokeWidth={stroke}
-                            strokeDasharray={circumference + ' ' + circumference}
-                            style={{ strokeDashoffset }}
-                            r={normalizedRadius}
-                            cx={radius}
-                            cy={radius}
-                        />
-                        <text x="60%" y="40%" textAnchor="middle" stroke="black" strokeWidth="1px" dy=".3em">{score}%</text>
-                        <text x="60%" y="40%" textAnchor="middle" stroke="black" strokeWidth="1px" dy="2em">{scoreLabel}</text>
-                    </svg>
-                    <Box display="flex" flexDirection="column" alignItems="flex-start">
-                        <Typography color="text.secondary" style={{marginLeft: '20px'}}>
-                            Score is based on the estimated CO2 emissions of your home
-                        </Typography>
-                    </Box>
-                </Box>
-            </CardContent>
-        </Card>
+        <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+                <Pie
+                    data={data}
+                    dataKey="value"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius="60%"
+                    outerRadius="80%"
+                    startAngle={90}
+                    endAngle={-270}
+                    isAnimationActive={false}
+                >
+                    {data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                </Pie>
+                <text
+                    x="50%"
+                    y="50%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    style={{ fontSize: '1.5em', fontWeight: 'bold' }}
+                >
+                    {score}
+                </text>
+                <text
+                    x="50%"
+                    y="60%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    style={{ fontSize: '1em' }}
+                >
+                    {scoreLabel}
+                </text>
+            </PieChart>
+        </ResponsiveContainer>
     );
-}
+};
 
 export default ScoreRing;

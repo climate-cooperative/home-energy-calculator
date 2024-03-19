@@ -9,7 +9,7 @@ const Heating = (props) => {
 
     const [primaryHeat, setPrimaryHeat] = useState(formData.primaryHeat || '');
     const [primarySource, setPrimarySource] = useState(formData.primarySource || '');
-    const [installationYear, setInstallationYear] = useState(formData.installationYear || '');
+    const [heatInstallYear, setHeatInstallYear] = useState(formData.heatInstallYear || '');
     const [hasSecondary, setHasSecondary] = useState(formData.hasSecondaryHeat || 'No');
     const [secondaryHeat, setSecondaryHeat] = useState(formData.secondaryHeat || '');
     const [secondarySource, setSecondarySource] = useState(formData.primarySource || '');
@@ -17,13 +17,13 @@ const Heating = (props) => {
     const [error, setError] = useState(null);
 
     const validateAndProceed = () => {
-        if (!primaryHeat || !primarySource || !installationYear || !heatedFloors) {
+        if (!primaryHeat || !primarySource || !heatInstallYear || !heatedFloors) {
             setError('All fields must be filled out');
             return null;
         } else {
             setError(null);
             props.handleNext();
-            return { primaryHeat, primarySource, installationYear, hasSecondary, secondaryHeat, secondarySource, heatedFloors};
+            return { primaryHeat, primarySource, heatInstallYear, hasSecondary, secondaryHeat, secondarySource, heatedFloors};
         }
     };
 
@@ -39,7 +39,7 @@ const Heating = (props) => {
                 setHeat={setPrimaryHeat} 
                 source={primarySource}
             /> 
-            <InstallationYear installationYear={installationYear} setInstallationYear={setInstallationYear}/>
+            <InstallationYear installationYear={heatInstallYear} setInstallationYear={setHeatInstallYear}/>
             <HasSecondary hasSecondary={hasSecondary} setHasSecondary={setHasSecondary}/>
             {hasSecondary.includes('Yes') ? 
             <>

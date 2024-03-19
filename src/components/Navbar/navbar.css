@@ -68,3 +68,29 @@
       display: none;
     }
 }
+
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    user-select: none;
+    border-radius: 20px;
+    border-width: 2px;
+}
+  
+
+.list-item-text {
+    user-select: none;
+}
+
+.list-item.clickable {
+    /* Add your styles for clickable list items here */
+    cursor: pointer;
+}
+  
+.list-item.clickable:hover {
+    border-color: teal;
+    border-style: solid; /* Add this line */
+}

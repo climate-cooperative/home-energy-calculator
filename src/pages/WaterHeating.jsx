@@ -9,7 +9,7 @@ const WaterHeating = (props) => {
 
     const [waterHeating, setWaterHeating] = useState(formData.waterHeating || '');
     const [fuelSource, setFuelSource] = useState(formData.fuelSource || '');
-    const [installationYear, setInstallationYear] = useState(formData.installationYear || '');
+    const [waterHeatingInstallYear, setWaterHeatingInstallYear] = useState(formData.waterHeatingInstallYear || '');
     const [error, setError] = useState(null);
 
 
@@ -18,13 +18,13 @@ const WaterHeating = (props) => {
     }, [waterHeating]);
 
     const validateAndProceed = () => {
-        if (!waterHeating || !installationYear || (waterHeating !== 'Heat Pump' && !fuelSource)) {
+        if (!waterHeating || !waterHeatingInstallYear || (waterHeating !== 'Heat Pump' && !fuelSource)) {
             setError('All fields must be filled out');
             return null;
         } else {
             setError(null);
             props.handleNext();
-            return { waterHeating, fuelSource, installationYear };
+            return { waterHeating, fuelSource, waterHeatingInstallYear };
         }
     };
 
@@ -33,7 +33,7 @@ const WaterHeating = (props) => {
             <BackButton pageName={"Cooling"} route={"/cooling"}/>
             <WaterHeater waterHeating={waterHeating} setWaterHeating={setWaterHeating}/>
             {waterHeating !== '' && waterHeating !== 'Heat Pump' ? <Source waterHeating={waterHeating} source={fuelSource} setSource={setFuelSource}/> : null}
-            <InstallationYear installationYear={installationYear} setInstallationYear={setInstallationYear}/>
+            <InstallationYear installationYear={waterHeatingInstallYear} setInstallationYear={setWaterHeatingInstallYear}/>
             <SubmitButton handleNext={validateAndProceed}/>
             {error && <div className="error">{error}</div>}
         </div>

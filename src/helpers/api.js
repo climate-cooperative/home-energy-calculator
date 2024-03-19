@@ -142,7 +142,7 @@ const getHomeType = async () => {
     return data;
 }
 
-function getAPIData(state, zipcode) {
+function getAPIData(state, zipcode, home_decade, heating_appliance, cooling_appliance, water_heating_appliance) {
     // API lookups
     // get state table 
     const { emissions } = getState(state);
@@ -167,9 +167,9 @@ function getAPIData(state, zipcode) {
 
     // hvac appliances
     const hvac_appliances = getHvacAppliances();
-    const hvac_heating_efficiency = hvac_appliances.filter(hvac => hvac.system == heating_appliance)[0].efficiency;
-    const hvac_cooling_efficiency = hvac_appliances.filter(hvac => hvac.system == cooling_appliance)[0].efficiency;
-    const hvac_water_heating_efficiency = hvac_appliances.filter(hvac => hvac.system == water_heating_appliance)[0].efficiency;
+    const hvac_heating_efficiency = hvac_appliances.filter(hvac => hvac.system === heating_appliance)[0].efficiency;
+    const hvac_cooling_efficiency = hvac_appliances.filter(hvac => hvac.system === cooling_appliance)[0].efficiency;
+    const hvac_water_heating_efficiency = hvac_appliances.filter(hvac => hvac.system === water_heating_appliance)[0].efficiency;
 
     return {
         grid_carbon_intesity,

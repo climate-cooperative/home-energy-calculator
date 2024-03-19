@@ -3,7 +3,7 @@ import './navbar.css';
 import { Grid, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Villa, MyLocation, House, Window, Roofing, LocalFireDepartment, AcUnit, WaterDrop, Lightbulb, Kitchen, Bolt, CheckCircle } from '@mui/icons-material';
 
-const Navbar = ({ index }) => {
+const Navbar = ({ index, handleClick }) => {
   const steps = [
     { icon: <Villa />, text: 'Home Type' },
     { icon: <MyLocation />, text: 'Location' },
@@ -26,7 +26,10 @@ const Navbar = ({ index }) => {
           <Grid item xs={4}>
               <List component="nav">
               {steps.map((step, i) => (
-                <ListItem key={i} className={i === index ? 'active' : ''}>
+                <ListItem 
+                  key={i} 
+                  className={`list-item ${i === index ? 'active' : ''} ${i <= index ? 'clickable' : ''}`} 
+                  onClick={() => handleClick(i)}>
                 <ListItemIcon className={`icon-circle ${i === index ? 'active' : ''} ${i === steps.length - 1 ? 'last-icon' : ''} ${i < index ? 'completed' : ''}`}>
                   {step.icon}
                 </ListItemIcon>
