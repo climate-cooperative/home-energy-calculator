@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "zwell-static-hosting-bucket" {
   bucket = "dev.app.zwellhome.com"
 }
 
-resource "aws_s3_bucket_website_configuration" "www_bucket" {
+resource "aws_s3_bucket_website_configuration" "static-hosting-config" {
   bucket = aws_s3_bucket.zwell-static-hosting-bucket.id
 
   index_document {
@@ -14,14 +14,14 @@ resource "aws_s3_bucket_website_configuration" "www_bucket" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "bucket_access_block" {
+resource "aws_s3_bucket_public_access_block" "static-hosting-access-block" {
   bucket = aws_s3_bucket.zwell-static-hosting-bucket.id
 
   block_public_acls   = false
   block_public_policy = false
 }
 
-resource "aws_s3_bucket_policy" "bucket_policy" {
+resource "aws_s3_bucket_policy" "static-hosting-policy" {
   bucket = aws_s3_bucket.zwell-static-hosting-bucket.id
 
   policy = jsonencode({
@@ -37,7 +37,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
           "${aws_s3_bucket.zwell-static-hosting-bucket.arn}/*"
         ]
         Condition = {
-          IpAdress = {
+          "IpAddress" = {
             "aws:SourceIp" = [
               "173.245.48.0/20",
               "103.21.244.0/22",
