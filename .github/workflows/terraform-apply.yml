@@ -74,7 +74,7 @@ jobs:
       - name: Upload assets to s3
         shell: bash
         run: |
-          aws s3 cp ./index.html s3://dev.app.zwellhome.com/index.html
-          aws s3 cp ./404.html s3://dev.app.zwellhome.com/404.html
+          aws s3 cp ./index.html s3://app2.zwellhome.com/index.html
+          aws s3 cp ./404.html s3://app2.zwellhome.com/404.html
 
   
