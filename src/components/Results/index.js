@@ -1,5 +1,5 @@
-import EnergyScore from "./EnergyScore/energyscore";
-import Save from "./SaveComponent/save";
-import IndividualScore from "./IndividualScore/individualscore";
+import EnergyScore from './EnergyScore/energyscore';
+import Save from './SaveComponent/save';
+import IndividualScore from './IndividualScore/individualscore';
 
-export { EnergyScore, Save, IndividualScore} 
+export { EnergyScore, Save, IndividualScore };

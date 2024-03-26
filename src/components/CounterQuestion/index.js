@@ -1,2 +1,2 @@
-import CounterQuestion from "./counterquestion";
+import CounterQuestion from './counterquestion';
 export default CounterQuestion;

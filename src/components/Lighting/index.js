@@ -1,3 +1,3 @@
-import Efficiency from "./EfficiencyComponent/efficiency";
+import Efficiency from './EfficiencyComponent/efficiency';
 
 export default Efficiency;
