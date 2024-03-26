@@ -1,58 +1,23 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import CounterQuestion from '../../CounterQuestion/counterquestion';
 
 const Rooms = (props) => {
   const { rooms, setRooms } = props;
-
-  const handleIncrement = (room) => {
-    const incrementValue = room === 'bathrooms' ? 0.5 : 1;
-    setRooms({ ...rooms, [room]: rooms[room] + incrementValue });
-  };
-
-  const handleDecrement = (room) => {
-    const decrementValue = room === 'bathrooms' ? 0.5 : 1;
-    if (rooms[room] >= decrementValue) {
-      setRooms({ ...rooms, [room]: rooms[room] - decrementValue });
-    }
-  };
+  const content = [
+    { label: 'Bedrooms', incrementValue: 1, decrementValue: 1 },
+    { label: 'Bathrooms', incrementValue: 0.5, decrementValue: 0.5 },
+    { label: 'Kitchens', incrementValue: 1, decrementValue: 1 }
+  ];
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
-      <h2>How many of these rooms does your home have?{/* pop up hint */}</h2>
-      {Object.keys(rooms).map((room, index) => {
-        return (
-          <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-            <IconButton color="secondary" onClick={() => handleDecrement(room)}>
-              <RemoveIcon />
-            </IconButton>
-            <TextField
-              label={room}
-              variant="outlined"
-              value={rooms[room]}
-              InputProps={{
-                readOnly: true
-              }}
-              style={{
-                margin: '0 10px',
-                width: '100px'
-              }}
-            />
-            <IconButton color="secondary" onClick={() => handleIncrement(room)}>
-              <AddIcon />
-            </IconButton>
-          </div>
-        );
-      })}
-    </div>
+    <CounterQuestion
+      question="How many of each room do you have?"
+      content={content}
+      popup={
+        'Bathrooms that have just a toilet and sink (no bathtub or shower) should be counted as half (.5) bathrooms.\nA finished basement is one that is complete and similar to the upstairs living space. It generally includes an electrical system, heat, finished floors, an accessible entrance/stairway, level ceilings, and finished walls.'
+      }
+      state={rooms}
+      setState={setRooms}
+    />
   );
 };
 

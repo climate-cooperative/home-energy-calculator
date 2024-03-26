@@ -1,0 +1,53 @@
+{
+  "owner": "Homeowner",
+  "homeSize": "Single",
+  "homeBuilt": "2020+",
+  "zipcode": "98059",
+  "sqrfeet": "1000",
+  "rooms": {
+    "Bedrooms": 1,
+    "Bathrooms": 1,
+    "Kitchens": 1
+  },
+  "crawlspace": "Yes",
+  "layout": {
+    "stories": 1,
+    "basements": 0.5
+  },
+  "windows": "Low",
+  "panes": 2,
+  "sun": ["No"],
+  "treatments": ["Low-E Coating"],
+  "siding": "Vinyl",
+  "insulation": ["Attic"],
+  "primaryHeat": "Boiler",
+  "primarySource": "Electric",
+  "installationYear": "6-10 years ago",
+  "hasSecondary": "No",
+  "secondaryHeat": "",
+  "secondarySource": "Electric",
+  "heatedFloors": {
+    "Rooms": 2
+  },
+  "hasAirCond": "Yes",
+  "coolingSystem": "Ductless / Mini-Split Heat Pump",
+  "waterHeating": "Tank",
+  "fuelSource": "Electric",
+  "efficiency": "Some",
+  "kitchen": {
+    "Natural Gas Cooktop": 1,
+    "Electric Cooktop": 0,
+    "Induction Cooktop": 1,
+    "Natural Gas Oven": 0,
+    "Electric Oven": 0,
+    "Dishwasher": 0
+  },
+  "laundry": {
+    "Washers": 0,
+    "Natural Gas Dryer": 1,
+    "Electric Dryer": 0,
+    "Heat Pump Dryer": 0
+  },
+  "energy": ["Solar"],
+  "slider": 54
+}

@@ -16,13 +16,13 @@ import {
   CheckCircle
 } from '@mui/icons-material';
 
-const Navbar = ({ index }) => {
+const Navbar = ({ index, handleClick }) => {
   const steps = [
     { icon: <Villa />, text: 'Home Type' },
     { icon: <MyLocation />, text: 'Location' },
     { icon: <House />, text: 'Home Size' },
     { icon: <Window />, text: 'Windows' },
-    { icon: <Roofing />, text: 'Roof' },
+    { icon: <Roofing />, text: 'Insulation' },
     { icon: <LocalFireDepartment />, text: 'Heating' },
     { icon: <AcUnit />, text: 'Cooling' },
     { icon: <WaterDrop />, text: 'Water' },
@@ -39,7 +39,11 @@ const Navbar = ({ index }) => {
         <Grid item xs={4}>
           <List component="nav">
             {steps.map((step, i) => (
-              <ListItem key={i} className={i === index ? 'active' : ''}>
+              <ListItem
+                key={i}
+                className={`list-item ${i === index ? 'active' : ''} ${i <= index ? 'clickable' : ''}`}
+                onClick={() => handleClick(i)}
+              >
                 <ListItemIcon
                   className={`icon-circle ${i === index ? 'active' : ''} ${i === steps.length - 1 ? 'last-icon' : ''} ${i < index ? 'completed' : ''}`}
                 >

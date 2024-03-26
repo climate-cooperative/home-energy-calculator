@@ -22,6 +22,7 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "lint": "eslint ./src/",
+    "lint:fix": "eslint --fix ./src/",
     "babel:build": "npx babel src/ --out-dir build",
     "prepare": "husky",
     "format": "prettier --write './src/**/*.{js,jsx,css,json}' --config ./.prettierrc"

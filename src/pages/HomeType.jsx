@@ -28,8 +28,8 @@ const HomeType = (props) => {
       <OwnerType owner={owner} setOwner={setOwner} />
       <HomeSize homeSize={homeSize} setHomeSize={setHomeSize} />
       <HomeBuilt homeBuilt={homeBuilt} setHomeBuilt={setHomeBuilt} />
-      {error && <div className="error">{error}</div>}
       <SubmitButton handleNext={validateAndProceed} />
+      {error && <div className="error">{error}</div>}
     </div>
   );
 };
