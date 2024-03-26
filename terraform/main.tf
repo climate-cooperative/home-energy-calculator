@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "zwell-static-hosting-bucket" {
-  bucket = "dev.app.zwellhome.com"
+  bucket = "app2.zwellhome.com"
 }
 
 resource "aws_s3_bucket_website_configuration" "static-hosting-config" {
