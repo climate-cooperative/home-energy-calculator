@@ -38,7 +38,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
         ]
         Condition = {
           IpAdress = {
-            "aws:SourceIp "= [
+            "aws:SourceIp" = [
               "173.245.48.0/20",
               "103.21.244.0/22",
               "103.22.200.0/22",
