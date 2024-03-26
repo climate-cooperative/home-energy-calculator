@@ -5,7 +5,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "zwell-test"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "dev-test"
+  TF_WORKSPACE: "static-hosting"
   CONFIG_DIRECTORY: "./terraform/"
 
 jobs:
