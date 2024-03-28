@@ -83,7 +83,7 @@ const convertZipToState = (zipcode) => {
 }
 
 const getState = async (state) => {
-    const url = `https://api.zwellhome.com/api/state_table/state/${state}`;
+    const url = `https://api.zwellhome.com/api/state_table/state/${state.long}`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -102,10 +102,10 @@ const getZip = async (zipcode) => {
     const response = await fetch(url);
     const data = await response.json();
     
-    const latitude = data["Latitude"][0];
-    const longitude = data["Longitude"][0];
-    const degree_days = data["Degree Days"][0];
-    const water_temp = data["Water Temperature Data"][0];
+    const latitude = data["Latitude"];
+    const longitude = data["Longitude"];
+    const degree_days = data["Degree Days"];
+    const water_temp = data["Water Temperature Data"];
     return {
         latitude,
         longitude,
@@ -142,19 +142,19 @@ const getHomeType = async () => {
     return data;
 }
 
-function getAPIData(state, zipcode, home_decade, heating_appliance, cooling_appliance, water_heating_appliance) {
+async function getAPIData(state, zipcode, rooms, kitchen, laundry, home_decade, heating_appliance, cooling_appliance, water_heating_appliance) {
     // API lookups
     // get state table 
-    const { emissions } = getState(state);
+    const { emissions } = await getState(state);
     const grid_carbon_intesity = emissions["CO2 lbs/BTU"];
 
     // get zip table
-    const { latitude, longitude, degree_days, water_temp } = getZip(zipcode);
-    const region_hdd = degree_days["Heating Degree Days"];
-    const region_cdd = degree_days["Cooling Degree Days"];
+    const { latitude, longitude, degree_days, water_temp } = await getZip(zipcode);
+    const region_hdd = degree_days["HDD"];
+    const region_cdd = degree_days["CDD"];
     const region_water_temp = water_temp["Water Temperature"];
 
-    const home = getHomeDecades().filter(home => home.decade === home_decade);
+    const home = await getHomeDecades().then(data => data.filter(home => home["Decade"] === home_decade)[0]);
     const ach = home["ACH"];
     const r_probability_insulation = home["Probability of Insulation"];
     const r_attic_roof = home["Attic R"];
@@ -166,10 +166,44 @@ function getAPIData(state, zipcode, home_decade, heating_appliance, cooling_appl
     const r_wall_siding = 0.5;
 
     // hvac appliances
-    const hvac_appliances = getHvacAppliances();
-    const hvac_heating_efficiency = hvac_appliances.filter(hvac => hvac.system === heating_appliance)[0].efficiency;
-    const hvac_cooling_efficiency = hvac_appliances.filter(hvac => hvac.system === cooling_appliance)[0].efficiency;
-    const hvac_water_heating_efficiency = hvac_appliances.filter(hvac => hvac.system === water_heating_appliance)[0].efficiency;
+    const hvac_appliances = await getHvacAppliances();
+    const hvac_heating_efficiency = hvac_appliances.filter(hvac => hvac.System === heating_appliance)[0];
+    console.log(hvac_heating_efficiency);
+    const hvac_cooling_efficiency = hvac_appliances.filter(hvac => hvac.System === cooling_appliance)[0].Efficiency;
+    const hvac_water_heating_efficiency = hvac_appliances.filter(hvac => hvac.System === water_heating_appliance)[0].Efficiency;
+
+    const appliances = getAppliances();
+    // go through the appliances and get the efficiency
+    /*
+    "kitchen":{
+        "Natural Gas Cooktop":1,
+        "Electric Cooktop":0,
+        "Induction Cooktop":1,
+        "Natural Gas Oven":0,
+        "Electric Oven":0,
+        "Dishwasher":0
+    },
+    "laundry":{
+        "Washers":0,
+        "Natural Gas Dryer":1,
+        "Electric Dryer":0,
+        "Heat Pump Dryer":0
+    },
+    */
+    const btu_gas_appliances = 
+        appliances.filter(appliance => appliance["fuel type"] === "natural gas" && appliance.appliance === "stove")['per year'] * kitchen['Natural Gas Cooktop'] + 
+        appliances.filter(appliance => appliance["fuel type"] === "natural gas" && appliance.appliance === "oven")['per year'] * kitchen['Natural Gas Oven'] + 
+        appliances.filter(appliance => appliance["fuel type"] === "natural gas" && appliance.appliance === "dryer")['per year'] * laundry['Natural Gas Dryer'] + 
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "stove")['per year'] * kitchen['Electric Cooktop'] +
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "oven")['per year'] * kitchen['Electric Oven'] +
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "dryer")['per year'] * laundry['Electric Dryer'] +
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "dishwasher")['per year'] * kitchen['Dishwasher'] + 
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "washing machine")['per year'] * laundry['Washers'] +
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "heat pump dryer")['per year'] * laundry['Heat Pump Dryer'] + 
+        appliances.filter(appliance => appliance["fuel type"] === "electric" && appliance.appliance === "induction stove")['per year'] * laundry['Induction Cooktop'] + 
+        appliances.filter(appliance => appliance.appliance === "refrigerator/freezer")['per year'] * rooms.Kitchens;
+
+    const home_decades = getHomeDecades();
 
     return {
         grid_carbon_intesity,
@@ -188,7 +222,9 @@ function getAPIData(state, zipcode, home_decade, heating_appliance, cooling_appl
         r_wall_siding,
         hvac_heating_efficiency,
         hvac_cooling_efficiency,
-        hvac_water_heating_efficiency
+        hvac_water_heating_efficiency,
+        btu_gas_appliances,
+        home_decades
     }
 }
 

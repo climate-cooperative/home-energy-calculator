@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, TextField } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions } from '@mui/material';
 
 export default function SaveButton() {
     const [open, setOpen] = useState(false);
+    const [email, setEmail] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -10,6 +11,17 @@ export default function SaveButton() {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handleSendEmail = () => {
+        console.log(`Sending email to ${email}`);
+        // send email code here
+
+        handleClose();
     };
 
     return (
@@ -27,8 +39,15 @@ export default function SaveButton() {
                         label="Email Address"
                         type="email"
                         fullWidth
+                        value={email}
+                        onChange={handleEmailChange}
                     />
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleSendEmail} color="primary">
+                        Email
+                    </Button>
+                </DialogActions>
             </Dialog>
         </div>
     );

@@ -1,0 +1,12 @@
+{
+    "name": "your-package-name",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "test.js",
+    "scripts": {
+      "start": "node test.js"
+    },
+    "dependencies": {
+        "fetch": "^0.1.0"
+    }
+  }
