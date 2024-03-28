@@ -1,2 +1,2 @@
-import TextQuestion from "./textquestion";
+import TextQuestion from './textquestion';
 export default TextQuestion;

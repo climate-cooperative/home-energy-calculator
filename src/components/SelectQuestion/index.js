@@ -1,2 +1,2 @@
-import SelectQuestion from "./selectquestion";
+import SelectQuestion from './selectquestion';
 export default SelectQuestion;

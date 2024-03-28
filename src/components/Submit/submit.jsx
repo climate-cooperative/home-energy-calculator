@@ -9,17 +9,17 @@ const SubmitButton = (props) => {
   const handleSubmit = () => {
     const validatedData = handleNext();
     if (validatedData) {
-        updateFormData(validatedData);
+      updateFormData(validatedData);
     }
   };
 
   return (
-    <Button 
-      onClick={handleSubmit} 
-      style={{ 
+    <Button
+      onClick={handleSubmit}
+      style={{
         marginTop: '40px',
         width: '100px',
-        height: '50px',
+        height: '50px'
       }}
     >
       Next

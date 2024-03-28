@@ -1,3 +1,3 @@
-import SimpleQuestion from "./simplequestion";
+import SimpleQuestion from './simplequestion';
 
 export default SimpleQuestion;

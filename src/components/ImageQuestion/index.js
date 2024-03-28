@@ -1,3 +1,3 @@
-import ImageQuestion from "./imagequestion";
+import ImageQuestion from './imagequestion';
 
 export default ImageQuestion;

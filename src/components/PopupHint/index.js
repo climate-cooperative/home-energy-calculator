@@ -1,3 +1,3 @@
-import PopupHint from "./popup";
+import PopupHint from './popup';
 
 export default PopupHint;

@@ -1,2 +1,2 @@
-import CounterItem from "./counteritem";
+import CounterItem from './counteritem';
 export default CounterItem;
