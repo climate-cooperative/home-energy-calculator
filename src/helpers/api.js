@@ -87,18 +87,17 @@ const getState = async (state) => {
     const response = await fetch(url);
     const data = await response.json();
 
-    const emissions = data['State Emissions'][0];
-    const costs = data['State Energy Costs'][0];
-    const breakdown = data['State Energy Breakdown'][0];
-    return {
-        emissions,
-        costs,
-        breakdown
-    };
+  const emissions = data['State Emissions'][0];
+  const costs = data['State Energy Costs'][0];
+  const breakdown = data['State Energy Breakdown'][0];
+  return {
+    emissions,
+    costs,
+    breakdown
+  };
 };
 
 const getZip = async (zipcode) => {
-<<<<<<< HEAD
     const url = `https://api.zwellhome.com/api/zip_table/zipcode/${zipcode}`;
     const response = await fetch(url);
     const data = await response.json();
@@ -114,23 +113,6 @@ const getZip = async (zipcode) => {
         water_temp
     };
 }
-=======
-  const url = `https://api.zwellhome.com/api/zip_table/zipcode/${zipcode}`;
-  const response = await fetch(url);
-  const data = await response.json();
-
-  const latitude = data['Latitude'][0];
-  const longitude = data['Longitude'][0];
-  const degree_days = data['Degree Days'][0];
-  const water_temp = data['Water Temperature Data'][0];
-  return {
-    latitude,
-    longitude,
-    degree_days,
-    water_temp
-  };
-};
->>>>>>> edfdce6b7e2ba1aca6e877cfe4ea8210b39c90db
 
 const getAppliances = async () => {
   const url = `https://api.zwellhome.com/api/appliances`;
@@ -160,70 +142,6 @@ const getHomeType = async () => {
   return data;
 };
 
-function getAPIData(
-  state,
-  zipcode,
-  home_decade,
-  heating_appliance,
-  cooling_appliance,
-  water_heating_appliance
-) {
-  // API lookups
-  // get state table
-  const { emissions } = getState(state);
-  const grid_carbon_intesity = emissions['CO2 lbs/BTU'];
-
-  // get zip table
-  const { latitude, longitude, degree_days, water_temp } = getZip(zipcode);
-  const region_hdd = degree_days['Heating Degree Days'];
-  const region_cdd = degree_days['Cooling Degree Days'];
-  const region_water_temp = water_temp['Water Temperature'];
-
-  const home = getHomeDecades().filter((home) => home.decade === home_decade);
-  const ach = home['ACH'];
-  const r_probability_insulation = home['Probability of Insulation'];
-  const r_attic_roof = home['Attic R'];
-  const r_attic_joist = home['Joist'];
-  const r_attic_insulation = home['Attic Insulation R'];
-  const r_wall_construction = home['Wall Construction'];
-  const r_wall_insulation = home['Wall Insulation R'];
-  // hard coded value
-  const r_wall_siding = 0.5;
-
-  // hvac appliances
-  const hvac_appliances = getHvacAppliances();
-  const hvac_heating_efficiency = hvac_appliances.filter(
-    (hvac) => hvac.system === heating_appliance
-  )[0].efficiency;
-  const hvac_cooling_efficiency = hvac_appliances.filter(
-    (hvac) => hvac.system === cooling_appliance
-  )[0].efficiency;
-  const hvac_water_heating_efficiency = hvac_appliances.filter(
-    (hvac) => hvac.system === water_heating_appliance
-  )[0].efficiency;
-
-  return {
-    grid_carbon_intesity,
-    latitude,
-    longitude,
-    region_hdd,
-    region_cdd,
-    region_water_temp,
-    ach,
-    r_probability_insulation,
-    r_attic_roof,
-    r_attic_joist,
-    r_attic_insulation,
-    r_wall_construction,
-    r_wall_insulation,
-    r_wall_siding,
-    hvac_heating_efficiency,
-    hvac_cooling_efficiency,
-    hvac_water_heating_efficiency
-  };
-}
-
-<<<<<<< HEAD
 async function getAPIData(state, zipcode, rooms, kitchen, laundry, home_decade, heating_appliance, cooling_appliance, water_heating_appliance) {
     // API lookups
     // get state table 
@@ -310,8 +228,6 @@ async function getAPIData(state, zipcode, rooms, kitchen, laundry, home_decade, 
     }
 }
 
-export { convertZipToState, getState, getZip, getAppliances, getHvacAppliances, getHomeDecades, getHomeType, getAPIData }
-=======
 export {
   convertZipToState,
   getState,
@@ -322,4 +238,3 @@ export {
   getHomeType,
   getAPIData
 };
->>>>>>> edfdce6b7e2ba1aca6e877cfe4ea8210b39c90db
