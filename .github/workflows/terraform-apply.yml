@@ -28,7 +28,7 @@ jobs:
 
         # Gets the most current config (tf.plan) for org + workspace combo
       - name: Upload Configuration
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.2.0
         id: apply-upload
         with:
           workspace: ${{ env.TF_WORKSPACE }}
@@ -37,7 +37,7 @@ jobs:
         # runs changes in terrafrom/ against current state to create a tf.plan
         # tarraform plan
       - name: Create Apply Run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.2.0
         id: apply-run
         env:
           TF_VAR_image_tag: "\"${{ env.BUILD_VERSION }}\""
@@ -48,7 +48,7 @@ jobs:
 
         # terraform apply the plan
       - name: Apply
-        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.2.0
         if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
         id: apply
         with:

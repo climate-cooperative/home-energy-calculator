@@ -26,7 +26,7 @@ jobs:
         # uploads/initiates a configuration in terraform
         # akin to terraform init
       - name: Upload Configuration
-        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.2.0
         id: plan-upload
         with:
           workspace: ${{ env.TF_WORKSPACE }}
@@ -36,7 +36,7 @@ jobs:
         # runs changes in terrafrom/ against current state to create a tf.plan
         # tarraform plan
       - name: Create Plan Run
-        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.2.0
         id: plan-run
         with:
           workspace: ${{ env.TF_WORKSPACE }}
@@ -46,7 +46,7 @@ jobs:
 
         # Gets the plan and logs it in pipeline for debugging
       - name: Get Plan Output
-        uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.0.0
+        uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.2.0
         id: plan-output
         with:
           plan: ${{ fromJSON(steps.plan-run.outputs.payload).data.relationships.plan.data.id }}
