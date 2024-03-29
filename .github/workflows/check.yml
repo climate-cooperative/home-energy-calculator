@@ -1,11 +1,11 @@
-name: "tf plan"
+name: "PR checks"
 on:
   pull_request:
 
 env:
-  TF_CLOUD_ORGANIZATION: "zwell-test"
+  TF_CLOUD_ORGANIZATION: "${{secrets.ORGANIZATION_TF}}"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "static-hosting"
+  TF_WORKSPACE: "PROD-zwell-calculator"
   CONFIG_DIRECTORY: "./terraform/"
 
 jobs:
@@ -42,7 +42,8 @@ jobs:
           workspace: ${{ env.TF_WORKSPACE }}
           configuration_version: ${{ steps.plan-upload.outputs.configuration_version_id }}
           plan_only: true
-          is_destroy: true
+          # uncomment to tear down aws infra
+          # is_destroy: true
 
         # Gets the plan and logs it in pipeline for debugging
       - name: Get Plan Output

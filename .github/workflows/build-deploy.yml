@@ -1,4 +1,4 @@
-name: "Terraform Apply"
+name: "Build and Deploy"
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
       - main
 
 env:
-  TF_CLOUD_ORGANIZATION: "zwell-test"
+  TF_CLOUD_ORGANIZATION: "${{secrets.ORGANIZATION_TF}}"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
   AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
   BUILD_VERSION: "${{ github.sha }}"
-  TF_WORKSPACE: "static-hosting"
+  TF_WORKSPACE: "PROD-zwell-calculator"
   CONFIG_DIRECTORY: "./terraform/"
   AWS_DEFAULT_REGION: "us-west-2"
 
@@ -44,7 +44,8 @@ jobs:
         with:
           workspace: ${{ env.TF_WORKSPACE }}
           configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
-          is_destroy: true
+          # uncomment to tear down infra
+          # is_destroy: true
 
         # terraform apply the plan
       - name: Apply
