@@ -44,6 +44,7 @@ jobs:
         with:
           workspace: ${{ env.TF_WORKSPACE }}
           configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
+          is_destroy: true
 
         # terraform apply the plan
       - name: Apply
