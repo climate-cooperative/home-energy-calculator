@@ -77,7 +77,7 @@ jobs:
         shell: bash
         run: |
           echo "push s3"
-        # aws s3 cp ./index.html s3://app2.zwellhome.com/index.html
-        # aws s3 cp ./404.html s3://app2.zwellhome.com/404.html
+          aws s3 cp ./index.html s3://app.zwell.io/index.html
+          aws s3 cp ./404.html s3://app.zwell.io/404.html
 
   
