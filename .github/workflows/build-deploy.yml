@@ -40,7 +40,7 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.2.0
         id: apply-run
         env:
-          TF_VAR_image_tag: "\"${{ env.BUILD_VERSION }}\""
+          TF_VAR_s3_origin_id: "zwell_static_hosting_s3_id"
         with:
           workspace: ${{ env.TF_WORKSPACE }}
           configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
