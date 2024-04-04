@@ -4,7 +4,12 @@ data "aws_acm_certificate" "zwell_ssl_cert" {
   statuses = [ "ISSUED" ]
 }
 
+resource "aws_cloudfront_origin_access_identity" "s3_oai" {
+
+}
+
 resource "aws_cloudfront_distribution" "zwell_home_energy_distro" {
+  depends_on = [ aws_cloudfront_origin_access_identity.s3_oai ]
   default_root_object = "index.html"
   enabled = true
   is_ipv6_enabled = false
@@ -49,8 +54,4 @@ resource "aws_cloudfront_distribution" "zwell_home_energy_distro" {
     max_ttl                = 86400
 
   }
-}
-
-resource "aws_cloudfront_origin_access_identity" "s3_oai" {
-
 }
