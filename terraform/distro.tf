@@ -5,7 +5,7 @@ data "aws_acm_certificate" "zwell_ssl_cert" {
 }
 
 resource "aws_cloudfront_origin_access_identity" "s3_oai" {
-
+  comment = "init"
 }
 
 resource "aws_cloudfront_distribution" "zwell_home_energy_distro" {
