@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "zwell_home_energy_distro" {
   origin {
     domain_name = aws_s3_bucket.zwell-static-hosting-bucket.bucket_regional_domain_name
     origin_id = var.s3_origin_id
-    origin_access_control_id = aws_cloudfront_origin_access_identity.s3_oai.id
+    origin_access_control_id = aws_cloudfront_origin_access_identity.s3_oai.cloudfront_access_identity_path
   }
 
   restrictions {
