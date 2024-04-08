@@ -9,7 +9,6 @@ import Header from '../components/Results/Header';
 const Results = (props) => {
   const { formData } = useContext(FormDataContext);
 
-
   const scores = [
     { 
       title: 'Heating & Cooling', 
@@ -103,14 +102,23 @@ const Results = (props) => {
     }
   ];
 
+  // TEMPS
   const co2Emission = '3,581 lbs';
+  const yourHomeValue = 12010;
+  const avgHomeState = 12503;
+  const avgHomeUS = 16000;
 
   return (
     <div className="results">
       <Header />
       <Grid container spacing={4}>
         <Grid item xs={12} md={4.5}>
-          <EnergyScore co2Emission={co2Emission} />
+          <EnergyScore 
+            co2Emission={co2Emission} 
+            yourHomeValue={yourHomeValue}
+            avgHomeState={avgHomeState}
+            avgHomeUS={avgHomeUS}
+          />
         </Grid>
         <Grid item xs={12} md={7.5}>
           <Grid container spacing={2}>
