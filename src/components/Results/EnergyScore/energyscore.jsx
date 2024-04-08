@@ -5,7 +5,7 @@ import CompareButton from './comparebutton';
 import ViewEditButton from './vieweditbutton';
 import ScoreRing from './scorering';
 
-const EnergyScore = ({ co2Emission }) => {
+const EnergyScore = (props) => {
   return (
     <Card>
       <CardContent>
@@ -38,7 +38,11 @@ const EnergyScore = ({ co2Emission }) => {
           <Grid container justifyContent="space-between">
             <Grid item xs={8}>
               <CalcButton />
-              <CompareButton />
+              <CompareButton 
+                yourHomeValue={props.yourHomeValue}
+                avgHomeState={props.avgHomeState}
+                avgHomeUS={props.avgHomeUS}
+              />
               <ViewEditButton />
             </Grid>
             <Grid item xs={3}>
@@ -64,7 +68,7 @@ const EnergyScore = ({ co2Emission }) => {
                 }}
               >
                 <span style={{ color: 'teal', fontSize: '20', fontWeight: 'bold' }}>
-                  {co2Emission}
+                  {props.co2Emission}
                 </span>
                 <br />
                 of CO2 per year
