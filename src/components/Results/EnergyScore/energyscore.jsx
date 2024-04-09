@@ -29,7 +29,7 @@ const EnergyScore = (props) => {
             }}
           >
             <div style={{ width: '75%', height: '100%', marginRight: '20px' }}>
-              <ScoreRing value={75} scoreLabel={'Good'} />
+              <ScoreRing value={props.score} scoreLabel={'Good'} />
             </div>
             <div style={{ width: '60%' }}>
               <h2>Score is based on the estimated CO2 emissions of your home</h2>
@@ -37,7 +37,10 @@ const EnergyScore = (props) => {
           </div>
           <Grid container justifyContent="space-between">
             <Grid item xs={8}>
-              <CalcButton />
+              <CalcButton
+                score={props.score}
+                details={props.details}
+              />
               <CompareButton 
                 yourHomeValue={props.yourHomeValue}
                 avgHomeState={props.avgHomeState}

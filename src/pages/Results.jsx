@@ -103,21 +103,39 @@ const Results = (props) => {
   ];
 
   // TEMPS
+  const score = 75;
   const co2Emission = '3,581 lbs';
   const yourHomeValue = 12010;
   const avgHomeState = 12503;
   const avgHomeUS = 16000;
+  const details = {
+    zipCode: 94110,
+    state: 'California',
+    solarIndex: 4.5,
+    heatingDegreeDays: 2000,
+    coolingDegreeDays: 300,
+    groundWaterTemp: 50,
+    homeVolume: 2000,
+    airChangesPerHour: 0.5,
+    wallRValue: 20,
+    atticRValue: 30,
+    glazingPercentage: 10,
+    heatLossBTUs: 1000,
+    solarHeatGainBTUs: 500
+  };
 
   return (
     <div className="results">
       <Header />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ width: '95vw', margin: 'auto' }}>
         <Grid item xs={12} md={4.5}>
           <EnergyScore 
+            score={score}
             co2Emission={co2Emission} 
             yourHomeValue={yourHomeValue}
             avgHomeState={avgHomeState}
             avgHomeUS={avgHomeUS}
+            details={details}
           />
         </Grid>
         <Grid item xs={12} md={7.5}>
