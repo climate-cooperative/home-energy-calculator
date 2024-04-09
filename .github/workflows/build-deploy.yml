@@ -81,6 +81,6 @@ jobs:
           npm ci
           npm run build
           aws s3 cp ./dist/index.html s3://app.zwell.io/index.html
-          aws s3 cp ./dist/index.bundle.js s3://app.zwell.io/inex.bundle.js
+          aws s3 cp ./dist/index.bundle.js s3://app.zwell.io/index.bundle.js
 
   
