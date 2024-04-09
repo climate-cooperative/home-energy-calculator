@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { OwnerType, HomeSize, HomeBuilt } from '../components/HomeType';
 import SubmitButton from '../components/Submit';
 import '../styles/page.css';
