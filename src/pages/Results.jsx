@@ -3,12 +3,25 @@ import { Grid } from '@mui/material';
 import { EnergyScore, Save, IndividualScore } from '../components/Results';
 import { hammer, thermometer, water, home, bulb, checkmark, alert, close } from 'ionicons/icons';
 import { FormDataContext } from '../context/FormDataContext';
+import handleCalculation from '../helpers/calculation.js';
 import '../styles/page.css';
 import Header from '../components/Results/Header';
 
 const Results = (props) => {
   const { formData } = useContext(FormDataContext);
+  const [ co2Emission, setCo2Emission ] = useState(0);
+  const [ scores, setScores ] = useState(null);
 
+  useEffect(() => {
+    const {co2_total, grades} = handleCalculation(formData);
+    setCo2Emission(co2_total);
+    setScores(grades);
+  }, [formData]);
+
+  if (scores === null) {
+    return <div>Loading...</div>;
+  }
+  
   const scores = [
     { 
       title: 'Heating & Cooling', 
@@ -122,7 +135,7 @@ const Results = (props) => {
         </Grid>
         <Grid item xs={12} md={7.5}>
           <Grid container spacing={2}>
-            {scores.map((score, index) => (
+            {scores && scores.map((score, index) => (
               <Grid item xs={12} sm={6} key={index}>
                 <IndividualScore
                   title={score.title}

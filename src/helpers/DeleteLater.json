@@ -1,6 +1,6 @@
 {
     "owner":"Homeowner",
-    "homeSize":"Single",
+    "homeSize":"Single Family House",
     "homeBuilt":"2020+",
     "zipcode":"98059",
     "sqrfeet":"1000",
@@ -16,11 +16,11 @@
     },
     "windows":"Low",
     "panes":2,
-    "sun":["No"],
+    "sun":"No",
     "treatments":["Low-E Coating"], 
     "siding":"Vinyl",
     "insulation":["Attic"],
-    "primaryHeat":"Boiler",
+    "primaryHeat":"Electric Boiler / Radiator",
     "primarySource":"Electric",
     "installationYear":"6-10 years ago",
     "hasSecondary":"No",
@@ -30,8 +30,8 @@
         "Rooms":2
     },
     "hasAirCond":"Yes",
-    "coolingSystem":"Ductless / Mini-Split Heat Pump",
-    "waterHeating":"Tank",
+    "coolingSystem":"Ducted Air Source Heat Pump",
+    "waterHeating":"Fuel Oil Tank Water Heater",
     "fuelSource":"Electric",
     "efficiency":"Some",
     "kitchen":{
