@@ -81,6 +81,7 @@ const MainRoutes = () => {
             Energy,
             Results
           ][index];
+
           return <Route key={path} path={path} element={<Component handleNext={handleNext} />} />;
         })}
         <Route path="/score" element={<Results />} />

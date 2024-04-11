@@ -101,6 +101,7 @@ const getState = async (state) => {
 
 const getZip = async (zipcode) => {
     const url = `${base_url}/zipcode/${zipcode}`;
+
     const response = await fetch(url);
     const data = await response.json();
     
