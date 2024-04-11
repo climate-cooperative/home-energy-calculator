@@ -165,6 +165,7 @@ async function getAPIData(state, zipcode, rooms, kitchen, laundry, home_decade, 
     // get state table 
     const { emissions, costs, breakdown } = await getState(state);
     const grid_carbon_intensity = emissions["co2_lbs/btu"];
+    const avg_home = emissions["co2_net_emission_estimate"];
 
     // get zip table
     const { latitude, longitude, degree_days, water_temp } = await getZip(zipcode);
