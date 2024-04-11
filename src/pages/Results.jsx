@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid } from '@mui/material';
 import { EnergyScore, Save, IndividualScore } from '../components/Results';
 import { FormDataContext } from '../context/FormDataContext';
@@ -13,10 +13,15 @@ const Results = (props) => {
   const [ avgHomeState, setAvgHomeState ] = useState(0);
 
   useEffect(() => {
-    const {co2_total, grades, avgHome} = handleCalculation(formData);
-    setCo2Emission(co2_total);
-    setScores(grades);
-    setAvgHomeState(avgHome);
+    const calculate = async () => {
+      const {co2_total, grades, avgHome} = await handleCalculation(formData);
+      console.log(co2_total, grades, avgHome);
+      setCo2Emission(co2_total);
+      setScores(grades);
+      setAvgHomeState(avgHome);
+    };
+  
+    calculate();
   }, [formData]);
 
   if (scores === null) {
