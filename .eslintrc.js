@@ -6,8 +6,6 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:prettier/recommended'
   ],
   parser: '@babel/eslint-parser',
   plugins: ["jest"],
@@ -16,6 +14,7 @@ module.exports = {
       "sourceType": "module"
   },
   rules: {
-    "no-constant-condition": 0
+    "no-constant-condition": 0,
+    "no-unused-vars": "warn"
   }
 }

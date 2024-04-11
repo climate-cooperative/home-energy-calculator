@@ -1,5 +1,5 @@
 import { convertZipToState, getAPIData } from './api.js';
-import { checkmark, alert, close, hammer, thermometer, water, home, bulb } from 'ionicons/icons';
+import { checkmark, alert, close, hammer, thermometer, water, home, bulb } from 'ionicons/icons/index.js';
 import {
     homeConvert,
     getConversionFactor,
