@@ -1,5 +1,5 @@
 import { convertZipToState, getAPIData } from './api.js';
-import { check, alert, close, hammer, thermometer, water, home, bulb } from '@ionic/react-icons';
+import { checkmark, alert, close, hammer, thermometer, water, home, bulb } from 'ionicons/icons/index.js';
 import {
     homeConvert,
     getConversionFactor,
@@ -251,98 +251,92 @@ function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, r
     // lighting
     const led_lighting = gradeLedLighting(slider);
     const led_all = getGrade(led_lighting);
-    return [
-        {
-            title: 'Heating & Cooling', icon: thermometer,
-            scores: {
-                'Unit Efficiency': {
-                    score: hvac_efficiency,
-                    icon: hvac_efficiency === 3 ? check : hvac_efficiency === 1 ? alert : close,
-                },
-                'Local Climate': {
-                    score: hvac_local_climate,
-                    icon: hvac_local_climate === 3 ? check : hvac_local_climate > 0 ? alert : close,
-                },
-                'Fuel Source': {
-                    score: hvac_fuel,
-                    icon: hvac_fuel === 1 ? check : close,
-                },
-                'Local Grid': {
-                    score: hvac_local_grid,
-                    icon: hvac_local_grid === 1 ? check: close,
-                }
-            },
-            grade: hvac_all
+
+    return[{ 
+          title: 'Heating & Cooling', 
+          icon: thermometer, 
+          current: formData.heatingCooling, 
+          grade: hvac_all,
+          recommended: 'Heat Pump with Ductless Mini-Splits',
+          content: [
+            { title: 'Unit Efficiency', icon: hvac_efficiency === 3 ? checkmark : hvac_efficiency === 1 ? alert : close},
+            { title: 'Local Climate', icon: hvac_local_climate === 3 ? checkmark : hvac_local_climate > 0 ? alert : close},
+            { title: 'Fuel Source', icon: hvac_fuel === 1 ? checkmark : close},
+            { title: 'Local Grid', icon: hvac_local_grid === 1 ? checkmark : close},
+          ],
+          rows: [
+            { name: 'Function(s)', userValue: 'Heating', recommendedValue: 'Heating & Cooling'},
+            { name: 'Annual Energy Cost', userValue: '$0', recommendedValue: '$232'},
+            { name: 'Tons of CO2 per Year', userValue: '0.00', recommendedValue: '0.29'},
+            { name: 'Clean Energy Score', userValue: 'A+', recommendedValue: 'A+'},
+            { name: 'Home Value Added', userValue: '-', recommendedValue: '$18.4k'},
+            { name: 'Rebates & Incentives', userValue: '-', recommendedValue: 'Check it out!'},
+          ]
         },
-        {
-            title: 'Water Heaters', icon: water,
-            scores: {
-                'Unit Efficiency': {
-                    score: water_heating_efficiency,
-                    icon: water_heating_efficiency === 2 ? check : water_heating_efficiency === 1 ? alert : close,
-                },
-                'Fuel Source': {
-                    score: water_heating_fuel,
-                    icon: water_heating_fuel === 2 ? check : water_heating_fuel === 1 ? alert : close,
-                },
-                'Local Grid': {
-                    score: water_heating_local_grid,
-                    icon: water_heating_local_grid === 1 ? check: close,
-                },
-                'Local Climate': {
-                    score: water_heating_local_climate,
-                    icon: water_heating_local_climate === 1 ? check : close,
-                },
-            },
-            grade: water_heating_all
+        { 
+          title: 'Water Heaters', 
+          icon: water, 
+          current: formData.waterHeating, 
+          grade: water_heating_all,
+          recommended: 'Hybrid Heat Pump Water Heater',
+          content: [
+            { title: 'Unit Efficiency', icon: water_heating_efficiency === 2 ? checkmark : water_heating_efficiency === 1 ? alert : close},
+            { title: 'Ground Water Temp.', icon: water_heating_local_climate === 1 ? checkmark : close},
+            { title: 'Fuel Source', icon: water_heating_fuel === 2 ? checkmark : water_heating_fuel === 1 ? alert : close},
+            { title: 'Local Grid', icon: water_heating_local_grid === 1 ? checkmark: close},
+          ],
+          rows: [
+            { name: 'Annual Energy Cost', userValue: '$0', recommendedValue: '$32'},
+            { name: 'Tons of CO2 per Year', userValue: '0.00', recommendedValue: '0.04'},
+            { name: 'Clean Energy Score', userValue: 'F', recommendedValue: 'A-'},
+            { name: 'Rebates & Incentives', userValue: '-', recommendedValue: 'Check it out!'},
+          ]
         },
-        {
-            title: 'Appliances', icon: hammer,
-            scores: {
-                'Unit Efficiency': {
-                    score: appliances_efficiency,
-                    icon: appliances_efficiency === 0 ? close : check,
-                },
-                'Fuel Source': {
-                    score: appliances_fuel,
-                    icon: appliances_fuel === 2 ? check : appliances_fuel === 1 ? alert : close,
-                },
-                'Local Grid': {
-                    score: appliances_local_grid,
-                    icon: appliances_local_grid === 1 ? check: close,
-                },
-                'Other': {
-                    score: appliances_other,
-                    icon: appliances_other === 1 ? check : close,
-                }
-            },
-            grade: appliances_all
+        { 
+          title: 'Appliances', 
+          icon: hammer, 
+          current: formData.appliances, 
+          grade: appliances_all,
+          recommended: 'Energy Star Appliances',
+          content: [
+            { title: 'High Efficiency Appliance', icon: appliances_efficiency === 0 ? close : checkmark},
+            { title: 'Electric Appliances', icon: appliances_fuel === 2 ? checkmark : appliances_fuel === 1 ? alert : close},
+            { title: 'Local Grid', icon: appliances_local_grid === 1 ? checkmark: close},
+          ],
+          rows:[]
         },
-        {
-            title: 'Sealing & Insulation', icon: home,
-            scores: {
-                'Sealing': {
-                    score: sealing_ach,
-                    icon: sealing_ach === 4 ? check : sealing_ach === 2 ? alert : close,
-                },
-                'Insulation': {
-                    score: insulation,
-                    icon: insulation === 4 ? check : insulation === 2 ? alert : close,
-                }
-            },
-            grade: sealing_all
+        { 
+          title: 'Sealing & Insulation', 
+          icon: home, 
+          current: 'Annual Cost Savings', 
+          grade: sealing_all,
+          recommended: 'Annual CO2 Savings',
+          content: [
+            { title: 'Sealing', icon: sealing_ach === 4 ? checkmark : sealing_ach === 2 ? alert : close},
+            { title: 'Insulation', icon: insulation === 4 ? checkmark : insulation === 2 ? alert : close},
+          ],
+          rows: [
+            { name: 'Add Attic Insulation', userValue: 'Save $4', recommendedValue: 'Down 100 lbs'},
+            { name: 'Add Crawl Space Insulation', userValue: 'Save $4', recommendedValue: 'Down 4 lbs'},
+            { name: 'Seal Aur Leaks', userValue: 'Save $100', recommendedValue: 'Down 607 lbs'},
+          ]
         },
-        {
-            title: 'Lighting', icon: bulb,
-            scores: {
-                'LED Lighting': {
-                    score: led_lighting,
-                    icon: led_lighting === 8 ? check : led_lighting <= 5 ? close : alert,
-                }
-            },
-            grade: led_all
-        }
-    ]
+        { 
+          title: 'Lighting', 
+          icon: bulb, 
+          current: formData.lighting, 
+          grade: led_all,
+          recommended: 'All LED Bulbs',
+          content: [
+            { title: 'Efficient Bulbs', icon: led_lighting === 8 ? checkmark : led_lighting <= 5 ? close : alert},
+          ],
+          rows: [
+            { name: 'Annual Energy Cost', userValue: '$0', recommendedValue: '$13'},
+            { name: 'Tons of CO2 per Year', userValue: '0.00', recommendedValue: '0.02'},
+            { name: 'Clean Energy Score', userValue: 'A+', recommendedValue: 'A+'},
+            { name: 'Rebates & Incentives', userValue: '-', recommendedValue:'Check it out!'},
+          ]
+    }];
 }
 
 

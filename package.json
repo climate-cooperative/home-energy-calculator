@@ -1,6 +1,7 @@
 {
   "name": "zwell-calc",
   "version": "0.1.0",
+  "proxy": "http://localhost:3000",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -18,12 +19,11 @@
     "react-dom": "^18.2.0",
     "react-inlinesvg": "^4.1.1",
     "react-router-dom": "^6.21.3",
-    "recharts": "^2.12.3",
-    "save-dev": "^0.0.1-security"
+    "recharts": "^2.12.3"
   },
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production",
+    "build": "npx react-scripts build",
     "lint": "eslint ./src/",
     "lint:fix": "eslint --fix ./src/",
     "babel:build": "npx babel src/ --out-dir build",

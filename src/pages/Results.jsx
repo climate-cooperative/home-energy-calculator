@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid } from '@mui/material';
 import { EnergyScore, Save, IndividualScore } from '../components/Results';
-import { hammer, thermometer, water, home, bulb, checkmark, alert, close } from 'ionicons/icons';
 import { FormDataContext } from '../context/FormDataContext';
 import handleCalculation from '../helpers/calculation.js';
 import '../styles/page.css';
@@ -11,126 +10,32 @@ const Results = (props) => {
   const { formData } = useContext(FormDataContext);
   const [ co2Emission, setCo2Emission ] = useState(0);
   const [ scores, setScores ] = useState(null);
+  const [ avgHomeState, setAvgHomeState ] = useState(0);
 
   useEffect(() => {
-    const {co2_total, grades} = handleCalculation(formData);
-    setCo2Emission(co2_total);
-    setScores(grades);
+    const calculate = async () => {
+      const {co2_total, grades, avgHome} = await handleCalculation(formData);
+      console.log(co2_total, grades, avgHome);
+      setCo2Emission(co2_total);
+      setScores(grades);
+      setAvgHomeState(avgHome);
+    };
+  
+    calculate();
   }, [formData]);
 
   if (scores === null) {
     return <div>Loading...</div>;
   }
-  
-  const scores = [
-    { 
-      title: 'Heating & Cooling', 
-      icon: thermometer, 
-      current: formData.heatingCooling, 
-      grade: 'A+',
-      recommended: 'Heat Pump with Ductless Mini-Splits',
-      content: [
-        { title: 'Unit Efficiency', icon: checkmark},
-        { title: 'Local Climate', icon: checkmark},
-        { title: 'Fuel Source', icon: checkmark},
-        { title: 'Local Grid', icon: checkmark},
-      ],
-      rows: [
-        { name: 'Function(s)', userValue: 'Heating', recommendedValue: 'Heating & Cooling'},
-        { name: 'Annual Energy Cost', userValue: '$0', recommendedValue: '$232'},
-        { name: 'Tons of CO2 per Year', userValue: '0.00', recommendedValue: '0.29'},
-        { name: 'Clean Energy Score', userValue: 'A+', recommendedValue: 'A+'},
-        { name: 'Home Value Added', userValue: '-', recommendedValue: '$18.4k'},
-        { name: 'Rebates & Incentives', userValue: '-', recommendedValue: (<a href="https://homes.rewiringamerica.org/calculator">Check it out!</a>)},
-      ]
-    },
-    { 
-      title: 'Water Heaters', 
-      icon: water, 
-      current: formData.waterHeating, 
-      grade: 'F',
-      recommended: 'Hybrid Heat Pump Water Heater',
-      content: [
-        { title: 'Unit Efficiency', icon: close},
-        { title: 'Ground Water Temp.', icon: close},
-        { title: 'Fuel Source', icon: close},
-        { title: 'Local Grid', icon: checkmark},
-      ],
-      rows: [
-        { name: 'Annual Energy Cost', userValue: '$0', recommendedValue: '$32'},
-        { name: 'Tons of CO2 per Year', userValue: '0.00', recommendedValue: '0.04'},
-        { name: 'Clean Energy Score', userValue: 'F', recommendedValue: 'A-'},
-        { name: 'Rebates & Incentives', userValue: '-', recommendedValue: (<a href="https://homes.rewiringamerica.org/calculator">Check it out!</a>)},
-      ]
-    },
-    { 
-      title: 'Appliances', 
-      icon: hammer, 
-      current: formData.appliances, 
-      grade: 'B-', 
-      recommended: 'Energy Star Appliances',
-      content: [
-        { title: 'High Efficiency Appliance', icon: alert},
-        { title: 'Electric Appliances', icon: alert},
-        { title: 'Local Grid', icon: checkmark},
-      ],
-      rows:[]
-    },
-    { 
-      title: 'Sealing & Insulation', 
-      icon: home, 
-      current: 'Annual Cost Savings', 
-      grade: 'A+',
-      recommended: 'Annual CO2 Savings',
-      content: [
-        { title: 'Unit Efficiency', icon: checkmark},
-        { title: 'Local Climate', icon: checkmark},
-        { title: 'Fuel Source', icon: checkmark},
-        { title: 'Local Grid', icon: checkmark},
-      ],
-      rows: [
-        { name: 'Add Attic Insulation', userValue: 'Save $4', recommendedValue: 'Down 100 lbs'},
-        { name: 'Add Crawl Space Insulation', userValue: 'Save $4', recommendedValue: 'Down 4 lbs'},
-        { name: 'Seal Aur Leaks', userValue: 'Save $100', recommendedValue: 'Down 607 lbs'},
-      ]
-    },
-    { 
-      title: 'Lighting', 
-      icon: bulb, 
-      current: formData.lighting, 
-      grade: 'A+',
-      recommended: 'All LED Bulbs',
-      content: [
-        { title: 'Unit Efficiency', icon: checkmark},
-        { title: 'Local Climate', icon: checkmark},
-        { title: 'Fuel Source', icon: checkmark},
-        { title: 'Local Grid', icon: checkmark},
-      ],
-      rows: [
-        { name: 'Annual Energy Cost', userValue: '$0', recommendedValue: '$13'},
-        { name: 'Tons of CO2 per Year', userValue: '0.00', recommendedValue: '0.02'},
-        { name: 'Clean Energy Score', userValue: 'A+', recommendedValue: 'A+'},
-        { name: 'Rebates & Incentives', userValue: '-', recommendedValue: (<a href="https://homes.rewiringamerica.org/calculator">Check it out!</a>)},
-      ]
-    }
-  ];
-
-  // TEMPS
-  const co2Emission = '3,581 lbs';
-  const yourHomeValue = 12010;
-  const avgHomeState = 12503;
-  const avgHomeUS = 16000;
-
   return (
     <div className="results">
       <Header />
       <Grid container spacing={4}>
         <Grid item xs={12} md={4.5}>
           <EnergyScore 
-            co2Emission={co2Emission} 
-            yourHomeValue={yourHomeValue}
-            avgHomeState={avgHomeState}
-            avgHomeUS={avgHomeUS}
+            yourHomeValue={co2Emission}
+            avgHomeState={16000}
+            avgHomeUS={avgHomeState}
           />
         </Grid>
         <Grid item xs={12} md={7.5}>
