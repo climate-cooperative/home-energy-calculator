@@ -1,22 +1,24 @@
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
 import { EnergyScore, Save, IndividualScore } from '../components/Results';
-import { hammer, thermometer, water, home, bulb } from 'ionicons/icons';
 import { FormDataContext } from '../context/FormDataContext';
+import handleCalculation from '../helpers/calculation.js';
 import '../styles/page.css';
 
 const Results = (props) => {
   const { formData } = useContext(FormDataContext);
+  const [ co2Emission, setCo2Emission ] = useState(0);
+  const [ scores, setScores ] = useState(null);
 
-  const scores = [
-    { title: 'Heating & Cooling', icon: thermometer, current: formData.heatingCooling, grade: 'A' },
-    { title: 'Water Heaters', icon: water, current: formData.waterHeating, grade: 'C' },
-    { title: 'Appliances', icon: hammer, current: formData.appliances, grade: 'B' },
-    { title: 'Sealing & Insulation', icon: home, current: formData.sealingInsulation, grade: 'A' },
-    { title: 'Lighting', icon: bulb, current: formData.lighting, grade: 'B' }
-  ];
+  useEffect(() => {
+    const {co2_total, grades} = handleCalculation(formData);
+    setCo2Emission(co2_total);
+    setScores(grades);
+  }, [formData]);
 
-  const co2Emission = '3,581 lbs';
+  if (scores === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="results">
@@ -26,12 +28,12 @@ const Results = (props) => {
         </Grid>
         <Grid item xs={12} md={7.5}>
           <Grid container spacing={2}>
-            {scores.map((score, index) => (
+            {scores && scores.map((score, index) => (
               <Grid item xs={12} sm={6} key={index}>
                 <IndividualScore
                   title={score.title}
                   icon={score.icon}
-                  current={score.current}
+                  scores={score.scores}
                   grade={score.grade}
                 />
               </Grid>

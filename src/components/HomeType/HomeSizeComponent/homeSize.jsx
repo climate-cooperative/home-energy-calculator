@@ -14,12 +14,12 @@ function ManufacturedHomeIcon(props) {
 
 const HomeSize = ({ homeSize, setHomeSize }) => {
   const homeTypes = [
-    { values: 'Single', label: 'Single Family House', icon: Cottage },
-    { values: 'Apartment', label: 'Apartment or Condo', icon: Apartment },
-    { values: 'Manufactured', label: 'Manufactured Home', icon: ManufacturedHomeIcon },
+    { values: 'Single Family House', label: 'Single Family House', icon: Cottage },
+    { values: 'Apartment or Condo', label: 'Apartment or Condo', icon: Apartment },
+    { values: 'Manufactured Home', label: 'Manufactured Home', icon: ManufacturedHomeIcon },
     { values: 'Townhouse', label: 'Townhouse', icon: HolidayVillage },
-    { values: 'Multi', label: 'Multi-Family', icon: Gite },
-    { values: 'Tiny', label: 'Tiny Home', icon: Bungalow }
+    { values: 'Multi-Family', label: 'Multi-Family', icon: Gite },
+    { values: 'Tiny Home', label: 'Tiny Home', icon: Bungalow }
   ];
 
   return (
