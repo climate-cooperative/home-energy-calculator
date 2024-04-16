@@ -45,5 +45,5 @@ cache: false,
     },
    ]
  },
- plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+ plugins: [new HtmlWebpackPlugin({ template: './public/index.html' })],
 }

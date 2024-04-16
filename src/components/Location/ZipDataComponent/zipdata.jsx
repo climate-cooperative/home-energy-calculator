@@ -20,7 +20,7 @@ const Zipdata = ({ zipcode }) => {
       return false;
     } else {
       const convertedState = convertZipToState(zipcode);
-      return getState(convertedState.long).then(({ breakdown }) => {
+      return getState(convertedState).then(({ breakdown }) => {
         // get find percentage for each using 'All Fuels'
         const all = breakdown['all_fuels'];
         const coal = Math.round((breakdown['coal'] / all) * 100);
@@ -34,42 +34,42 @@ const Zipdata = ({ zipcode }) => {
 
         return {
           Coal: {
-            yourState: coal,
+            yourState: isNaN(coal) ? 0 : coal,
             color: 'red',
             nationalAverage: 22
           },
           Petroleum: {
-            yourState: petroleum,
+            yourState: isNaN(petroleum) ? 0 : petroleum,
             color: 'orange',
             nationalAverage: 0.8
           },
           'Natural Gas': {
-            yourState: naturalGas,
+            yourState: isNaN(naturalGas) ? 0 : naturalGas,
             color: 'gold',
             nationalAverage: 38
           },
           Nuclear: {
-            yourState: nuclear,
+            yourState: isNaN(nuclear) ? 0 : nuclear,
             color: 'teal',
             nationalAverage: 19
           },
           Hydro: {
-            yourState: hydro,
+            yourState: isNaN(hydro) ? 0 : hydro,
             color: 'teal',
             nationalAverage: 6
           },
           Wind: {
-            yourState: wind,
+            yourState: isNaN(wind) ? 0 : wind,
             color: 'teal',
             nationalAverage: 9
           },
           Solar: {
-            yourState: solar,
+            yourState: isNaN(solar) ? 0 : solar,
             color: 'teal',
             nationalAverage: 3
           },
           Other: {
-            yourState: other,
+            yourState: isNaN(other) ? 0 : other,
             color: 'teal',
             nationalAverage: 2
           }
@@ -81,6 +81,7 @@ const Zipdata = ({ zipcode }) => {
   useEffect(() => {
     if (zipcode) {
       emission_breakdown(zipcode).then((data) => {
+        console.log("idk", data);
         setTable(data);
       });
     }
