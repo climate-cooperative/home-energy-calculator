@@ -81,6 +81,7 @@ const convertZipToState = (zipcode) => {
   const state = states.find(function (s) {
     return s.min <= zipcode && s.max >= zipcode;
   });
+  console.log('my state', state);
   return state;
 };
 
