@@ -1,3 +1,4 @@
+import React from 'react';
 import ImageQuestion from '../../ImageQuestion';
 
 const Single = (props) => (

@@ -1,3 +1,4 @@
+import React from 'react';
 import CounterQuestion from '../../CounterQuestion/counterquestion';
 
 const Rooms = (props) => {

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { HasSecondary, Heat, HeatedFloors, InstallationYear, Source } from '../components/Heating';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';

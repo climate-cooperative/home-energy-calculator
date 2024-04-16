@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { InstallationYear, Source, WaterHeater } from '../components/WaterHeater';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';

@@ -71,11 +71,13 @@ jobs:
         with:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      - name: Upload assets to s3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Build and Push assets to s3
         shell: bash
         run: |
-          echo "push s3"
-          aws s3 cp ./index.html s3://app.zwell.io/index.html
-          aws s3 cp ./404.html s3://app.zwell.io/404.html
-
-  
+          npm ci
+          npm run build
+          aws s3 sync ./build/ s3://app.zwell.io/

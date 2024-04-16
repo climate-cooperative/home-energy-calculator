@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import ImageQuestion from '../../ImageQuestion';
 import { Fireplace } from '@mui/icons-material';
 

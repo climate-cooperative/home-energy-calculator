@@ -1,3 +1,4 @@
+import React from 'react';
 import ImageQuestion from '../../ImageQuestion';
 import { HouseSiding, Roofing, Cancel } from '@mui/icons-material';
 

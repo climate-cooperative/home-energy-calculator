@@ -1,3 +1,4 @@
+import React from 'react';
 import SliderQuestion from '../../SliderQuestion';
 
 const Slider = (props) => {

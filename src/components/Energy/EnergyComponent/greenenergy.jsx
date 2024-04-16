@@ -1,3 +1,4 @@
+import React from 'react';
 import ImageQuestion from '../../ImageQuestion';
 import { SolarPower, WindPower } from '@mui/icons-material';
 
