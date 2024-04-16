@@ -23,7 +23,7 @@ function gradeHvacUnitEfficiency(efficiency) {
 
 function gradeHvacFuel(fuel) {
     const fuelScores = {
-        'Electricity': 3,
+        'Electric': 3,
         'Natural Gas': 2,
         'Propane': 1,
         'Kerosene': 1,
@@ -32,7 +32,7 @@ function gradeHvacFuel(fuel) {
 }
 
 function gradeHvacLocalGrid(fuel, gridCarbonIntensity) {
-    if (fuel === 'Electricity') {
+    if (fuel === 'Electric') {
         return gridCarbonIntensity < 0.00025 ? 1 : 0;
     }
     return 0;
@@ -55,7 +55,7 @@ function gradeWaterHeatingUnitEfficiency(efficiency) {
 
 function gradeWaterHeatingFuel(fuel) {
     const fuelScores = {
-        'Electricity': 2,
+        'Electric': 2,
         'Natural Gas': 1,
     };
     return fuelScores[fuel] || 0;
@@ -75,7 +75,9 @@ function gradeAppliancesUnitEfficiency(inductionCooktops, heatPumpDryers) {
 
 function gradeAppliancesFuel(kitchen, laundry) {
     const electric = kitchen['Electric Cooktop'] + kitchen['Electric Oven'] + kitchen['Induction Cooktop'] + kitchen['Dishwasher'] + laundry['Electric Dryer'] + laundry['Heat Pump Dryer'] + laundry['Washers'];
-    const gas = kitchen['Gas Cooktop'] + kitchen['Gas Oven'] + kitchen['Natural Gas Dryer'];
+    const gas = kitchen['Natural Gas Cooktop'] + kitchen['Natural Gas Oven'] + laundry['Natural Gas Dryer'];
+
+    console.log(electric, gas);
 
     if (electric > 0 && gas === 0) {
         return 2; // all electric
@@ -87,7 +89,8 @@ function gradeAppliancesFuel(kitchen, laundry) {
 }
 
 function gradeAppliancesLocalGrid(isElectric, gridCarbonIntensity) {
-    return isElectric ? gradeWaterHeatingLocalGrid('Electricity', gridCarbonIntensity) : 0;
+    console.log(isElectric, gridCarbonIntensity);
+    return isElectric ? gradeWaterHeatingLocalGrid('Electric', gridCarbonIntensity) : 0;
 }
 
 function gradeAppliancesOther(numberOfKitchens) {

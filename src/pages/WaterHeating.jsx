@@ -14,12 +14,9 @@ const WaterHeating = (props) => {
   );
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    setFuelSource('');
-  }, [waterHeating]);
-
   const getWaterHeater = () => {
     if (waterHeating === 'Heat Pump') {
+      setFuelSource('Electric');
       return 'Geothermal Heat Pump'; 
     } else if (waterHeating === 'Tankless') {
       return (fuelSource === 'Electric') ? 'Electric Tankless Water Heater' : 'Natural Gas Tankless Water Heater';

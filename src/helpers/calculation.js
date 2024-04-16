@@ -264,8 +264,8 @@ function CO2Emission(formdata, apiData) {
 
 function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows) {
     const { 
-        primaryHeat, 
-        waterHeating,
+        primarySource, 
+        fuelSource,
         kitchen,
         laundry,
         windows,
@@ -284,18 +284,18 @@ function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, r
 
     // heating and cooling
     const hvac_efficiency = gradeHvacUnitEfficiency(hvac_heating_efficiency);
-    const hvac_fuel = gradeHvacFuel(primaryHeat);
-    const hvac_local_grid = gradeHvacLocalGrid(primaryHeat, grid_carbon_intensity);
+    const hvac_fuel = gradeHvacFuel(primarySource);
+    const hvac_local_grid = gradeHvacLocalGrid(primarySource, grid_carbon_intensity);
     const hvac_local_climate = gradeHvacLocalClimate(region_hdd, region_cdd);
-    const hvac_all = getGrade(hvac_heating_efficiency + hvac_cooling_efficiency + hvac_fuel + hvac_local_grid + hvac_local_climate);
+    const hvac_all = getGrade(hvac_efficiency + hvac_fuel + hvac_local_grid + hvac_local_climate);
     // water heating
     const water_heating_efficiency = gradeWaterHeatingUnitEfficiency(hvac_water_heating_efficiency);
-    const water_heating_fuel = gradeWaterHeatingFuel(waterHeating);
-    const water_heating_local_grid = gradeWaterHeatingLocalGrid(waterHeating, grid_carbon_intensity);
+    const water_heating_fuel = gradeWaterHeatingFuel(fuelSource);
+    const water_heating_local_grid = gradeWaterHeatingLocalGrid(fuelSource, grid_carbon_intensity);
     const water_heating_local_climate = gradeWaterHeatingLocalClimate(region_hdd, region_cdd);
     const water_heating_all = getGrade(2 + water_heating_efficiency + water_heating_fuel + water_heating_local_grid + water_heating_local_climate);
     // appliances
-    const appliances_efficiency = gradeAppliancesUnitEfficiency(kitchen['Induction Cooktops'], laundry['Heat Pump Dryers']);
+    const appliances_efficiency = gradeAppliancesUnitEfficiency(kitchen['Induction Cooktop'], laundry['Heat Pump Dryer']);
     const appliances_fuel = gradeAppliancesFuel(kitchen, laundry);
     const appliances_local_grid = gradeAppliancesLocalGrid((appliances_fuel > 0), grid_carbon_intensity);
     const appliances_other = gradeAppliancesOther(rooms.Kitchens);

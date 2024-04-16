@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ImageQuestion from '../../ImageQuestion';
 import {
   ElectricBolt,
@@ -44,19 +44,19 @@ const Wood = ({color}) => (
   </svg>
 );
 
+const sourceOptions = [
+  { values: 'Electric', label: 'Electric', icon: ElectricBolt },
+  { values: 'Natural Gas', label: 'Natural Gas', icon: GasMeter },
+  { values: 'Propane', label: 'Propane', icon: Propane },
+  { values: 'Fuel Oil', label: 'Fuel Oil / Kerosene', icon: OilBarrel },
+  { values: 'Bio Fuel', label: 'Bio Fuel', icon: Wood },
+  { values: 'Not Sure', label: 'Not Sure', icon: QuestionMark }
+];
+
+const tanklessOptions = [sourceOptions[0], sourceOptions[1], sourceOptions[5]];
+
 const Source = (props) => {
   const { waterHeating, source, setSource } = props;
-
-  const sourceOptions = [
-    { values: 'Electric', label: 'Electric', icon: ElectricBolt },
-    { values: 'Natural Gas', label: 'Natural Gas', icon: GasMeter },
-    { values: 'Propane', label: 'Propane', icon: Propane },
-    { values: 'Fuel Oil', label: 'Fuel Oil / Kerosene', icon: OilBarrel },
-    { values: 'Bio Fuel', label: 'Bio Fuel', icon: Wood },
-    { values: 'Not Sure', label: 'Not Sure', icon: QuestionMark }
-  ];
-
-  const tanklessOptions = [sourceOptions[0], sourceOptions[1], sourceOptions[5]];
 
   return (
     <ImageQuestion

@@ -130,7 +130,7 @@ const getHvacAppliances = async (heating_appliance, cooling_appliance, water_hea
   const response_1 = await fetch(heating_url);
   const data_1 = await response_1.json();
 
-  let hvac_cooling_efficiency;
+  let hvac_cooling_efficiency = 0;
   if (cooling_appliance !== "") {
     const cooling_url = `/api/hvac/${encodeURIComponent(cooling_appliance)}`;
     const response_2 = await fetch(cooling_url);
