@@ -10,7 +10,8 @@ resource "aws_s3_bucket_website_configuration" "static-hosting-config" {
   }
 
   error_document {
-    key = "404.html"
+    // front end will handle errors
+    key = "index.html"
   }
 }
 
