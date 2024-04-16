@@ -11,14 +11,15 @@ const Results = () => {
   const [ co2Emission, setCo2Emission ] = useState(0);
   const [ scores, setScores ] = useState(null);
   const [ avgHomeState, setAvgHomeState ] = useState(0);
+  const [ details, setDetails ] = useState(null);
 
   useEffect(() => {
     const calculate = async () => {
-      const {co2_total, grades, avgHome} = await handleCalculation(formData);
-      console.log(co2_total, grades, avgHome);
+      const { co2_total, grades, avgHome, details } = await handleCalculation(formData);
       setCo2Emission(Math.floor(co2_total));
       setScores(grades);
       setAvgHomeState(avgHome);
+      setDetails(details);
     };
   
     calculate();
@@ -30,14 +31,13 @@ const Results = () => {
   return (
     <div className="results">
       <Header />
-      <Grid container spacing={4} sx={{ width: '95vw', margin: 'auto' }}>
+      <Grid container spacing={4}>
         <Grid item xs={12} md={4.5}>
           <EnergyScore 
-            score={score}
-            co2Emission={co2Emission} 
             yourHomeValue={co2Emission}
             avgHomeState={avgHomeState}
             avgHomeUS={16000}
+            details={details}
           />
         </Grid>
         <Grid item xs={12} md={7.5}>

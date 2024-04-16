@@ -60,15 +60,46 @@ import {
     gradeLedLighting,
   } from './grading.js';
 
+/*
+    zipCode,
+    state,
+    solarIndex,
+    heatingDegreeDays,
+    coolingDegreeDays,
+    groundWaterTemp,
+    homeVolume,
+    airChangesPerHour,
+    wallRValue,
+    atticRValue,
+    glazingPercentage,
+    heatLossBTUs,
+    solarHeatGainBTUs
+*/
+
 const handleCalculation = async (formData) => {
     try {
         const zip = formData.zipcode;
         const state = convertZipToState(zip);
         const apiData = await getAPIData(state.long, zip, formData.rooms, formData.kitchen, formData.laundry, formData.homeBuilt, formData.primaryHeat, formData.coolingSystem, formData.waterHeater);
-        const {co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows} = CO2Emission(formData, apiData);
+        const {co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, house_volume} = CO2Emission(formData, apiData);
         const grades = getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows);
         let avgHome = Number(apiData['avg_home'].replace(/,/g, ''));
-        return { co2_total, grades, avgHome };
+        const details = {
+            zipCode: zip,
+            state: state.long,
+            solarIndex: apiData['solar_index'],
+            heatingDegreeDays: apiData['region_hdd'],
+            coolingDegreeDays: apiData['region_cdd'],
+            groundWaterTemp: Math.floor(apiData['region_water_temp']),
+            homeVolume: house_volume,
+            airChangesPerHour: apiData['ach'],
+            wallRValue: rvalue_walls,
+            atticRValue: rvalue_roof,
+            glazingPercentage: rvalue_windows,
+            heatLossBTUs: Math.floor(co2_total),
+            solarHeatGainBTUs: apiData['solar_heat_gain']
+        };
+        return { co2_total, grades, avgHome, details };
     } catch (error) {
         console.error('Error handling calculation', error);
     }
@@ -259,7 +290,7 @@ function CO2Emission(formdata, apiData) {
     console.log('co2_heating:', co2_heating);
     console.log('co2_total:', co2_total);
 
-    return { co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows };
+    return { co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, house_volume };
 }
 
 function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows) {

@@ -6,6 +6,8 @@ import ViewEditButton from './vieweditbutton';
 import ScoreRing from './scorering';
 
 const EnergyScore = (props) => {
+  const score = Math.floor(100 * (props.avgHomeUS / (props.avgHomeUS + props.yourHomeValue)));
+
   return (
     <Card>
       <CardContent>
@@ -29,7 +31,7 @@ const EnergyScore = (props) => {
             }}
           >
             <div style={{ width: '75%', height: '100%', marginRight: '20px' }}>
-              <ScoreRing value={Math.floor(100 * (props.avgHomeUS / (props.avgHomeUS + props.yourHomeValue)))} scoreLabel={'Good'} />
+              <ScoreRing value={score} scoreLabel={'Good'} />
             </div>
             <div style={{ width: '60%' }}>
               <h2>Score is based on the estimated CO2 emissions of your home</h2>
@@ -38,7 +40,7 @@ const EnergyScore = (props) => {
           <Grid container justifyContent="space-between">
             <Grid item xs={8}>
               <CalcButton
-                score={props.score}
+                score={score}
                 details={props.details}
               />
               <CompareButton 
