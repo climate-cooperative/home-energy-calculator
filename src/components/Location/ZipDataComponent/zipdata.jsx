@@ -15,21 +15,22 @@ const Zipdata = ({ zipcode }) => {
 
   async function emission_breakdown(zipcode) {
     // Ensure you don't parse codes that start with 0 as octal values
+    console.log(zipcode);
     if (!zipcode) {
       return false;
     } else {
       const convertedState = convertZipToState(zipcode);
       return getState(convertedState.long).then(({ breakdown }) => {
         // get find percentage for each using 'All Fuels'
-        const all = breakdown['All Fuels'];
-        const coal = Math.round((breakdown['Coal'] / all) * 100);
-        const petroleum = Math.round((breakdown['Petroleum'] / all) * 100);
-        const naturalGas = Math.round((breakdown['Natural Gas'] / all) * 100);
-        const nuclear = Math.round((breakdown['Nuclear'] / all) * 100);
-        const hydro = Math.round((breakdown['Hydro'] / all) * 100);
-        const wind = Math.round((breakdown['Wind'] / all) * 100);
-        const solar = Math.round((breakdown['Solar'] / all) * 100);
-        const other = Math.round((breakdown['Other Renewable'] / all) * 100);
+        const all = breakdown['all_fuels'];
+        const coal = Math.round((breakdown['coal'] / all) * 100);
+        const petroleum = Math.round((breakdown['petroleum'] / all) * 100);
+        const naturalGas = Math.round((breakdown['natural_gas'] / all) * 100);
+        const nuclear = Math.round((breakdown['nuclear'] / all) * 100);
+        const hydro = Math.round((breakdown['hydro'] / all) * 100);
+        const wind = Math.round((breakdown['wind'] / all) * 100);
+        const solar = Math.round((breakdown['solar'] / all) * 100);
+        const other = Math.round((breakdown['other_renewable'] / all) * 100);
 
         return {
           Coal: {

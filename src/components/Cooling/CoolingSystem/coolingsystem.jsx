@@ -7,22 +7,22 @@ const CoolingSystem = (props) => {
 
   const coolingSystemOptions = [
     {
-      values: 'Central Air Conditioning',
+      values: 'Central AC Unit',
       label: 'Central Air Conditioning',
       icon: Air
     },
     {
-      values: 'Ducted Heat Pump',
+      values: 'Ducted Air Source Heat Pump',
       label: 'Ducted Heat Pump',
       icon: HeatPump
     },
     {
-      values: 'Ductless / Mini-Split Heat Pump',
+      values: 'Heat Pump with Mini Splits',
       label: 'Ductless / Mini-Split Heat Pump',
       icon: HeatPump
     },
     {
-      values: 'Portable A/C',
+      values: 'Portable AC Unit',
       label: 'Portable A/C',
       icon: AcUnit
     }
