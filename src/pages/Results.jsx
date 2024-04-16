@@ -30,9 +30,11 @@ const Results = (props) => {
   return (
     <div className="results">
       <Header />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ width: '95vw', margin: 'auto' }}>
         <Grid item xs={12} md={4.5}>
           <EnergyScore 
+            score={score}
+            co2Emission={co2Emission} 
             yourHomeValue={co2Emission}
             avgHomeState={16000}
             avgHomeUS={avgHomeState}

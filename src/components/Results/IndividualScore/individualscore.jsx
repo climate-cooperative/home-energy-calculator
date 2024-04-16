@@ -106,7 +106,9 @@ const IndividualScore = (props) => {
         </DialogTitle>
         <DialogContent>
           <hr style={{ color: 'lightgray' }} />
-          <Typography variant="h2"><IonIcon icon={documentText} style={{ marginRight: '10px' }}/> System Report Card</Typography>
+          <Typography variant="h2" marginTop={2}>
+            <IonIcon icon={documentText} style={{ marginRight: '10px' }}/> System Report Card
+          </Typography>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {props.content.map((item, index) => (
               <Typography key={index} variant="body1" style={{ marginRight: '10px' }}>
@@ -114,8 +116,8 @@ const IndividualScore = (props) => {
               </Typography>
             ))}
           </div>
-          <Typography variant="h2" style={{margin: 10}}>
-            <IonIcon icon={bulb}/> Recommendations
+          <Typography variant="h2" marginTop={2}>
+            <IonIcon icon={bulb} style={{ marginRight: '10px' }}/> Recommendations
           </Typography>
           <TableContainer component={Paper}>
             <Table aria-label="Recommend table">
