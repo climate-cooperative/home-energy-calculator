@@ -64,10 +64,11 @@ const handleCalculation = async (formData) => {
     try {
         const zip = formData.zipcode;
         const state = convertZipToState(zip);
-        const apiData = await getAPIData(state, zip, formData.rooms, formData.kitchen, formData.laundry, formData.homeBuilt, formData.primaryHeat, formData.coolingSystem, formData.waterHeating);
+        const apiData = await getAPIData(state.long, zip, formData.rooms, formData.kitchen, formData.laundry, formData.homeBuilt, formData.primaryHeat, formData.coolingSystem, formData.waterHeater);
         const {co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows} = CO2Emission(formData, apiData);
         const grades = getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows);
-        return { co2_total, grades };
+        let avgHome = Number(apiData['avg_home'].replace(/,/g, ''));
+        return { co2_total, grades, avgHome };
     } catch (error) {
         console.error('Error handling calculation', error);
     }
@@ -199,13 +200,72 @@ function CO2Emission(formdata, apiData) {
     const co2_heating = co2Heating(heatedFloors.Rooms, btu_heating, carbon_intensity_heating_total, grid_carbon_intensity);
     const co2_total = co2Total(co2_heating, co2_cooling, co2_water_heating, co2_electric_appliances, co2_gas_appliances, co2_lighting);
 
+    console.log('window_ee_r:', window_ee_r);
+    console.log('window_gas_r:', window_gas_r);
+    console.log('window_tinting_coeff:', window_tinting_coeff);
+    console.log('south_facing_window:', south_facing_window);
+    console.log('window_coverage:', window_coverage);
+    console.log('insulation_r:', insulation_r);
+    console.log('attic_r:', attic_r);
+    console.log('led_lighting:', led_lighting);
+    console.log('exposed:', exposed);
+    console.log('has_crawl_space:', has_crawl_space);
+    console.log('sqrft:', sqrft);
+    console.log('coeff_primary_heating:', coeff_primary_heating);
+    console.log('hasTintedWindowsOrEECoating:', hasTintedWindowsOrEECoating);
+    console.log('coeff_solar_heat_gain:', coeff_solar_heat_gain);
+    console.log('water_heating_modifier:', water_heating_modifier);
+    console.log('solar_insolation_summer:', solar_insolation_summer);
+    console.log('solar_insolation_winter:', solar_insolation_winter);
+    console.log('sqft_floor:', sqft_floor);
+    console.log('sqft_roof:', sqft_roof);
+    console.log('above_ground_percent:', above_ground_percent);
+    console.log('house_volume:', house_volume);
+    console.log('sqft_windows:', sqft_windows);
+    console.log('sqft_walls:', sqft_walls);
+    console.log('house_window_exposed:', house_window_exposed);
+    console.log('solar_heat_gain_summer:', solar_heat_gain_summer);
+    console.log('primary_conversion:', primary_conversion);
+    console.log('secondary_conversion:', secondary_conversion);
+    console.log('carbon_intensity_primary_heating:', carbon_intensity_primary_heating);
+    console.log('carbon_intensity_secondary_heating:', carbon_intensity_secondary_heating);
+    console.log('solar_heat_gain_winter:', solar_heat_gain_winter);
+    console.log('rvalue_walls:', rvalue_walls);
+    console.log('rvalue_floor:', rvalue_floor);
+    console.log('rvalue_windows:', rvalue_windows);
+    console.log('carbon_intensity_heating_total:', carbon_intensity_heating_total);
+    console.log('carbon_intensity_water_heating:', carbon_intensity_water_heating);
+    console.log('rvalue_roof:', rvalue_roof);
+    console.log('btu_heating_through_wall:', btu_heating_through_wall);
+    console.log('btu_heating_through_windows:', btu_heating_through_windows);
+    console.log('btu_heating_through_roof:', btu_heating_through_roof);
+    console.log('btu_heating_through_floor:', btu_heating_through_floor);
+    console.log('btu_cooling_through_wall:', btu_cooling_through_wall);
+    console.log('btu_cooling_through_windows:', btu_cooling_through_windows);
+    console.log('btu_cooling_through_roof:', btu_cooling_through_roof);
+    console.log('btu_cooling_through_floor:', btu_cooling_through_floor);
+    console.log('surface_heat_gain:', surface_heat_gain);
+    console.log('surface_heat_loss:', surface_heat_loss);
+    console.log('infiltration_heat_gain:', infiltration_heat_gain);
+    console.log('infiltration_heat_loss:', infiltration_heat_loss);
+    console.log('btu_heating:', btu_heating);
+    console.log('btu_cooling:', btu_cooling);
+    console.log('btu_water_heating:', btu_water_heating);
+    console.log('co2_electric_appliances:', co2_electric_appliances);
+    console.log('co2_gas_appliances:', co2_gas_appliances);
+    console.log('co2_lighting:', co2_lighting);
+    console.log('co2_water_heating:', co2_water_heating);
+    console.log('co2_cooling:', co2_cooling);
+    console.log('co2_heating:', co2_heating);
+    console.log('co2_total:', co2_total);
+
     return { co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows };
 }
 
 function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows) {
     const { 
-        primaryHeat, 
-        waterHeating,
+        primarySource, 
+        fuelSource,
         kitchen,
         laundry,
         windows,
@@ -224,18 +284,18 @@ function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, r
 
     // heating and cooling
     const hvac_efficiency = gradeHvacUnitEfficiency(hvac_heating_efficiency);
-    const hvac_fuel = gradeHvacFuel(primaryHeat);
-    const hvac_local_grid = gradeHvacLocalGrid(primaryHeat, grid_carbon_intensity);
+    const hvac_fuel = gradeHvacFuel(primarySource);
+    const hvac_local_grid = gradeHvacLocalGrid(primarySource, grid_carbon_intensity);
     const hvac_local_climate = gradeHvacLocalClimate(region_hdd, region_cdd);
-    const hvac_all = getGrade(hvac_heating_efficiency + hvac_cooling_efficiency + hvac_fuel + hvac_local_grid + hvac_local_climate);
+    const hvac_all = getGrade(hvac_efficiency + hvac_fuel + hvac_local_grid + hvac_local_climate);
     // water heating
     const water_heating_efficiency = gradeWaterHeatingUnitEfficiency(hvac_water_heating_efficiency);
-    const water_heating_fuel = gradeWaterHeatingFuel(waterHeating);
-    const water_heating_local_grid = gradeWaterHeatingLocalGrid(waterHeating, grid_carbon_intensity);
+    const water_heating_fuel = gradeWaterHeatingFuel(fuelSource);
+    const water_heating_local_grid = gradeWaterHeatingLocalGrid(fuelSource, grid_carbon_intensity);
     const water_heating_local_climate = gradeWaterHeatingLocalClimate(region_hdd, region_cdd);
     const water_heating_all = getGrade(2 + water_heating_efficiency + water_heating_fuel + water_heating_local_grid + water_heating_local_climate);
     // appliances
-    const appliances_efficiency = gradeAppliancesUnitEfficiency(kitchen['Induction Cooktops'], laundry['Heat Pump Dryers']);
+    const appliances_efficiency = gradeAppliancesUnitEfficiency(kitchen['Induction Cooktop'], laundry['Heat Pump Dryer']);
     const appliances_fuel = gradeAppliancesFuel(kitchen, laundry);
     const appliances_local_grid = gradeAppliancesLocalGrid((appliances_fuel > 0), grid_carbon_intensity);
     const appliances_other = gradeAppliancesOther(rooms.Kitchens);

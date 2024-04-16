@@ -1,31 +1,30 @@
 function homeConvert(houseSize) {
-  const convert = {
-    'Single Family House': {
-      exposedWall: 1,
-      exposedCeiling: 1
-    },
-    'Apartment': {
-      exposedWall: 0.25,
-      exposedCeiling: 0
-    },
-    'Manufactured Home': {
-      exposedWall: 1,
-      exposedCeiling: 1
-    },
-    'Townhouse': {
-      exposedWall: 0.5,
-      exposedCeiling: 1
-    },
-    'Multi-Family': {
-      exposedWall: 0.75,
-      exposedCeiling: 1
-    },
-    'Tiny Home': {
-      exposedWall: 1,
-      exposedCeiling: 1
-    }
+  switch (houseSize) {
+    case 'Single Family House':
+    case 'Manufactured Home':
+    case 'Tiny Home':
+      return {
+        exposedWall: 1,
+        exposedCeiling: 1
+      };
+    case 'Apartment or Condo':
+      return {
+        exposedWall: 0.25,
+        exposedCeiling: 0
+      };
+    case 'Townhouse':
+      return {
+        exposedWall: 0.5,
+        exposedCeiling: 1
+      };
+    case 'Multi-Family':
+      return {
+        exposedWall: 0.75,
+        exposedCeiling: 1
+      };
+    default:
+      return null;
   }
-  return convert[houseSize];
 }
 
 function getConversionFactor(conversionType, grid_carbon_intensity) {
@@ -144,9 +143,11 @@ function rvalueRoof(probInsulation, rValueAtticInsulation, rValueJoist, rValueAt
 }
 
 function btuHeatingThroughSurface(sqftArea, regionDD, rvalue) {
-    return sqftArea * regionDD * 24 / rvalue;
+  if (rvalue === 0) {
+    return 0;
+  }
+  return sqftArea * regionDD * 24 / rvalue;
 }
-
 function surfaceHeatGainOrLoss(walls, windows, roof, floor) {
   return walls + windows + roof + floor;
 }

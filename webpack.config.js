@@ -9,16 +9,17 @@ cache: false,
    filename: 'index.bundle.js',
  },
   // webpack 5 comes with devServer which loads in development mode
- devServer: {
-  proxy: {
-    '/api': 'https://api.zwell.io'
-   },
-   headers: {
-    "Access-Control-Allow-Origin": "*",
-},
-   port: 3000,
-   historyApiFallback: true
- },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://api.zwell.io',
+        changeOrigin: true,
+        pathRewrite: {'^/api' : ''}
+      }
+    },
+    port: 3000,
+    historyApiFallback: true
+  },
   // Rules of how webpack will take our files, complie & bundle them for the browser 
  module: {
    rules: [

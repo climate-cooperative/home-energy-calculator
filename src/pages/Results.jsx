@@ -6,7 +6,7 @@ import handleCalculation from '../helpers/calculation.js';
 import '../styles/page.css';
 import Header from '../components/Results/Header';
 
-const Results = (props) => {
+const Results = () => {
   const { formData } = useContext(FormDataContext);
   const [ co2Emission, setCo2Emission ] = useState(0);
   const [ scores, setScores ] = useState(null);
@@ -16,7 +16,7 @@ const Results = (props) => {
     const calculate = async () => {
       const {co2_total, grades, avgHome} = await handleCalculation(formData);
       console.log(co2_total, grades, avgHome);
-      setCo2Emission(co2_total);
+      setCo2Emission(Math.floor(co2_total));
       setScores(grades);
       setAvgHomeState(avgHome);
     };
@@ -36,8 +36,8 @@ const Results = (props) => {
             score={score}
             co2Emission={co2Emission} 
             yourHomeValue={co2Emission}
-            avgHomeState={16000}
-            avgHomeUS={avgHomeState}
+            avgHomeState={avgHomeState}
+            avgHomeUS={16000}
           />
         </Grid>
         <Grid item xs={12} md={7.5}>

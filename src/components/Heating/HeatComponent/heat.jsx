@@ -208,25 +208,32 @@ const stove = ({color}) => (
 const Heat = (props) => {
   const { question, label, heat, setHeat, source, popup } = props;
 
-  const heatOptions = [
-    /*0*/ { values: 'Forced Air', label: 'Forced Air Furnace', icon: furnace },
-    /*1*/ { values: 'Boiler', label: 'Boiler / Radiator', icon: boiler },
-    /*2*/ { values: 'Baseboard', label: 'Baseboard', icon: floor },
-    /*3*/ { values: 'Radiant', label: 'Radiant Floor', icon: raidant },
-    /*4*/ { values: 'Air Source Heat Pump', label: 'Air Source Heat Pump', icon: air_source },
-    /*5*/ { values: 'Geothermal Heat Pump', label: 'Geothermal Heat Pump', icon: geothermal },
-    /*6*/ { values: 'Space Heater', label: 'Space Heater', icon: space_heater },
-    /*7*/ { values: 'Fireplace Insert / Stove', label: 'Fireplace Insert / Stove', icon: Fireplace },
-    /*8*/ { values: 'Wood Stove', label: 'Wood Stove', icon: stove },
-    /*9*/ { values: 'Fireplace', label: 'Fireplace', icon: Fireplace },
-    /*10*/ { values: 'Pellet Stove', label: 'Pellet Stove', icon: stove }
-  ];
+  const Electricity = [
+    { values: 'Electric Baseboard', label: 'Baseboard', icon: floor },
+    { values: 'Electric Boiler / Radiator', label: 'Boiler / Radiator', icon: boiler },
+    { values: 'Ducted Air Source Heat Pump', label: 'Ducted Air Source Heat Pump', icon: air_source },
+    { values: 'Geothermal Heat Pump', label: 'Geothermal Heat Pump', icon: geothermal },
+    { values: 'Electric Space Heater', label: 'Space Heater', icon: space_heater },
+  ]
 
-  // source will have different options based on the primary heating source
-  const Electricity = heatOptions.slice(0, 6);
-  const Gas = [heatOptions[0], heatOptions[1], heatOptions[7], heatOptions[8]];
-  const PropaneAndOil = [heatOptions[0], heatOptions[1], heatOptions[6]];
-  const Wood = heatOptions.slice(8, 10);
+  const Gas = [
+    { values: 'Natural Gas Forced Air Furnace', label: 'Forced Air Furnace', icon: furnace },
+    { values: 'Natural Gas Boiler / Radiator', label: 'Boiler / Radiator', icon: boiler },
+    { values: 'Natural Gas Space Heater', label: 'Space Heater', icon: space_heater },
+    { values: 'Natural Gas Fireplace Inserts', label: 'Fireplace', icon: Fireplace },
+  ]
+
+  const PropaneAndOil = [
+    { values: 'Propane Forced Air Furnace', label: 'Forced Air Furnace', icon: furnace },
+    { values: 'Propane Boiler / Radiator', label: 'Boiler / Radiator', icon: boiler },
+    { values: 'Propane Space Heater', label: 'Space Heater', icon: space_heater },
+  ]
+
+  const Wood = [
+    { values: 'Wood Stove', label: 'Wood Stove', icon: stove },
+    { values: 'Wood Pellet Stove', label: 'Pellet Stove', icon: stove },
+    { values: 'Wood Fireplace', label: 'Fireplace', icon: Fireplace },
+  ]
 
   useEffect(() => {
     setHeat('');
