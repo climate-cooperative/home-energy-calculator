@@ -12,7 +12,10 @@ cache: false,
  devServer: {
   proxy: {
     '/api': 'https://api.zwell.io'
-  },
+   },
+   headers: {
+    "Access-Control-Allow-Origin": "*",
+},
    port: 3000,
    historyApiFallback: true
  },
@@ -41,5 +44,5 @@ cache: false,
     },
    ]
  },
- plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+ plugins: [new HtmlWebpackPlugin({ template: './public/index.html' })],
 }

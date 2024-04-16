@@ -1,7 +1,7 @@
 {
   "name": "zwell-calc",
   "version": "0.1.0",
-  "proxy": "http://localhost:3000",
+  "proxy": "https://app.zwell.io/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
