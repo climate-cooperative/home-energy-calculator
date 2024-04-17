@@ -21,6 +21,11 @@ const Zipdata = ({ zipcode }) => {
     } else {
       const convertedState = convertZipToState(zipcode);
       return getState(convertedState).then(({ breakdown }) => {
+
+        if (!breakdown) {
+          return null;
+        }
+
         // get find percentage for each using 'All Fuels'
         const all = breakdown['all_fuels'];
         const coal = Math.round((breakdown['coal'] / all) * 100);
@@ -79,7 +84,7 @@ const Zipdata = ({ zipcode }) => {
   }
 
   useEffect(() => {
-    if (zipcode) {
+    if (convertZipToState(zipcode)) {
       emission_breakdown(zipcode).then((data) => {
         console.log("idk", data);
         setTable(data);
@@ -147,7 +152,7 @@ const Zipdata = ({ zipcode }) => {
         </caption>
         <TableHead>
           <TableRow>
-            <TableCell>Washington's Energy Breakdown</TableCell>
+            <TableCell>Energy Breakdown</TableCell>
             <TableCell align="right">Your State</TableCell>
             <TableCell align="right">National Average*</TableCell>
           </TableRow>

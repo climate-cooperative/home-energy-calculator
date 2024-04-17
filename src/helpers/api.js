@@ -79,24 +79,24 @@ const convertZipToState = (zipcode) => {
   const state = states.find(function (s) {
     return s.min <= zipcode && s.max >= zipcode;
   });
-  console.log('my state', state);
   return state;
 };
 
 const getState = async (state) => {
-  const url = `/api/state/${state}`;
+  const url = `/api/state/${state.long}`;
   const response = await fetch(url);
   const data = await response.json();
 
-  console.log(data);
+  const result = {}
 
-  const emissions = data[0]['state_emissions'][0];
-  const costs = data[0]['state_energy_costs'][0];
-  const breakdown = data[0]['state_energy_breakdown'][0];
+  if ( data.length > 0 ) {
+    result.emissions = data[0]['state_emissions'][0];
+    result.costs = data[0]['state_energy_costs'][0];
+    result.breakdown = data[0]['state_energy_breakdown'][0];
+  }
+
   return {
-    emissions,
-    costs,
-    breakdown
+    ...result
   };
 };
 
