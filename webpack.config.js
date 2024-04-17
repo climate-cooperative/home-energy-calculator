@@ -10,13 +10,6 @@ cache: false,
  },
   // webpack 5 comes with devServer which loads in development mode
   devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://api.zwell.io',
-        changeOrigin: true,
-        pathRewrite: {'^/api' : ''}
-      }
-    },
     port: 3000,
     historyApiFallback: true
   },

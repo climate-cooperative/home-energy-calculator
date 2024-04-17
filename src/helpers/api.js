@@ -1,6 +1,6 @@
 /*
-https://api.zwellhome.com/api/state_table/state/Washington
-https://api.zwellhome.com/api/zip_table/zipcode/98059
+https:/.zwellhome.com/state_table/state/Washington
+https:/.zwellhome.com/api/zip_table/zipcode/98059
 https://api.zwellhome.com/api/appliances
 etc...
 
@@ -58,7 +58,7 @@ const states = [
   { min: 73000, max: 74999, code: 'OK', long: 'Oklahoma' },
   { min: 97000, max: 97999, code: 'OR', long: 'Oregon' },
   { min: 15000, max: 19699, code: 'PA', long: 'Pennsylvania' },
-  { min: 300, max: 999, code: 'PR', long: 'Puerto Rico' },
+  // { min: 300, max: 999, code: 'PR', long: 'Puerto Rico' }, // we dont have any of this data :(
   { min: 2800, max: 2999, code: 'RI', long: 'Rhode Island' },
   { min: 29000, max: 29999, code: 'SC', long: 'South Carolina' },
   { min: 57000, max: 57999, code: 'SD', long: 'South Dakota' },
@@ -75,6 +75,8 @@ const states = [
   { min: 82000, max: 83199, code: 'WY', long: 'Wyoming' }
 ];
 
+const BASE_URL = 'https://api.zwell.io';
+
 const convertZipToState = (zipcode) => {
   const state = states.find(function (s) {
     return s.min <= zipcode && s.max >= zipcode;
@@ -83,7 +85,7 @@ const convertZipToState = (zipcode) => {
 };
 
 const getState = async (state) => {
-  const url = `/api/state/${state.long}`;
+  const url = `${BASE_URL}/state/${state.long}`;
   const response = await fetch(url);
   const data = await response.json();
 
@@ -101,7 +103,7 @@ const getState = async (state) => {
 };
 
 const getZip = async (zipcode) => {
-    const url = `/api/zipcode/${zipcode}`;
+    const url = `${BASE_URL}/zipcode/${zipcode}`;
 
     const response = await fetch(url);
     const data = await response.json();
@@ -119,21 +121,21 @@ const getZip = async (zipcode) => {
 }
 
 const getAppliances = async () => {
-  const url = `/api/appliances`;
+  const url = `${BASE_URL}/appliances`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
 };
 
 const getHvacAppliances = async (heating_appliance, cooling_appliance, water_heating_appliance) => {
-  const heating_url = `/api/hvac/${encodeURIComponent(heating_appliance)}`;
-  const water_heating_url = `/api/hvac/${encodeURIComponent(water_heating_appliance)}`;
+  const heating_url = `${BASE_URL}/hvac/${encodeURIComponent(heating_appliance)}`;
+  const water_heating_url = `${BASE_URL}/hvac/${encodeURIComponent(water_heating_appliance)}`;
   const response_1 = await fetch(heating_url);
   const data_1 = await response_1.json();
 
   let hvac_cooling_efficiency = 0;
   if (cooling_appliance !== "") {
-    const cooling_url = `/api/hvac/${encodeURIComponent(cooling_appliance)}`;
+    const cooling_url = `${BASE_URL}/hvac/${encodeURIComponent(cooling_appliance)}`;
     const response_2 = await fetch(cooling_url);
     const data_2 = await response_2.json();
     hvac_cooling_efficiency = data_2[0]["efficiency"];
@@ -153,14 +155,14 @@ const getHvacAppliances = async (heating_appliance, cooling_appliance, water_hea
 };
 
 const getHomeDecades = async (home_decade) => {
-  const url = `/api/home_decade/${home_decade}`;
+  const url = `${BASE_URL}/home_decade/${home_decade}`;
   const response = await fetch(url);
   const data = await response.json();
   return data[0];
 };
 
 const getHomeType = async () => {
-  const url = `/api/home_type`;
+  const url = `${BASE_URL}/home_type`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
