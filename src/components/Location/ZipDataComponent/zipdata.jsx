@@ -20,7 +20,7 @@ const Zipdata = ({ zipcode }) => {
       return false;
     } else {
       const convertedState = convertZipToState(zipcode);
-      return getState(convertedState).then(({ breakdown }) => {
+      return getState(convertedState.long).then(({ breakdown }) => {
 
         if (!breakdown) {
           return null;
