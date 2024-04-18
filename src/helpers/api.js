@@ -85,7 +85,7 @@ const convertZipToState = (zipcode) => {
 };
 
 const getState = async (state) => {
-  const url = `${BASE_URL}/state/${state.long}`;
+  const url = `${BASE_URL}/state/${state}`;
   const response = await fetch(url);
   const data = await response.json();
 
