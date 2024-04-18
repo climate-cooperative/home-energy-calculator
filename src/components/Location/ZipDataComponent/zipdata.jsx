@@ -15,7 +15,6 @@ const Zipdata = ({ zipcode }) => {
 
   async function emission_breakdown(zipcode) {
     // Ensure you don't parse codes that start with 0 as octal values
-    console.log(zipcode);
     if (!zipcode) {
       return false;
     } else {
@@ -86,7 +85,7 @@ const Zipdata = ({ zipcode }) => {
   useEffect(() => {
     if (convertZipToState(zipcode)) {
       emission_breakdown(zipcode).then((data) => {
-        console.log("idk", data);
+        console.log("the goodies: ", data);
         setTable(data);
       });
     }
