@@ -16,7 +16,6 @@ const WaterHeating = (props) => {
 
   const getWaterHeater = () => {
     if (waterHeating === 'Heat Pump') {
-      setFuelSource('Electric');
       return 'Geothermal Heat Pump'; 
     } else if (waterHeating === 'Tankless') {
       return (fuelSource === 'Electric') ? 'Electric Tankless Water Heater' : 'Natural Gas Tankless Water Heater';
@@ -27,6 +26,12 @@ const WaterHeating = (props) => {
         'Fuel Oil Tank Water Heater';
     }
   }
+
+  useEffect(() => {
+    if(waterHeating && waterHeating === 'Heat Pump') {
+      setFuelSource('Electric');
+    }
+  }, [waterHeating]);
 
   const validateAndProceed = () => {
     if (

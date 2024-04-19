@@ -22,13 +22,19 @@ function gradeHvacUnitEfficiency(efficiency) {
 }
 
 function gradeHvacFuel(fuel) {
-    const fuelScores = {
-        'Electric': 3,
-        'Natural Gas': 2,
-        'Propane': 1,
-        'Kerosene': 1,
-    };
-    return fuelScores[fuel] || 0;
+    console.log(fuel);
+    switch (fuel) {
+        case 'Electric':
+            return 3;
+        case 'Natural Gas':
+            return 2;
+        case 'Propane':
+            return 1;
+        case 'Kerosene':
+            return 1;
+        default:
+            return 0;
+    }
 }
 
 function gradeHvacLocalGrid(fuel, gridCarbonIntensity) {
@@ -54,11 +60,14 @@ function gradeWaterHeatingUnitEfficiency(efficiency) {
 }
 
 function gradeWaterHeatingFuel(fuel) {
-    const fuelScores = {
-        'Electric': 2,
-        'Natural Gas': 1,
-    };
-    return fuelScores[fuel] || 0;
+    switch (fuel) {
+        case 'Electric':
+            return 2;
+        case 'Natural Gas':
+            return 1;
+        default:
+            return 0;
+    }
 }
 
 function gradeWaterHeatingLocalGrid(fuel, gridCarbonIntensity) {
@@ -77,8 +86,6 @@ function gradeAppliancesFuel(kitchen, laundry) {
     const electric = kitchen['Electric Cooktop'] + kitchen['Electric Oven'] + kitchen['Induction Cooktop'] + kitchen['Dishwasher'] + laundry['Electric Dryer'] + laundry['Heat Pump Dryer'] + laundry['Washers'];
     const gas = kitchen['Natural Gas Cooktop'] + kitchen['Natural Gas Oven'] + laundry['Natural Gas Dryer'];
 
-    console.log(electric, gas);
-
     if (electric > 0 && gas === 0) {
         return 2; // all electric
     } else if (electric > 0 && gas > 0) {
@@ -89,7 +96,6 @@ function gradeAppliancesFuel(kitchen, laundry) {
 }
 
 function gradeAppliancesLocalGrid(isElectric, gridCarbonIntensity) {
-    console.log(isElectric, gridCarbonIntensity);
     return isElectric ? gradeWaterHeatingLocalGrid('Electric', gridCarbonIntensity) : 0;
 }
 
@@ -126,11 +132,18 @@ function gradeWindowCoverage(windowCoverage) {
 
 // Lighting Grading Functions
 function gradeLedLighting(ledLightingPercent) {
-    if (ledLightingPercent === 1) return 8;
-    if (ledLightingPercent >= 0.8) return 7;
-    if (ledLightingPercent >= 0.6) return 6;
-    if (ledLightingPercent >= 0.35) return 5;
-    return 3;
+    switch (ledLightingPercent) {
+        case 'All':
+            return 8;
+        case 'Most':
+            return 7;
+        case 'Some':
+            return 6;
+        case 'Not Sure':
+            return 5;
+        default:
+            return 3;
+    }
 }
 
 export {

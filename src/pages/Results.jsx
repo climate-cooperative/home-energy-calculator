@@ -8,41 +8,35 @@ import Header from '../components/Results/Header';
 
 const Results = () => {
   const { formData } = useContext(FormDataContext);
-  const [ co2Emission, setCo2Emission ] = useState(0);
-  const [ scores, setScores ] = useState(null);
-  const [ avgHomeState, setAvgHomeState ] = useState(0);
-  const [ details, setDetails ] = useState(null);
+  const [ data, setData ] = useState(null);
 
   useEffect(() => {
     const calculate = async () => {
-      const { co2_total, grades, avgHome, details } = await handleCalculation(formData);
-      setCo2Emission(Math.floor(co2_total));
-      setScores(grades);
-      setAvgHomeState(avgHome);
-      setDetails(details);
+      const calc_data = await handleCalculation(formData);
+      setData(calc_data);
     };
   
     calculate();
   }, [formData]);
 
-  if (scores === null) {
+  if (data === null) {
     return <div>Loading...</div>;
   }
   return (
     <div className="results">
       <Header />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} style={{ padding: '20px' }}>
         <Grid item xs={12} md={4.5}>
           <EnergyScore 
-            yourHomeValue={co2Emission}
-            avgHomeState={avgHomeState}
+            yourHomeValue={data.co2_total}
+            avgHomeState={data.avgHome}
             avgHomeUS={16000}
-            details={details}
+            details={data.details}
           />
         </Grid>
         <Grid item xs={12} md={7.5}>
           <Grid container spacing={2}>
-            {scores && scores.map((score, index) => (
+            {data.grades && data.grades.map((score, index) => (
               <Grid item xs={12} sm={6} key={index}>
                 <IndividualScore
                   title={score.title}

@@ -103,7 +103,7 @@ function solarHeatGain(solarInsolation, houseWindowExposed, coeffSolarHeatGain) 
 }
 
 function carbonIntensityHeating(efficiency, co2PerBtu) {
-    return efficiency * co2PerBtu; // Replace 'efficiencyPrimary' with actual lookup value
+    return co2PerBtu / efficiency; // Replace 'efficiencyPrimary' with actual lookup value
 }
 
 function houseWindowExposed(southFacingWindowsPercent, sqftWindows) {
@@ -155,7 +155,7 @@ function surfaceHeatGainOrLoss(walls, windows, roof, floor) {
 function infiltrationHeatGainOrLoss(houseVolume, houseAirChangesPerHour, regionDD) {
   return houseVolume * houseAirChangesPerHour * regionDD * 24 * 0.018;
 }
-
+co2Heating
 function btuHeatingOrCooling(surfaceHeatGainOrLoss, infiltrationHeatGainOrLoss, solarHeatGain) {
   // summer is positive, winter is negative
   return surfaceHeatGainOrLoss + infiltrationHeatGainOrLoss + solarHeatGain;
@@ -193,6 +193,7 @@ function co2Cooling(btuCooling, carbonIntensityGrid) {
 }
 
 function co2Heating(houseHeatedFloors, btuHeating, carbonIntensityHeating, carbonIntensityGrid) {
+  console.log(houseHeatedFloors, btuHeating, carbonIntensityHeating, carbonIntensityGrid);
   return houseHeatedFloors * 896683 * carbonIntensityGrid + btuHeating * carbonIntensityHeating;
 }
 

@@ -3,20 +3,16 @@ import { checkmark, alert, close, hammer, thermometer, water, home, bulb } from 
 import {
     homeConvert,
     getConversionFactor,
-    carbonIntensityCooling,
     coeffPrimaryHeating,
     coeffSolarHeatGain,
     coeffWaterHeatingModifier,
-    generationNonSolar,
     solarInsolationSummer,
     solarInsolationWinter,
     sqftCalc,
-    unitAge,
     houseAboveGroundPercent,
     houseVolume,
     sqftWindows,
     sqftWalls,
-    houseBedPlusBath,
     solarHeatGain,
     carbonIntensityHeating,
     houseWindowExposed,
@@ -37,7 +33,6 @@ import {
     co2Cooling,
     co2Heating,
     co2Total,
-    Score
 } from './equations.js';
 import {
     getGrade,
@@ -58,31 +53,15 @@ import {
     gradeWindowsInsulation,
     gradeWindowCoverage,
     gradeLedLighting,
-  } from './grading.js';
-
-/*
-    zipCode,
-    state,
-    solarIndex,
-    heatingDegreeDays,
-    coolingDegreeDays,
-    groundWaterTemp,
-    homeVolume,
-    airChangesPerHour,
-    wallRValue,
-    atticRValue,
-    glazingPercentage,
-    heatLossBTUs,
-    solarHeatGainBTUs
-*/
+} from './grading.js';
 
 const handleCalculation = async (formData) => {
     try {
         const zip = formData.zipcode;
         const state = convertZipToState(zip);
         const apiData = await getAPIData(state.long, zip, formData.rooms, formData.kitchen, formData.laundry, formData.homeBuilt, formData.primaryHeat, formData.coolingSystem, formData.waterHeater);
-        const {co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, house_volume} = CO2Emission(formData, apiData);
-        const grades = getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows);
+        const {co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, house_volume,  btu_heating, btu_cooling} = CO2Emission(formData, apiData);
+        const grades = getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, apiData['region_water_temp']);
         let avgHome = Number(apiData['avg_home'].replace(/,/g, ''));
         const details = {
             zipCode: zip,
@@ -96,8 +75,8 @@ const handleCalculation = async (formData) => {
             wallRValue: rvalue_walls,
             atticRValue: rvalue_roof,
             glazingPercentage: rvalue_windows,
-            heatLossBTUs: Math.floor(co2_total),
-            solarHeatGainBTUs: apiData['solar_heat_gain']
+            heatLoss: Number((btu_heating / 1000000).toFixed(2)),
+            heatGain: Number((btu_cooling / 1000000).toFixed(2))
         };
         return { co2_total, grades, avgHome, details };
     } catch (error) {
@@ -198,7 +177,7 @@ function CO2Emission(formdata, apiData) {
     const house_window_exposed = houseWindowExposed(south_facing_window, sqft_windows);
     const solar_heat_gain_summer = solarHeatGain(solar_insolation_summer, house_window_exposed, coeff_solar_heat_gain);
     const primary_conversion = getConversionFactor(primarySource, grid_carbon_intensity);
-    const secondary_conversion = getConversionFactor(secondarySource, grid_carbon_intensity);
+    const secondary_conversion = (secondarySource !== "") ? getConversionFactor(secondarySource, grid_carbon_intensity) : 0;
     const carbon_intensity_primary_heating = carbonIntensityHeating(hvac_heating_efficiency, primary_conversion); // fix
     const carbon_intensity_secondary_heating = carbonIntensityHeating(hvac_heating_efficiency, secondary_conversion); // fix
     const solar_heat_gain_winter = solarHeatGain(solar_insolation_winter, house_window_exposed, coeff_solar_heat_gain);
@@ -229,7 +208,7 @@ function CO2Emission(formdata, apiData) {
     const co2_water_heating = co2WaterHeating(btu_water_heating, carbon_intensity_water_heating);
     const co2_cooling = co2Cooling(btu_cooling, grid_carbon_intensity);
     const co2_heating = co2Heating(heatedFloors.Rooms, btu_heating, carbon_intensity_heating_total, grid_carbon_intensity);
-    const co2_total = co2Total(co2_heating, co2_cooling, co2_water_heating, co2_electric_appliances, co2_gas_appliances, co2_lighting);
+    const co2_total = Math.floor(co2Total(co2_heating, co2_cooling, co2_water_heating, co2_electric_appliances, co2_gas_appliances, co2_lighting));
 
     console.log('window_ee_r:', window_ee_r);
     console.log('window_gas_r:', window_gas_r);
@@ -290,17 +269,17 @@ function CO2Emission(formdata, apiData) {
     console.log('co2_heating:', co2_heating);
     console.log('co2_total:', co2_total);
 
-    return { co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, house_volume };
+    return { co2_total, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, house_volume, btu_heating, btu_cooling};
 }
 
-function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows) {
+function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, rvalue_windows, water_temp) {
     const { 
         primarySource, 
         fuelSource,
         kitchen,
         laundry,
         windows,
-        slider,
+        efficiency,
         rooms
     } = formData;
     const { 
@@ -323,7 +302,7 @@ function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, r
     const water_heating_efficiency = gradeWaterHeatingUnitEfficiency(hvac_water_heating_efficiency);
     const water_heating_fuel = gradeWaterHeatingFuel(fuelSource);
     const water_heating_local_grid = gradeWaterHeatingLocalGrid(fuelSource, grid_carbon_intensity);
-    const water_heating_local_climate = gradeWaterHeatingLocalClimate(region_hdd, region_cdd);
+    const water_heating_local_climate = gradeWaterHeatingLocalClimate(water_temp);
     const water_heating_all = getGrade(2 + water_heating_efficiency + water_heating_fuel + water_heating_local_grid + water_heating_local_climate);
     // appliances
     const appliances_efficiency = gradeAppliancesUnitEfficiency(kitchen['Induction Cooktop'], laundry['Heat Pump Dryer']);
@@ -340,7 +319,7 @@ function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, r
     const window_coverage = gradeWindowCoverage(windows === 'Low' ? .12 : windows === 'Medium' ? .16 : .2);
     const windows_all = getGrade(windows_insulation + window_coverage);
     // lighting
-    const led_lighting = gradeLedLighting(slider);
+    const led_lighting = gradeLedLighting(efficiency);
     const led_all = getGrade(led_lighting);
 
     return[{ 
@@ -351,8 +330,8 @@ function getGrades(formData, apiData, rvalue_roof, rvalue_walls, rvalue_floor, r
           recommended: 'Heat Pump with Ductless Mini-Splits',
           content: [
             { title: 'Unit Efficiency', icon: hvac_efficiency === 3 ? checkmark : hvac_efficiency === 1 ? alert : close},
-            { title: 'Local Climate', icon: hvac_local_climate === 3 ? checkmark : hvac_local_climate > 0 ? alert : close},
-            { title: 'Fuel Source', icon: hvac_fuel === 1 ? checkmark : close},
+            { title: 'Fuel Source', icon: hvac_fuel === 3 ? checkmark : hvac_fuel > 0 ? alert : close},
+            { title: 'Local Climate', icon: hvac_local_climate === 1 ? checkmark : close},
             { title: 'Local Grid', icon: hvac_local_grid === 1 ? checkmark : close},
           ],
           rows: [

@@ -3,10 +3,20 @@ import { Button, Dialog, DialogTitle, DialogContent, Card, CardContent, Typograp
 import { IonIcon } from '@ionic/react';
 import { star } from 'ionicons/icons';
 
+const getScoreColor = (score) => {
+  if (score < 50) {
+    return 'darkred';
+  } else if (score < 75) {
+    return 'gold';
+  } else {
+    return 'teal';
+  }
+};
+
 const ScoreBlock = ({ score }) => (
   <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: '50vh' }}>
     <Typography variant="h4" align="center">Your Home's Clean Energy Score:</Typography>
-    <Typography variant="h2" align="center">{score} out of 100</Typography>
+    <Typography variant="h2" align="center" style={{ color: getScoreColor(score) }}>{score} out of 100</Typography>
     <Typography variant="body1" align="center">Your score is based on the estimated CO2 emissions of your home.</Typography>
     <Box mt={3}>
       <Typography variant="body1" align="center">
@@ -35,8 +45,8 @@ const ScoreDetailsCard = (props) => {
     wallRValue,
     atticRValue,
     glazingPercentage,
-    heatLossBTUs,
-    solarHeatGainBTUs
+    heatLoss,
+    heatGain
   } = props.props;
   return (
     <Card>
@@ -59,7 +69,6 @@ const ScoreDetailsCard = (props) => {
               <Typography variant="subtitle2">Your Location</Typography>
               <Typography>- Zip Code: {zipCode}</Typography>
               <Typography>- State: {state}</Typography>
-              <Typography>- Average Solar Index: {solarIndex}</Typography>
               <Typography>- Annual Heating Degree Days: {heatingDegreeDays}</Typography>
               <Typography>- Annual Cooling Degree Days: {coolingDegreeDays}</Typography>
               <Typography>- Average Ground Water Temp: {groundWaterTemp}° F</Typography>
@@ -71,8 +80,8 @@ const ScoreDetailsCard = (props) => {
               <Typography>- Insulated Wall R Value: {wallRValue}</Typography>
               <Typography>- Insulated Attic/Roof R Value: {atticRValue}</Typography>
               <Typography>- Glazing Percentage: {glazingPercentage}%</Typography>
-              <Typography>- Annual BTUs of Heat Loss: {heatLossBTUs} million</Typography>
-              <Typography>- Annual BTUs of Solar Heat Gain: {solarHeatGainBTUs} million</Typography>
+              <Typography>- Annual BTUs of Heat Loss: {heatLoss} million</Typography>
+              <Typography>- Annual BTUs of Solar Heat Gain: {heatGain} million</Typography>
             </Grid>
           </Grid>
         </Box>

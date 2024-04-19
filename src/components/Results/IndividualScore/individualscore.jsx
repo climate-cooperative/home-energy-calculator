@@ -18,7 +18,7 @@ const IndividualScore = (props) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
-    setOpen(true);
+    setOpen(false); // change to true to open dialog
   };
 
   const handleClose = () => {

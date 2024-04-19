@@ -209,7 +209,7 @@ const Heat = (props) => {
   const { question, label, heat, setHeat, source, popup } = props;
 
   const Electricity = [
-    { values: 'Electric Baseboard', label: 'Baseboard', icon: floor },
+    { values: 'Electric Baseboard Heating', label: 'Baseboard', icon: floor },
     { values: 'Electric Boiler / Radiator', label: 'Boiler / Radiator', icon: boiler },
     { values: 'Ducted Air Source Heat Pump', label: 'Ducted Air Source Heat Pump', icon: air_source },
     { values: 'Geothermal Heat Pump', label: 'Geothermal Heat Pump', icon: geothermal },
