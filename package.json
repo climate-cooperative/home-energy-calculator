@@ -27,7 +27,8 @@
     "lint:fix": "eslint --fix ./src/",
     "babel:build": "npx babel src/ --out-dir build",
     "prepare": "husky",
-    "format": "prettier --write './src/**/*.{js,jsx,css,json}' --config ./.prettierrc"
+    "format": "prettier --write './src/**/*.{js,jsx,css,json}' --config ./.prettierrc",
+    "pre-commit": "lint-staged"
   },
   "browserslist": {
     "production": [
@@ -57,6 +58,7 @@
     "eslint-plugin-react": "^7.33.2",
     "html-webpack-plugin": "^5.6.0",
     "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "style-loader": "^3.3.4",
     "url-loader": "^4.1.1",
