@@ -1,0 +1,83 @@
+name: "Build and Deploy"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TF_CLOUD_ORGANIZATION: "${{secrets.ORGANIZATION_TF}}"
+  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
+  AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+  AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+  BUILD_VERSION: "${{ github.sha }}"
+  TF_WORKSPACE: "PROD-zwell-calculator"
+  CONFIG_DIRECTORY: "./terraform/"
+  AWS_DEFAULT_REGION: "us-west-2"
+
+jobs:
+  # builds and pushes image to ecr
+  terraform:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+        # Gets the most current config (tf.plan) for org + workspace combo
+      - name: Upload Configuration
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.2.0
+        id: apply-upload
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          directory: ${{ env.CONFIG_DIRECTORY }}
+
+        # runs changes in terrafrom/ against current state to create a tf.plan
+        # tarraform plan
+      - name: Create Apply Run
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.2.0
+        id: apply-run
+        with:
+          workspace: ${{ env.TF_WORKSPACE }}
+          configuration_version: ${{ steps.apply-upload.outputs.configuration_version_id }}
+          # uncomment to tear down infra
+          # is_destroy: true
+
+        # terraform apply the plan
+      - name: Apply
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.2.0
+        if: fromJSON(steps.apply-run.outputs.payload).data.attributes.actions.IsConfirmable
+        id: apply
+        with:
+          run: ${{ steps.apply-run.outputs.run_id }}
+          comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+
+  # Once uplaoding current build and not squashing, move before tf apply
+  # bucket needs to be there first...
+  s3:
+    name: "Push to s3"
+    needs: terraform
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Build and Push assets to s3
+        shell: bash
+        run: |
+          npm ci
+          npm run build
+          aws s3 sync ./build/ s3://app.zwell.io/
