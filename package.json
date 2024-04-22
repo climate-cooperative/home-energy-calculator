@@ -12,6 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "babel-plugin-react-css-modules": "^5.2.6",
+    "file-loader": "^6.2.0",
     "html2canvas": "^1.4.1",
     "ionicons": "^7.3.0",
     "jspdf": "^2.5.1",
