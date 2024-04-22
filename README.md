@@ -8,12 +8,6 @@ This service utilizes webpack and babel to build the static assets and host the 
 
 `npm start`
 
-## Building
-
-Builds React app as a single static asset to then host on any desired deliver platform.
-
-`npm run build`
-
 ## Linting and Formatting
 
 ### ESLINT
