@@ -6,11 +6,14 @@ const ImageButton = ({ key, content, selected, setSelected }) => {
     ? selected.map(JSON.stringify).includes(JSON.stringify(content.values))
     : JSON.stringify(selected) === JSON.stringify(content.values);
 
+  const color = isSelected ? 'secondary' : 'primary';
+  const iconColor = isSelected ? '#ffffff': '#000000';
+
   return (
     <Button
       variant="contained"
-      color={isSelected ? 'secondary' : 'primary'}
       onClick={setSelected}
+      color={color}
       style={{ margin: '10px' }}
       sx={{
         display: 'flex',
@@ -24,7 +27,7 @@ const ImageButton = ({ key, content, selected, setSelected }) => {
         }
       }}
     >
-      <content.icon style={{ fontSize: '50px' }} />
+      <content.icon style={{ fontSize: '50px' }} color={iconColor}/>
       <div>{content.label}</div>
     </Button>
   );

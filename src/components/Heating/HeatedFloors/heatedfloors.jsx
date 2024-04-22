@@ -1,3 +1,4 @@
+import React from 'react';
 import CounterQuestion from '../../CounterQuestion';
 
 const HeatedFloors = (props) => {

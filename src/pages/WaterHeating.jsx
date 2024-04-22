@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { InstallationYear, Source, WaterHeater } from '../components/WaterHeater';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
@@ -14,8 +14,23 @@ const WaterHeating = (props) => {
   );
   const [error, setError] = useState(null);
 
+  const getWaterHeater = () => {
+    if (waterHeating === 'Heat Pump') {
+      return 'Geothermal Heat Pump'; 
+    } else if (waterHeating === 'Tankless') {
+      return (fuelSource === 'Electric') ? 'Electric Tankless Water Heater' : 'Natural Gas Tankless Water Heater';
+    } else if (waterHeating === 'Tank') {
+      return (fuelSource === 'Electric') ? 'Electric Tank Water Heater' : 
+        (fuelSource === 'Natural Gas') ? 'Natural Gas Tank Water Heater' :
+        (fuelSource === 'Propane') ? 'Propane Tank Water Heater' : 
+        'Fuel Oil Tank Water Heater';
+    }
+  }
+
   useEffect(() => {
-    setFuelSource('');
+    if(waterHeating && waterHeating === 'Heat Pump') {
+      setFuelSource('Electric');
+    }
   }, [waterHeating]);
 
   const validateAndProceed = () => {
@@ -29,7 +44,8 @@ const WaterHeating = (props) => {
     } else {
       setError(null);
       props.handleNext();
-      return { waterHeating, fuelSource, waterHeatingInstallYear };
+      const waterHeater = getWaterHeater();
+      return { waterHeater, waterHeating, fuelSource, waterHeatingInstallYear};
     }
   };
 

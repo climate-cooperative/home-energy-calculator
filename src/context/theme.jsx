@@ -23,6 +23,19 @@ const theme = createTheme({
     }
   },
   components: {
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          height: '10px',
+        },
+        colorPrimary: {
+          backgroundColor: '#B2DFDB', // change this to the color you want for the track
+        },
+        barColorPrimary: {
+          backgroundColor: '#00695C', // change this to the color you want for the bar
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

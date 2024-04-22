@@ -5,7 +5,9 @@ import CompareButton from './comparebutton';
 import ViewEditButton from './vieweditbutton';
 import ScoreRing from './scorering';
 
-const EnergyScore = ({ co2Emission }) => {
+const EnergyScore = (props) => {
+  const score = Math.floor(100 * (props.avgHomeUS / (props.avgHomeUS + props.yourHomeValue)));
+
   return (
     <Card>
       <CardContent>
@@ -21,24 +23,31 @@ const EnergyScore = ({ co2Emission }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              backgroundColor: '#f5f5f5',
+              backgroundColor: '#f2f0f1',
               borderRadius: '100px',
               padding: '10px 20px',
               height: '200px',
               margin: '20px'
             }}
           >
-            <div style={{ width: '75%', height: '100%', marginRight: '20px' }}>
-              <ScoreRing value={75} scoreLabel={'Good'} />
+            <div style={{ width: '100%', height: '100%', marginRight: '20px' }}>
+              <ScoreRing value={score} scoreLabel={'Good'} />
             </div>
             <div style={{ width: '60%' }}>
-              <h2>Score is based on the estimated CO2 emissions of your home</h2>
+              <h5>Score is based on the estimated CO2 emissions of your home</h5>
             </div>
           </div>
           <Grid container justifyContent="space-between">
             <Grid item xs={8}>
-              <CalcButton />
-              <CompareButton />
+              <CalcButton
+                score={score}
+                details={props.details}
+              />
+              <CompareButton
+                yourHomeValue={props.yourHomeValue}
+                avgHomeState={props.avgHomeState}
+                avgHomeUS={props.avgHomeUS}
+              />
               <ViewEditButton />
             </Grid>
             <Grid item xs={3}>
@@ -64,7 +73,7 @@ const EnergyScore = ({ co2Emission }) => {
                 }}
               >
                 <span style={{ color: 'teal', fontSize: '20', fontWeight: 'bold' }}>
-                  {co2Emission}
+                  {props.yourHomeValue}
                 </span>
                 <br />
                 of CO2 per year

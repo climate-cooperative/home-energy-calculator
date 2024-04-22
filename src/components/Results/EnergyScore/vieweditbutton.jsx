@@ -62,7 +62,7 @@ const ViewEditButton = () => {
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Windows: {formData.windows}</Typography>
                 <Typography>Panes: {formData.panes}</Typography>
-                <Typography>Treatments: {formData.treatments}</Typography>
+                <Typography>Treatments: {formData.treatments.join(' ')}</Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>
@@ -70,7 +70,7 @@ const ViewEditButton = () => {
                 Insulation:
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
-                <Typography>Insulation: {formData.insulation}</Typography>
+                <Typography>Insulation: {formData.insulation.join(' ')}</Typography>
                 <Typography>Crawl Space: {formData.crawlSpace}</Typography>
               </Box>
             </Grid>
@@ -81,7 +81,6 @@ const ViewEditButton = () => {
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Heating: {formData.primaryHeat}</Typography>
                 <Typography>Heating Source: {formData.primarySource}</Typography>
-                <Typography>Installation: {formData.installationYear}</Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>
@@ -93,7 +92,6 @@ const ViewEditButton = () => {
                   <>
                     <Typography>Secondary Heating: {formData.secondaryHeating}</Typography>
                     <Typography>Heating Type: {formData.secondaryHeatingType}</Typography>
-                    <Typography>Installation: {formData.secondaryHeatingYear}</Typography>
                   </>
                 ) : (
                   <Typography>No Secondary Heating</Typography>
@@ -107,8 +105,7 @@ const ViewEditButton = () => {
               <Box sx={{ marginLeft: 2 }}>
                 {formData.hasAirCond ? (
                   <>
-                    <Typography>Cooling: {formData.hasAirCond}</Typography>
-                    <Typography>Installation: {formData.airCondYear}</Typography>
+                    <Typography>Cooling: {formData.coolingSystem}</Typography>
                   </>
                 ) : (
                   <Typography>No Cooling</Typography>
@@ -121,8 +118,7 @@ const ViewEditButton = () => {
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Water Heater: {formData.waterHeater}</Typography>
-                <Typography>Heating Type: {formData.waterHeaterType}</Typography>
-                <Typography>Installation: {formData.waterHeaterYear}</Typography>
+                <Typography>Heating Type: {formData.fuelSource}</Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>

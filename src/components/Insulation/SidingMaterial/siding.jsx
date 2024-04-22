@@ -1,3 +1,4 @@
+import React from 'react';
 import SelectQuestion from '../../SelectQuestion';
 
 const Siding = (props) => {

@@ -1,3 +1,4 @@
+import React from 'react';
 import TextQuestion from '../../TextQuestion';
 
 const Zipcode = (props) => {

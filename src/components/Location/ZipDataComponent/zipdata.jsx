@@ -20,55 +20,60 @@ const Zipdata = ({ zipcode }) => {
     } else {
       const convertedState = convertZipToState(zipcode);
       return getState(convertedState.long).then(({ breakdown }) => {
+
+        if (!breakdown) {
+          return null;
+        }
+
         // get find percentage for each using 'All Fuels'
-        const all = breakdown['All Fuels'];
-        const coal = Math.round((breakdown['Coal'] / all) * 100);
-        const petroleum = Math.round((breakdown['Petroleum'] / all) * 100);
-        const naturalGas = Math.round((breakdown['Natural Gas'] / all) * 100);
-        const nuclear = Math.round((breakdown['Nuclear'] / all) * 100);
-        const hydro = Math.round((breakdown['Hydro'] / all) * 100);
-        const wind = Math.round((breakdown['Wind'] / all) * 100);
-        const solar = Math.round((breakdown['Solar'] / all) * 100);
-        const other = Math.round((breakdown['Other Renewable'] / all) * 100);
+        const all = breakdown['all_fuels'];
+        const coal = Math.round((breakdown['coal'] / all) * 100);
+        const petroleum = Math.round((breakdown['petroleum'] / all) * 100);
+        const naturalGas = Math.round((breakdown['natural_gas'] / all) * 100);
+        const nuclear = Math.round((breakdown['nuclear'] / all) * 100);
+        const hydro = Math.round((breakdown['hydro'] / all) * 100);
+        const wind = Math.round((breakdown['wind'] / all) * 100);
+        const solar = Math.round((breakdown['solar'] / all) * 100);
+        const other = Math.round((breakdown['other_renewable'] / all) * 100);
 
         return {
           Coal: {
-            yourState: coal,
+            yourState: isNaN(coal) ? 0 : coal,
             color: 'red',
             nationalAverage: 22
           },
           Petroleum: {
-            yourState: petroleum,
+            yourState: isNaN(petroleum) ? 0 : petroleum,
             color: 'orange',
             nationalAverage: 0.8
           },
           'Natural Gas': {
-            yourState: naturalGas,
+            yourState: isNaN(naturalGas) ? 0 : naturalGas,
             color: 'gold',
             nationalAverage: 38
           },
           Nuclear: {
-            yourState: nuclear,
+            yourState: isNaN(nuclear) ? 0 : nuclear,
             color: 'teal',
             nationalAverage: 19
           },
           Hydro: {
-            yourState: hydro,
+            yourState: isNaN(hydro) ? 0 : hydro,
             color: 'teal',
             nationalAverage: 6
           },
           Wind: {
-            yourState: wind,
+            yourState: isNaN(wind) ? 0 : wind,
             color: 'teal',
             nationalAverage: 9
           },
           Solar: {
-            yourState: solar,
+            yourState: isNaN(solar) ? 0 : solar,
             color: 'teal',
             nationalAverage: 3
           },
           Other: {
-            yourState: other,
+            yourState: isNaN(other) ? 0 : other,
             color: 'teal',
             nationalAverage: 2
           }
@@ -78,8 +83,9 @@ const Zipdata = ({ zipcode }) => {
   }
 
   useEffect(() => {
-    if (zipcode) {
+    if (convertZipToState(zipcode)) {
       emission_breakdown(zipcode).then((data) => {
+        console.log("the goodies: ", data);
         setTable(data);
       });
     }
@@ -145,7 +151,7 @@ const Zipdata = ({ zipcode }) => {
         </caption>
         <TableHead>
           <TableRow>
-            <TableCell>Washington's Energy Breakdown</TableCell>
+            <TableCell>Energy Breakdown</TableCell>
             <TableCell align="right">Your State</TableCell>
             <TableCell align="right">National Average*</TableCell>
           </TableRow>

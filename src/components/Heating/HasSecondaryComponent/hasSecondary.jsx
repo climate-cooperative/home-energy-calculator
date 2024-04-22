@@ -1,3 +1,4 @@
+import React from 'react';
 import SimpleQuestion from '../../SimpleQuestion';
 
 const HasSecondary = (props) => {

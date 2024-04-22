@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CoolingSystem, HasAirCond, InstallationYear } from '../components/Cooling';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';

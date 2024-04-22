@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 const ImageQuestion = ({
   question,
   content,
-  state,
+  state = 'Not Sure',
   setState,
   label = null,
   popup = null,
