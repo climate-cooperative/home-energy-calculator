@@ -3,10 +3,10 @@ import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/materia
 import { IonIcon } from '@ionic/react';
 import { chevronForwardOutline, mailOpen } from 'ionicons/icons';
 
-const SaveResultsBox = () => {
+const SaveResultsBox = ({handleSave}) => {
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea onClick={handleSave}>
         <CardContent>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <Box display="flex" alignItems="center">
