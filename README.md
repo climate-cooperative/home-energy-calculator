@@ -8,6 +8,10 @@ This service utilizes webpack and babel to build the static assets and host the 
 
 `npm start`
 
+This Project relies on running the [backend api](https://github.com/climate-cooperative/home-energy-assessment-database) at the same time locally in order to handle api request. See Mentioned repo for local development startup.
+
+[TODO] Create api response mocks/stubs to simplify local development.
+
 ## Linting and Formatting
 
 ### ESLINT
