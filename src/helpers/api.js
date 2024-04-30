@@ -75,7 +75,7 @@ const states = [
   { min: 82000, max: 83199, code: 'WY', long: 'Wyoming' }
 ];
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://api.zwell.io';
 
 const convertZipToState = (zipcode) => {
   const state = states.find(function (s) {

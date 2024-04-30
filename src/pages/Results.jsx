@@ -38,10 +38,10 @@ const Results = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="results" ref={inputRef}>
+    <div ref={inputRef}>
       <Header />
       <Grid container spacing={4} style={{ padding: '20px' }}>
-        <Grid item xs={12} md={4.5}>
+        <Grid item xs={12} md={4}>
           <EnergyScore 
             yourHomeValue={data.co2_total}
             avgHomeState={data.avgHome}
@@ -49,8 +49,8 @@ const Results = () => {
             details={data.details}
           />
         </Grid>
-        <Grid item xs={12} md={7.5}>
-          <Grid container spacing={2}>
+        <Grid item xs={12} md={8}>
+          <Grid container spacing={3}>
             {data.grades && data.grades.map((score, index) => (
               <Grid item xs={12} sm={6} key={index}>
                 <IndividualScore

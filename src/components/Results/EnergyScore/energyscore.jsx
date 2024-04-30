@@ -12,29 +12,39 @@ const EnergyScore = (props) => {
     <Card>
       <CardContent>
         <Grid container direction="column" alignItems="flex-start">
-          <Typography variant="h4" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
             Results
           </Typography>
-          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
             Your Home's <span style={{ color: 'teal' }}>Clean Energy</span> Score:
           </Typography>
           <div
             style={{
               display: 'flex',
+              justifyContent: 'center',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              backgroundColor: '#f2f0f1',
-              borderRadius: '100px',
-              padding: '10px 20px',
-              height: '200px',
-              margin: '20px'
+              width: '100%',
+              height: '100%',
+              margin: '40px 0'
             }}
           >
-            <div style={{ width: '100%', height: '100%', marginRight: '20px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                backgroundColor: '#f2f0f1',
+                borderRadius: '150px',
+                padding: '10px 20px',
+                width: '80%',
+                height: '300px',
+                margin: '20px'
+              }}
+            >
               <ScoreRing value={score} scoreLabel={'Good'} />
-            </div>
-            <div style={{ width: '60%' }}>
-              <h5>Score is based on the estimated CO2 emissions of your home</h5>
+              <div style={{ width: '60%', marginLeft: '10px' }}>
+                <h5>Score is based on the estimated CO2 emissions of your home</h5>
+              </div>
             </div>
           </div>
           <Grid container justifyContent="space-between">
@@ -72,11 +82,13 @@ const EnergyScore = (props) => {
                   justifyContent: 'center'
                 }}
               >
-                <span style={{ color: 'teal', fontSize: '20', fontWeight: 'bold' }}>
+                <Typography variant="h5" style={{ color: 'teal', fontWeight: 'bold' }}>
                   {props.yourHomeValue}
-                </span>
+                </Typography>
                 <br />
-                of CO2 per year
+                <Typography variant="h6">
+                  of CO2 per year
+                </Typography>
               </Box>
             </Grid>
           </Grid>

@@ -32,7 +32,7 @@ const CompareButton = (props) => {
     <div>
       <Button onClick={handleClickOpen} style={{ width: '100%' }}>
         <IonIcon icon={home} style={{ fontSize: '30px', margin: '10px' }} />
-        See How You Compare!
+        <Typography variant="h6">See How You Compare!</Typography>
       </Button>
       <Dialog 
         open={open} 

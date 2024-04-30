@@ -105,7 +105,7 @@ const CalcButton = (props) => {
     <div>
       <Button onClick={handleClickOpen} style={{ width: '100%' }}>
         <IonIcon icon={star} style={{ fontSize: '30px', margin: '10px' }} />
-        How We Calculate this
+        <Typography variant="h6">How We Calculate this</Typography>
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Calculation Guide:</DialogTitle>

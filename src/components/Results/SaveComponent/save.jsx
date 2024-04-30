@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import { IonIcon } from '@ionic/react';
-import { chevronForwardOutline, mailOpen } from 'ionicons/icons';
+import { chevronForwardOutline, mailOpen, mail } from 'ionicons/icons';
 
 const SaveResultsBox = ({handleSave}) => {
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    if (clicked) return;
+    setClicked(true);
+    handleSave();
+  }
+
   return (
     <Card>
-      <CardActionArea onClick={handleSave}>
-        <CardContent>
+      <CardActionArea onClick={handleClick}>
+        <CardContent style={{ minHeight: '200px' }}>
           <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box display="flex" alignItems="center">
-              <IonIcon icon={mailOpen} style={{ fontSize: '30px', margin: '10px' }} />
-              <Typography variant="h5" component="div" fontWeight={'bold'}>
-                Save your Results
+            <Box display="flex" alignItems="center">  
+              <IonIcon icon={
+                clicked ? mailOpen : mail
+              } size='large' style={{ margin: '10px' }} />
+              <Typography variant="h4" component="div" style={{ fontWeight: 'bold' }}>
+                {clicked ? 'Results Saved!' : 'Save Your Results'}
               </Typography>
             </Box>
-            <IonIcon icon={chevronForwardOutline} style={{ fontSize: '30px' }} />
+            <IonIcon icon={chevronForwardOutline} size='large' />
           </Box>
-          <hr style={{ color: 'lightgray' }} />
-          <Typography variant="body1" component="div" fontWeight={'Bold'}>
-            Save your results to compare with future surveys
+          <hr style={{ height: '3px', border: 'none', backgroundColor: 'lightgray' }} />
+          <Typography variant="h5" component="div" fontWeight={'Bold'}>
+            {clicked ? 'Your results have been saved' : 'Save your results to compare with future surveys'}
           </Typography>
-          <Typography variant="body2" component="div">
-            We'll send you an email with a link to return back to your results page anytime.
+          <Typography variant="h5" component="div">
+            {clicked ? 'You can now view your saved results in your downloads' : 'We will save your results for you to view later'}
           </Typography>
         </CardContent>
       </CardActionArea>

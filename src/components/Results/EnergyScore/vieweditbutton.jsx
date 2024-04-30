@@ -20,7 +20,7 @@ const ViewEditButton = () => {
     <div>
       <Button onClick={handleClickOpen} style={{ width: '100%' }}>
         <IonIcon icon={pencil} style={{ fontSize: '30px', margin: '10px' }} />
-        View/Edit Answers
+        <Typography variant="h6">View/Edit Answers</Typography>
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Your Survey Answers:</DialogTitle>
