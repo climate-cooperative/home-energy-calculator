@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
 import { FormDataContext } from '../../context/FormDataContext';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from '../../actions/actions';
 const SubmitButton = (props) => {
-  const { updateFormData } = useContext(FormDataContext);
+
+  const dispatch = useDispatch();
   const { handleNext } = props;
 
   const handleSubmit = () => {
     const validatedData = handleNext();
     if (validatedData) {
-      updateFormData(validatedData);
+      dispatch(update(validatedData));
     }
+    
   };
 
   return (
@@ -19,7 +22,8 @@ const SubmitButton = (props) => {
       style={{
         marginTop: '40px',
         width: '100px',
-        height: '50px'
+        height: '50px',
+        marginBottom: '50px'
       }}
     >
       Next

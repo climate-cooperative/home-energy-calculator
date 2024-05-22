@@ -3,9 +3,9 @@ import { Kitchen, Laundry } from '../components/Appliances';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import { FormDataContext } from '../context/FormDataContext';
-
+import { useSelector } from 'react-redux';
 const Appliances = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const  formData  = useSelector(state=>state.formdatacontext);
 
   const [kitchen, setKitchen] = useState(
     formData.kitchen || {

@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import { GreenEnergy, Slider } from '../components/Energy';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const Energy = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [energy, setEnergy] = useState(formData.energy || []);
   const [slider, setSlider] = useState(formData.slider || 0);
   const [error, setError] = useState(null);

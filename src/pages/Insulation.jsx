@@ -2,11 +2,10 @@ import React, { useState, useContext } from 'react';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import { Siding, HomeInsulation } from '../components/Insulation';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const Insulation = (props) => {
-  const { formData } = useContext(FormDataContext);
-
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [siding, setSiding] = useState(formData.siding || '');
   const [insulation, setInsulation] = useState(formData.insulation || '');
   const [error, setError] = useState(null);

@@ -29,7 +29,7 @@ const CounterItem = ({ label, count, incrementValue, decrementValue, setCount })
         }}
         style={{
           margin: '0 10px',
-          width: '100px'
+          width: '122px'
         }}
       />
       <IconButton color="secondary" onClick={handleIncrement}>

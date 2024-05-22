@@ -24,7 +24,7 @@ const PopupHint = ({ content }) => {
         variant="contained"
         color="primary"
         onClick={handleClick}
-        style={{ minWidth: 'auto', width: '40px', height: '40px', borderRadius: '50%' }}
+        style={{ minWidth: 'auto', width: '20px', height: '20px', borderRadius: '50%', backgroundColor:'inherit',boxShadow:'none', marginBottom:'30px'}}
       >
         <HelpOutlineIcon />
       </Button>

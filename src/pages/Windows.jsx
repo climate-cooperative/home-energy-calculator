@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import { WindowConverage, Panes, Sun, Treatments } from '../components/Windows';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const Windows = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const  formData  = useSelector(state=>state.formdatacontext);
 
   const [windows, setWindows] = useState(formData.windows || '');
   const [panes, setPanes] = useState(formData.panes || '');

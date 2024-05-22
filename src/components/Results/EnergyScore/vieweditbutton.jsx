@@ -3,6 +3,7 @@ import { Button, Dialog, DialogTitle, DialogContent, Typography, Box, Grid } fro
 import { FormDataContext } from '../../../context/FormDataContext';
 import { pencil } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
+import './energyScore.css';
 
 const ViewEditButton = () => {
   const { formData } = useContext(FormDataContext);
@@ -23,12 +24,12 @@ const ViewEditButton = () => {
         View/Edit Answers
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Your Survey Answers:</DialogTitle>
+        <DialogTitle className='title'>Your Survey Answers:</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Home Type:
+                <a href='/' className='viewEditBtn'>Home Type:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Owner: {formData.owner}</Typography>
@@ -37,7 +38,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Location:
+                <a href='/location' className='viewEditBtn'> Location:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Zipcode: {formData.zipcode}</Typography>
@@ -45,7 +46,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Home Size:
+                <a href='/homesize' className='viewEditBtn'> Home Size:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Size: {formData.homeSize}</Typography>
@@ -57,7 +58,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Windows:
+                <a href='/windows' className='viewEditBtn'> Windows:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Windows: {formData.windows}</Typography>
@@ -67,7 +68,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Insulation:
+                <a href='/insulation' className='viewEditBtn'> Insulation:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Insulation: {formData.insulation.join(' ')}</Typography>
@@ -76,7 +77,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Heating:
+                <a href='/heating' className='viewEditBtn'> Heating:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Heating: {formData.primaryHeat}</Typography>
@@ -85,7 +86,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Secondary Heating:
+                <a href='/heating' className='viewEditBtn'> Secondary Heating:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 {formData.secondaryHeating ? (
@@ -100,7 +101,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Cooling:
+                <a href='/cooling' className='viewEditBtn'> Cooling: </a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 {formData.hasAirCond ? (
@@ -114,7 +115,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Water Heater:
+                <a href='/waterheating' className='viewEditBtn'>Water Heater:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Water Heater: {formData.waterHeater}</Typography>
@@ -123,7 +124,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Lighting
+                <a href='/lighting' className='viewEditBtn'>Lighting</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Lighting: {formData.efficiency}</Typography>
@@ -131,7 +132,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Appliances:
+                <a href='/appliances' className='viewEditBtn'>Appliances:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 {Object.keys(formData.kitchen).map((appliance, index) => (
@@ -148,7 +149,7 @@ const ViewEditButton = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                Energy:
+                <a href='/energy' className='viewEditBtn'> Energy:</a>
               </Typography>
               <Box sx={{ marginLeft: 2 }}>
                 <Typography>Energy: {formData.energy}</Typography>

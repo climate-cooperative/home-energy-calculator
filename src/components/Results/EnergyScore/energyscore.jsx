@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Grid, Card, CardContent } from '@mui/material';
 import CalcButton from './calcbutton';
 import CompareButton from './comparebutton';
@@ -6,16 +6,24 @@ import ViewEditButton from './vieweditbutton';
 import ScoreRing from './scorering';
 
 const EnergyScore = (props) => {
-  const score = Math.floor(100 * (props.avgHomeUS / (props.avgHomeUS + props.yourHomeValue)));
-
+  let score = Math.floor(100 * (props.avgHomeUS / (props.avgHomeUS + props.yourHomeValue)));
+  const [scoretext, setScoretext] = useState('');
+  useEffect(() => {
+    if (score<25)setScoretext('Bad');
+    else if (score<50) setScoretext('OK');
+    else if (score<75) setScoretext('Good');
+    else scoretext = setScoretext ('Awesome');
+  }, [score]);
+  
+  
   return (
     <Card>
       <CardContent>
         <Grid container direction="column" alignItems="flex-start">
-          <Typography variant="h4" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h4" component="div" sx={{ fontWeight: 'bold', fontSize: "27px"}}>
             Results
           </Typography>
-          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', fontSize: "20px"}}>
             Your Home's <span style={{ color: 'teal' }}>Clean Energy</span> Score:
           </Typography>
           <div
@@ -23,18 +31,18 @@ const EnergyScore = (props) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              backgroundColor: '#f5f5f5',
+              backgroundColor: '#f2f0f1',
               borderRadius: '100px',
               padding: '10px 20px',
               height: '200px',
               margin: '20px'
             }}
           >
-            <div style={{ width: '75%', height: '100%', marginRight: '20px' }}>
-              <ScoreRing value={score} scoreLabel={'Good'} />
+            <div style={{ width: '100%', height: '100%', marginRight: '20px' }}>
+              <ScoreRing value={score} scoreLabel={scoretext} />
             </div>
             <div style={{ width: '60%' }}>
-              <h2>Score is based on the estimated CO2 emissions of your home</h2>
+              <h5>Score is based on the estimated CO2 emissions of your home</h5>
             </div>
           </div>
           <Grid container justifyContent="space-between">
@@ -43,7 +51,7 @@ const EnergyScore = (props) => {
                 score={score}
                 details={props.details}
               />
-              <CompareButton 
+              <CompareButton
                 yourHomeValue={props.yourHomeValue}
                 avgHomeState={props.avgHomeState}
                 avgHomeUS={props.avgHomeUS}

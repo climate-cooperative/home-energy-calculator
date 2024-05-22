@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, Card, CardContent, Typography, Box, Grid } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { star } from 'ionicons/icons';
-
+import './energyScore.css';
 const getScoreColor = (score) => {
   if (score < 50) {
     return 'darkred';
@@ -14,8 +14,8 @@ const getScoreColor = (score) => {
 };
 
 const ScoreBlock = ({ score }) => (
-  <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: '50vh' }}>
-    <Typography variant="h4" align="center">Your Home's Clean Energy Score:</Typography>
+  <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: '30vh' }}>
+    <Typography variant="h4" align="center" className='type_bold'>Your Home's Clean Energy Score:</Typography>
     <Typography variant="h2" align="center" style={{ color: getScoreColor(score) }}>{score} out of 100</Typography>
     <Typography variant="body1" align="center">Your score is based on the estimated CO2 emissions of your home.</Typography>
     <Box mt={3}>
@@ -51,7 +51,7 @@ const ScoreDetailsCard = (props) => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom className='type_bold'>
           The Science Behind Your Score
         </Typography>
         <Typography paragraph>
@@ -62,11 +62,11 @@ const ScoreDetailsCard = (props) => {
         </Typography>
         
         <Box my={2}>
-          <Typography variant="subtitle1">What we estimate:</Typography>
+          <Typography variant="subtitle1" className='type_bold'>What we estimate:</Typography>
           
           <Grid container>
             <Grid item xs={6}>
-              <Typography variant="subtitle2">Your Location</Typography>
+              <Typography variant="subtitle2" className='type_bold'>Your Location</Typography>
               <Typography>- Zip Code: {zipCode}</Typography>
               <Typography>- State: {state}</Typography>
               <Typography>- Annual Heating Degree Days: {heatingDegreeDays}</Typography>
@@ -74,7 +74,7 @@ const ScoreDetailsCard = (props) => {
               <Typography>- Average Ground Water Temp: {groundWaterTemp}° F</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="subtitle2">Your Home</Typography>
+              <Typography variant="subtitle2" className='type_bold'>Your Home</Typography>
               <Typography>- Home Volume: {homeVolume} ft³</Typography>
               <Typography>- Air Changes per Hour (ACH): {airChangesPerHour}</Typography>
               <Typography>- Insulated Wall R Value: {wallRValue}</Typography>
@@ -101,13 +101,20 @@ const CalcButton = (props) => {
     setOpen(false);
   };
 
+  const dialogStyle = {
+    // Add your custom styles here
+    borderRadius: '8px',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+  };
+
+  
   return (
     <div>
       <Button onClick={handleClickOpen} style={{ width: '100%' }}>
         <IonIcon icon={star} style={{ fontSize: '30px', margin: '10px' }} />
-        How We Calculate this
+        How We Calculate This
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} maxWidth='600px' PaperProps={{ style: dialogStyle }}>
         <DialogTitle>Calculation Guide:</DialogTitle>
         <DialogContent>
           <ScoreBlock score={props.score} />

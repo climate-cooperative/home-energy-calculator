@@ -1,4 +1,4 @@
-# Zwellhome Energy Calculator
+# Home Energy Calculator
 
 This repo acts as the front-end React app of the energy calculator.
 
@@ -8,11 +8,9 @@ This service utilizes webpack and babel to build the static assets and host the 
 
 `npm start`
 
-## Building
+This Project relies on running the [backend api](https://github.com/climate-cooperative/home-energy-assessment-database) at the same time locally in order to handle api request. See Mentioned repo for local development startup.
 
-Builds React app as a single static asset to then host on any desired deliver platform.
-
-`npm run build`
+[TODO] Create api response mocks/stubs to simplify local development.
 
 ## Linting and Formatting
 

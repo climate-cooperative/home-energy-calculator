@@ -7,7 +7,7 @@ const CounterQuestion = ({ question, label = null, popup = null, content, state,
   return (
     <div className="component" style={{ width: '70%' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Typography variant="h2">{question}</Typography>
+        <Typography variant="h2" >{question}</Typography>
         {popup && <PopupHint content={popup} />}
       </div>
       {label && <Typography variant="h3">{label}</Typography>}
