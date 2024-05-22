@@ -39,7 +39,11 @@ const EnergyScore = (props) => {
             }}
           >
             <div style={{ width: '100%', height: '100%', marginRight: '20px' }}>
+<<<<<<< HEAD
               <ScoreRing value={score} scoreLabel={scoretext} />
+=======
+              <ScoreRing value={score} scoreLabel={'Good'} />
+>>>>>>> 2d0582763e77efc4872f006f59503c9e54f52b46
             </div>
             <div style={{ width: '60%' }}>
               <h5>Score is based on the estimated CO2 emissions of your home</h5>
