@@ -1,0 +1,15 @@
+.viewEditBtn{
+    text-decoration: none;
+    font: 18px;
+    font-weight: bold;
+    color: #2d2828;
+}
+.title{
+    font-size: 30px!important;
+    text-align: center;
+    font-weight: bold!important;
+}
+
+.type_bold{
+    font-weight: bold!important;
+}

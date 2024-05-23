@@ -54,7 +54,7 @@ const Navbar = ({ index, handleClick }) => {
                   primary={step.text}
                   primaryTypographyProps={{
                     style: {
-                      color: i === index ? 'black' : 'lightgray',
+                      color: i === index ? 'black' : 'inherit',
                       fontWeight: i === index ? 'bold' : 'normal'
                     }
                   }}

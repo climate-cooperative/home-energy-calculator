@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import Button from '@mui/material/Button';
@@ -8,9 +7,9 @@ import { Zipcode, ZipData } from '../components/Location';
 import { FormDataContext } from '../context/FormDataContext';
 import { validateZipCode } from '../helpers/api';
 import '../styles/page.css';
-
+import { useSelector } from 'react-redux';
 const Location = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [zipcode, setZipcode] = useState(formData.zipcode || '');
   const [hidden, hide] = useState(true);
   const [error, setError] = useState(null);

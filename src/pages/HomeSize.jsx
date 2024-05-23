@@ -3,11 +3,9 @@ import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import '../styles/page.css';
 import { SqrFeet, Rooms, Layout, CrawlSpace } from '../components/HomeSize';
-import { FormDataContext } from '../context/FormDataContext';
-
+import { useSelector } from 'react-redux';
 const HomeSize = (props) => {
-  const { formData } = useContext(FormDataContext);
-
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [sqrfeet, setSqrfeet] = useState(formData.sqrfeet || '');
   const [rooms, setRooms] = useState(
     formData.rooms || {

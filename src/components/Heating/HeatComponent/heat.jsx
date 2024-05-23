@@ -235,9 +235,7 @@ const Heat = (props) => {
     { values: 'Wood Fireplace', label: 'Fireplace', icon: Fireplace },
   ]
 
-  useEffect(() => {
-    setHeat('');
-  }, [source]);
+
 
   return (
     <>

@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { InstallationYear, Source, WaterHeater } from '../components/WaterHeater';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const WaterHeating = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const  formData  = useSelector(state=>state.formdatacontext);
 
   const [waterHeating, setWaterHeating] = useState(formData.waterHeating || '');
   const [fuelSource, setFuelSource] = useState(formData.fuelSource || '');

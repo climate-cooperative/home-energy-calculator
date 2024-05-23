@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import Efficiency from '../components/Lighting';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const Lighting = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [efficiency, setEfficiency] = useState(formData.efficiency || '');
   const [error, setError] = useState(null);
 
