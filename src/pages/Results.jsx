@@ -5,8 +5,6 @@ import { FormDataContext } from '../context/FormDataContext';
 import handleCalculation from '../helpers/calculation.js';
 import '../styles/page.css';
 import Header from '../components/Results/Header';
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas';
 import { Oval } from 'react-loader-spinner';
 import PDFGenerator from '../components/Results/PdfGenerator/pdfgenerator.js';
 import { useSelector } from 'react-redux';
@@ -25,32 +23,8 @@ const Results = () => {
   }, [formData]);
  
 
-  const saveToPdf = () => {
-    console.log("saving");
-    html2canvas(inputRef.current).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("landscape", "mm", "a4")
-      const width = pdf.internal.pageSize.getWidth();
-      const height = pdf.internal.pageSize.getHeight();
-      pdf.addImage(imgData, "JPEG", 0, 0, width, height);
-      pdf.save("Result.pdf");
-    })
-  }
 
-
-  const [imageData, setImageData] = useState(null);
-
-  useEffect(() => {
-    // Capture the HTML element as an image using html2canvas
-    const captureImage = async () => {
-      const canvas = await html2canvas(document.getElementById('result'));
-      setImageData(canvas.toDataURL('image/png'));
-    };
-    captureImage();
-  }, []);
-
-
-  if (data === null) {
+  if (!data) {
     return(
       <div className='spinner-container '>
         <Oval
@@ -99,7 +73,7 @@ const Results = () => {
               </Grid>
             ))}
             <Grid  item xs={12} sm={6} >
-              <PDFGenerator formData={formData} data={data} score = {score} handleSave = {saveToPdf}/>
+              <PDFGenerator formData={formData} data={data} score = {score}/>
             </Grid>
           </Grid>
         </Grid>
