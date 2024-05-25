@@ -1,15 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
 import { Zipcode, ZipData } from '../components/Location';
-import { FormDataContext } from '../context/FormDataContext';
-import { validateZipCode } from '../helpers/api';
-import '../styles/page.css';
 import { useSelector } from 'react-redux';
+import { validateZipCode } from '../helpers/api';
+
 const Location = (props) => {
-  const  formData  = useSelector(state=>state.formdatacontext);
+  const formData = useSelector(state => state.formdatacontext);
   const [zipcode, setZipcode] = useState(formData.zipcode || '');
   const [hidden, hide] = useState(true);
   const [error, setError] = useState(null);
@@ -20,14 +19,17 @@ const Location = (props) => {
       setError('All fields must be filled out');
       return null;
     } else {
-      const result = await validateZipCode(zipcode);
-      if (result) {
+      try {
+        setLoading(true);
+        const result = await validateZipCode(zipcode);
+        if(result) {
         setLoading(false);
         setError(null);
         setZipcode(zipcode);
         props.handleNext();
         return { zipcode };
-      } else {
+        }
+      } catch (error) {
         findValidZipCode(zipcode);
       }
     }
@@ -66,8 +68,8 @@ const Location = (props) => {
       <Button onClick={() => hide(false)}>Next</Button>
       {loading && <CircularProgress color="secondary" style={{ marginTop: '10px' }} />}
       {error && <div className="error">{error}</div>}
-      {hidden ? null : <ZipData zipcode={zipcode} />}
-      {hidden ? null : <SubmitButton handleNext={validateAndProceed} disabled={loading} />}
+      {!hidden && <ZipData zipcode={zipcode} />}
+      {!hidden && <SubmitButton handleNext={validateAndProceed} disabled={loading} />}
     </div>
   );
 };
