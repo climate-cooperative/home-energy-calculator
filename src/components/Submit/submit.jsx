@@ -6,8 +6,8 @@ const SubmitButton = (props) => {
   const { updateFormData } = useContext(FormDataContext);
   const { handleNext } = props;
 
-  const handleSubmit = () => {
-    const validatedData = handleNext();
+  const handleSubmit = async () => {
+    const validatedData = await handleNext();
     if (validatedData) {
       updateFormData(validatedData);
     }

@@ -30,7 +30,7 @@ const Results = () => {
       const width = pdf.internal.pageSize.getWidth();
       const height = pdf.internal.pageSize.getHeight();
       pdf.addImage(imgData, "JPEG", 0, 0, width, height);
-      pdf.save("download.pdf");
+      pdf.save("DIY Home Energy Audit.pdf");
     })
   }
 
