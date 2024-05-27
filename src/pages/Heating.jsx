@@ -2,11 +2,10 @@ import React, { useContext, useState } from 'react';
 import { HasSecondary, Heat, HeatedFloors, InstallationYear, Source } from '../components/Heating';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const Heating = (props) => {
-  const { formData } = useContext(FormDataContext);
-
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [primaryHeat, setPrimaryHeat] = useState(formData.primaryHeat || '');
   const [primarySource, setPrimarySource] = useState(formData.primarySource || '');
   const [heatInstallYear, setHeatInstallYear] = useState(formData.heatInstallYear || '');
@@ -23,6 +22,7 @@ const Heating = (props) => {
     } else {
       setError(null);
       props.handleNext();
+      console.log(primaryHeat);
       return {
         primaryHeat,
         primarySource,

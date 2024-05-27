@@ -3,7 +3,9 @@ import { DialogContent, Typography, Button, LinearProgress, Box, Dialog, DialogT
 import { home } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
 
-const ProgressBar = ({ label, value }) => (
+const ProgressBar = ({ label, value }) => {
+  const color1 = 'red';
+  return(
   <Box sx={{ width: '100%', padding: '10px' }} display="flex" alignItems="center" justifyContent="space-between">
     <div style={{ width: '40%'}}>
       <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>{label}</Typography>
@@ -13,9 +15,10 @@ const ProgressBar = ({ label, value }) => (
       variant="determinate" 
       value={((value / 16000) * 100)}
       sx={{ width: '60%' }}
+      style={{color:'red', backgroundColor:color1}}
     />
   </Box>
-);
+);}
 
 const CompareButton = (props) => {
   const [open, setOpen] = useState(false);
@@ -39,16 +42,17 @@ const CompareButton = (props) => {
         onClose={handleClose}
         PaperProps={{ 
           sx: { 
-            width: '33vw', 
-            maxWidth: '33vw', 
+            width: '40vw', 
+            maxWidth: '40vw', 
             overflowX: 'hidden' 
           } 
         }}
       >
-        <DialogTitle>
-          <IonIcon icon={home} style={{ fontSize: '30px', margin: '10px' }} /> See How You Compare!
+        <DialogTitle style={{display:'flex', margin:'10px'}}>
+          <IonIcon icon={home} style={{ fontSize: '30px', }} /> 
+          <div style={{marginLeft:'20px', fontSize:'25px', fontWeight:'bold'}}>See How You Compare!</div>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{overflow : 'hidden'}}>
           <ProgressBar label="Your Home" value={props.yourHomeValue} />
           <br />
           <ProgressBar label="Average Home in Your State" value={props.avgHomeState} />

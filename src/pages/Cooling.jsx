@@ -2,14 +2,13 @@ import React, { useContext, useState } from 'react';
 import { CoolingSystem, HasAirCond, InstallationYear } from '../components/Cooling';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 
 const Cooling = (props) => {
-  const { formData } = useContext(FormDataContext);
-
+  const  formData  = useSelector(state=>state.formdatacontext);
   const [hasAirCond, setHasAirCond] = useState(formData.hasAirCond || 'No');
   const [coolingInstallYear, setCoolingInstallYear] = useState(formData.coolingInstallYear || '');
-  const [coolingSystem, setCoolingSystem] = useState(formData.airCondSystem || '');
+  const [coolingSystem, setCoolingSystem] = useState(formData.coolingSystem || '');
   const [error, setError] = useState(null);
 
   const validateAndProceed = () => {

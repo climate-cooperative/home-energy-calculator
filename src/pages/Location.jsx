@@ -1,37 +1,49 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
 import { Zipcode, ZipData } from '../components/Location';
-import { FormDataContext } from '../context/FormDataContext';
+import { useSelector } from 'react-redux';
 import { validateZipCode } from '../helpers/api';
-import '../styles/page.css';
 
 const Location = (props) => {
-  const { formData } = useContext(FormDataContext);
+  const formData = useSelector(state => state.formdatacontext);
   const [zipcode, setZipcode] = useState(formData.zipcode || '');
   const [hidden, hide] = useState(true);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const validateAndProceed = async () => {
+
+  useEffect(() => {
+
+    const handleZipcodeValidation = async () => {
+      if (zipcode) {
+        console.log("starting");
+        setLoading(true);
+        if ((await validateZipCode(zipcode))) { // if valid
+          setLoading(false);
+          setError(null);
+        } else {
+          await findValidZipCode(zipcode)
+        }
+      }
+    };
+
+    handleZipcodeValidation()
+  }, [zipcode]);
+
+  const validateAndProceed = () => {
+
     if (!zipcode) {
       setError('All fields must be filled out');
       return null;
-    } else {
-      const result = await validateZipCode(zipcode);
-      if (result) {
-        setLoading(false);
-        setError(null);
-        setZipcode(zipcode);
-        props.handleNext();
-        return { zipcode };
-      } else {
-        findValidZipCode(zipcode);
-      }
+    } else if (!loading && !error) {
+      props.handleNext();
+      console.log(`RESULT = ${zipcode}`);
+      return { zipcode };
     }
+
   };
 
   const findValidZipCode = async (originalZip) => {
@@ -67,8 +79,8 @@ const Location = (props) => {
       <Button onClick={() => hide(false)}>Next</Button>
       {loading && <CircularProgress color="secondary" style={{ marginTop: '10px' }} />}
       {error && <div className="error">{error}</div>}
-      {hidden ? null : <ZipData zipcode={zipcode} />}
-      {hidden ? null : <SubmitButton handleNext={validateAndProceed} disabled={loading} />}
+      {!hidden && <ZipData zipcode={zipcode} />}
+      {!hidden && <SubmitButton handleNext={validateAndProceed} disabled={loading} />}
     </div>
   );
 };

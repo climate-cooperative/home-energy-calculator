@@ -12,5 +12,6 @@ const OwnerType = ({ owner, setOwner }) => {
     />
   );
 };
-
+   
 export default OwnerType;
+                                                       

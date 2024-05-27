@@ -14,9 +14,9 @@ const TextQuestion = ({ question, subtext = null, popup = null, label, value, se
   };
 
   return (
-    <div className="component">
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Typography variant="h2">{question}</Typography>
+    <div className="component" style={{marginBottom: '20px'}}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <Typography variant="h2" style={{marginBottom:'0px'}}>{question}</Typography>
         {popup && <PopupHint content={popup} />}
       </div>
       {subtext && <Typography variant="h3">{subtext}</Typography>}

@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-
 export const FormDataContext = createContext();
 
 export const FormDataProvider = ({ children }) => {

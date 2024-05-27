@@ -3,10 +3,10 @@ import { OwnerType, HomeSize, HomeBuilt } from '../components/HomeType';
 import SubmitButton from '../components/Submit';
 import '../styles/page.css';
 import { FormDataContext } from '../context/FormDataContext';
-
+import { useDispatch, useSelector } from 'react-redux';
 const HomeType = (props) => {
-  const { formData } = useContext(FormDataContext);
-
+  const  formData  = useSelector(state=>state.formdatacontext);
+  console.log(formData);
   const [owner, setOwner] = useState(formData.owner || '');
   const [homeSize, setHomeSize] = useState(formData.homeSize || '');
   const [homeBuilt, setHomeBuilt] = useState(formData.homeBuilt || '');

@@ -78,18 +78,22 @@
   user-select: none;
   border-radius: 20px;
   border-width: 2px;
+  color: lightgray;
 }
 
 .list-item-text {
   user-select: none;
+
 }
 
 .list-item.clickable {
   /* Add your styles for clickable list items here */
   cursor: pointer;
+  color: black;
 }
 
 .list-item.clickable:hover {
   border-color: teal;
-  border-style: solid; /* Add this line */
+  background-color: lightblue;
+
 }
