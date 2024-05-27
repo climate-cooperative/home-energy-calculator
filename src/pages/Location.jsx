@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BackButton from '../components/BackButton';
 import SubmitButton from '../components/Submit';
 import Button from '@mui/material/Button';
@@ -14,25 +14,36 @@ const Location = (props) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const validateAndProceed = async () => {
+
+  useEffect(() => {
+
+    const handleZipcodeValidation = async () => {
+      if (zipcode) {
+        console.log("starting");
+        setLoading(true);
+        if ((await validateZipCode(zipcode))) { // if valid
+          setLoading(false);
+          setError(null);
+        } else {
+          await findValidZipCode(zipcode)
+        }
+      }
+    };
+
+    handleZipcodeValidation()
+  }, [zipcode]);
+
+  const validateAndProceed = () => {
+
     if (!zipcode) {
       setError('All fields must be filled out');
       return null;
-    } else {
-      try {
-        setLoading(true);
-        const result = await validateZipCode(zipcode);
-        if(result) {
-        setLoading(false);
-        setError(null);
-        setZipcode(zipcode);
-        props.handleNext();
-        return { zipcode };
-        }
-      } catch (error) {
-        findValidZipCode(zipcode);
-      }
+    } else if (!loading && !error) {
+      props.handleNext();
+      console.log(`RESULT = ${zipcode}`);
+      return { zipcode };
     }
+
   };
 
   const findValidZipCode = async (originalZip) => {
