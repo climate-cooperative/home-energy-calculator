@@ -4,7 +4,7 @@ This repo acts as the front-end React app of the energy calculator.
 
 ## Local Development
 
-This service utilizes webpack and babel to build the static assets and host the local development server.
+This service utilizes vite to build the static assets and host the local development server.
 
 `npm start`
 
