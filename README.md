@@ -25,3 +25,23 @@ Lints the codebase at `src/`
 Formats the code
 
 `npm run format`
+
+## Testing
+
+### VITEST
+
+Runs all unit tests under `src/`. The convention is to create a `.test.js` file in the same directory as the code under test (e.g. `src/helpers/equations.test.js` for `src/helpers/equations.js`).
+
+To run all tests in "watch mode" where tests are re-run when a file is changed:
+
+`npm run test`
+
+Additional options can be passed to the Vitest command ([docs](https://vitest.dev/guide/cli.html#options)), e.g.
+
+```bash
+# only run tests for a specific file or directory
+npm run test -- src/helpers/equations.test.js
+
+# disable watch mode
+npm run test -- --run  
+```
