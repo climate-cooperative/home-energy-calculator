@@ -29,9 +29,10 @@
     "lint:fix": "eslint --fix ./src/",
     "build": "vite build --outDir $(pwd)/dist",
     "prepare": "husky",
-    "format": "prettier --write './src/**/*.{js,jsx,css,json}' --config ./.prettierrc",
-    "pre-commit": "lint-staged",
-    "test": "vitest"
+    "test": "vitest",
+    "format": "prettier --check './src/**/*.{js,jsx,css,json}' --config ./.prettierrc",
+    "format:fix": "prettier --write './src/**/*.{js,jsx,css,json}' --config ./.prettierrc",
+    "pre-commit": "lint-staged"
   },
   "browserslist": {
     "production": [
