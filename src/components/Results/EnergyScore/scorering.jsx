@@ -32,18 +32,21 @@ const ScoreRing = ({ value, scoreLabel }) => {
   }, []);
 
   return (
-    <div style={{
-      width: '100%',
-      height: '100%',
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
-      backgroundPosition: 'center',
-      position: 'relative'
-    }} ref={dialRef}>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        position: 'relative'
+      }}
+      ref={dialRef}
+    >
       <Needle desiredScore={score} scoreLabel={scoreLabel} width={width} height={height} />
       <Arc score={score} width={width} height={height} />
-    </div >
+    </div>
   );
 };
 

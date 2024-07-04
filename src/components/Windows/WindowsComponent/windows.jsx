@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageQuestion from '../../ImageQuestion';
 
-const Low = ({color}) => (
+const Low = ({ color }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
@@ -9,7 +9,7 @@ const Low = ({color}) => (
     x={0}
     y={0}
     style={{
-      enableBackground: "new 0 0 48 35",
+      enableBackground: 'new 0 0 48 35'
     }}
     viewBox="0 0 48 35"
   >
@@ -19,9 +19,9 @@ const Low = ({color}) => (
       className="st0"
     />
   </svg>
-)
+);
 
-const Medium = ({color}) => (
+const Medium = ({ color }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
@@ -29,7 +29,7 @@ const Medium = ({color}) => (
     x={0}
     y={0}
     style={{
-      enableBackground: "new 0 0 48 35",
+      enableBackground: 'new 0 0 48 35'
     }}
     viewBox="0 0 48 35"
   >
@@ -39,9 +39,9 @@ const Medium = ({color}) => (
       className="st1"
     />
   </svg>
-)
+);
 
-const High = ({color}) => (
+const High = ({ color }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
@@ -49,7 +49,7 @@ const High = ({color}) => (
     x={0}
     y={0}
     style={{
-      enableBackground: "new 0 0 48 35",
+      enableBackground: 'new 0 0 48 35'
     }}
     viewBox="0 0 48 35"
   >
@@ -63,7 +63,7 @@ const High = ({color}) => (
       className="st2"
     />
   </svg>
-)
+);
 
 const WindowConverage = (props) => {
   const { windows, setWindows } = props;

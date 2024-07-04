@@ -39,10 +39,7 @@ const EnergyScore = (props) => {
           </div>
           <Grid container justifyContent="space-between">
             <Grid item xs={8}>
-              <CalcButton
-                score={score}
-                details={props.details}
-              />
+              <CalcButton score={score} details={props.details} />
               <CompareButton
                 yourHomeValue={props.yourHomeValue}
                 avgHomeState={props.avgHomeState}

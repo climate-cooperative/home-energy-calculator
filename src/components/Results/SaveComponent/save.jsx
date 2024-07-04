@@ -3,7 +3,7 @@ import { Box, Card, CardActionArea, CardContent, Typography } from '@mui/materia
 import { IonIcon } from '@ionic/react';
 import { chevronForwardOutline, mailOpen } from 'ionicons/icons';
 
-const SaveResultsBox = ({handleSave}) => {
+const SaveResultsBox = ({ handleSave }) => {
   return (
     <Card>
       <CardActionArea onClick={handleSave}>
