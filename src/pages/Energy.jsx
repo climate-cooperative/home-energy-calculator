@@ -25,7 +25,9 @@ const Energy = (props) => {
     <div className="page">
       <BackButton pageName={'Appliances'} route={'/appliances'} />
       <GreenEnergy energy={energy} setEnergy={setEnergy} />
-      {energy.length > 0 && energy[0] !== 'Not Sure' ? <Slider energy={energy} slider={slider} setSlider={setSlider} /> : null}
+      {energy.length > 0 && energy[0] !== 'Not Sure' ? (
+        <Slider energy={energy} slider={slider} setSlider={setSlider} />
+      ) : null}
       <SubmitButton handleNext={validateAndProceed} />
       {error && <div className="error">{error}</div>}
     </div>

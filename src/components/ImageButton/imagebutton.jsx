@@ -7,7 +7,7 @@ const ImageButton = ({ key, content, selected, setSelected }) => {
     : JSON.stringify(selected) === JSON.stringify(content.values);
 
   const color = isSelected ? 'secondary' : 'primary';
-  const iconColor = isSelected ? '#ffffff': '#000000';
+  const iconColor = isSelected ? '#ffffff' : '#000000';
 
   return (
     <Button
@@ -27,7 +27,7 @@ const ImageButton = ({ key, content, selected, setSelected }) => {
         }
       }}
     >
-      <content.icon style={{ fontSize: '50px' }} color={iconColor}/>
+      <content.icon style={{ fontSize: '50px' }} color={iconColor} />
       <div>{content.label}</div>
     </Button>
   );

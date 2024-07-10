@@ -9,25 +9,25 @@ const Single = (props) => (
     x={0}
     y={0}
     style={{
-      enableBackground: "new 0 0 48 48",
+      enableBackground: 'new 0 0 48 48'
     }}
     viewBox="0 0 48 48"
     {...props}
   >
     <style>
       {
-        ".st7{fill:none;stroke:#7c7c7c;stroke-width:.397;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st9{fill:#eaeaea}"
+        '.st7{fill:none;stroke:#7c7c7c;stroke-width:.397;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st9{fill:#eaeaea}'
       }
     </style>
     <path
       d="m16.7 2 13.6 13.3v24.2L16.7 26.6z"
       style={{
-        fill: "#fff",
-        stroke: "#7c7c7c",
+        fill: '#fff',
+        stroke: '#7c7c7c',
         strokeWidth: 0.5293,
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        strokeMiterlimit: 10,
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
+        strokeMiterlimit: 10
       }}
     />
     <path d="m20.3 22.7 6.3-5.9M19.7 25.2l6.2-5.9" className="st7" />
@@ -37,7 +37,7 @@ const Single = (props) => (
     />
     <path d="M15.7 7v20.1l13.8 13.1-1.9 1.9-13.3-13.5V5.3z" className="st9" />
   </svg>
-)
+);
 
 const Double = (props) => (
   <svg
@@ -47,14 +47,14 @@ const Double = (props) => (
     x={0}
     y={0}
     style={{
-      enableBackground: "new 0 0 48 48",
+      enableBackground: 'new 0 0 48 48'
     }}
     viewBox="0 0 48 48"
     {...props}
   >
     <style>
       {
-        ".st7{fill:none;stroke:#7c7c7c;stroke-width:.397;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st9{fill:#eaeaea}"
+        '.st7{fill:none;stroke:#7c7c7c;stroke-width:.397;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st9{fill:#eaeaea}'
       }
     </style>
     <path d="m19.3 2 13.6 13.3v24.2L19.3 26.6z" className="st6" />
@@ -67,7 +67,7 @@ const Double = (props) => (
     />
     <path d="M15.7 7v20.1l13.8 13.1-1.9 1.9-13.3-13.5V5.3z" className="st9" />
   </svg>
-)
+);
 
 const Triple = (props) => (
   <svg
@@ -77,14 +77,14 @@ const Triple = (props) => (
     x={0}
     y={0}
     style={{
-      enableBackground: "new 0 0 48 48",
+      enableBackground: 'new 0 0 48 48'
     }}
     viewBox="0 0 48 48"
     {...props}
   >
     <style>
       {
-        ".st6,.st7{fill:#fff;stroke:#7c7c7c;stroke-width:.5293;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st7{fill:none;stroke-width:.397}.st9{fill:#eaeaea}"
+        '.st6,.st7{fill:#fff;stroke:#7c7c7c;stroke-width:.5293;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10}.st7{fill:none;stroke-width:.397}.st9{fill:#eaeaea}'
       }
     </style>
     <path d="m20.8 1.9 13.7 13.4v24.2L20.8 26.6z" className="st6" />
@@ -99,7 +99,7 @@ const Triple = (props) => (
     />
     <path d="M14.6 7v20.1l13.9 13.1-2 1.9-13.3-13.5V5.3z" className="st9" />
   </svg>
-)
+);
 
 const Panes = (props) => {
   const { panes, setPanes } = props;

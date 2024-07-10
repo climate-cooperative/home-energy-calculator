@@ -28,15 +28,15 @@ function homeConvert(houseSize) {
 }
 
 function getConversionFactor(conversionType, grid_carbon_intensity) {
-    const conversionFactors = {
-        'Electric': grid_carbon_intensity,
-        'Propane': 0.000139,
-        'Fuel Oil': 0.000163,
-        'Natural Gas': 0.000117,
-        'Bio Fuel': 0.000239
-    };
+  const conversionFactors = {
+    Electric: grid_carbon_intensity,
+    Propane: 0.000139,
+    'Fuel Oil': 0.000163,
+    'Natural Gas': 0.000117,
+    'Bio Fuel': 0.000239
+  };
 
-    return conversionFactors[conversionType];
+  return conversionFactors[conversionType];
 }
 
 function carbonIntensityCooling(carbonIntensityGrid, efficiencyHVAC) {
@@ -91,7 +91,10 @@ function sqftWindows(windowCoverage, houseHomeSize, houseExposedWallsPercent) {
 }
 
 function sqftWalls(houseHomeSize, houseAboveGroundPercent, houseExposedWallsPercent, sqftWindows) {
-    return Math.sqrt(houseHomeSize / 1.5) * 5 * 9 * houseAboveGroundPercent * houseExposedWallsPercent - sqftWindows;
+  return (
+    Math.sqrt(houseHomeSize / 1.5) * 5 * 9 * houseAboveGroundPercent * houseExposedWallsPercent -
+    sqftWindows
+  );
 }
 
 function houseBedPlusBath(bedrooms, bathrooms) {
@@ -99,15 +102,15 @@ function houseBedPlusBath(bedrooms, bathrooms) {
 }
 
 function solarHeatGain(solarInsolation, houseWindowExposed, coeffSolarHeatGain) {
-    return solarInsolation * 3412.14 * houseWindowExposed * coeffSolarHeatGain * 183 / 10.764;
+  return (solarInsolation * 3412.14 * houseWindowExposed * coeffSolarHeatGain * 183) / 10.764;
 }
 
 function carbonIntensityHeating(efficiency, co2PerBtu) {
-    return co2PerBtu / efficiency; // Replace 'efficiencyPrimary' with actual lookup value
+  return co2PerBtu / efficiency; // Replace 'efficiencyPrimary' with actual lookup value
 }
 
 function houseWindowExposed(southFacingWindowsPercent, sqftWindows) {
-    return southFacingWindowsPercent * sqftWindows;
+  return southFacingWindowsPercent * sqftWindows;
 }
 
 function rvalueWalls(
@@ -135,7 +138,7 @@ function carbonIntensityHeatingTotal(
 }
 
 function carbonIntensityWaterHeating(carbonIntensityGrid, efficiencyHVAC) {
-    return carbonIntensityGrid / efficiencyHVAC; // Add logic for 'unitWaterHeaterAgeCoefficient'
+  return carbonIntensityGrid / efficiencyHVAC; // Add logic for 'unitWaterHeaterAgeCoefficient'
 }
 
 function rvalueRoof(probInsulation, rValueAtticInsulation, rValueJoist, rValueAtticRoof) {
@@ -146,7 +149,7 @@ function btuHeatingThroughSurface(sqftArea, regionDD, rvalue) {
   if (rvalue === 0) {
     return 0;
   }
-  return sqftArea * regionDD * 24 / rvalue;
+  return (sqftArea * regionDD * 24) / rvalue;
 }
 function surfaceHeatGainOrLoss(walls, windows, roof, floor) {
   return walls + windows + roof + floor;
@@ -155,7 +158,7 @@ function surfaceHeatGainOrLoss(walls, windows, roof, floor) {
 function infiltrationHeatGainOrLoss(houseVolume, houseAirChangesPerHour, regionDD) {
   return houseVolume * houseAirChangesPerHour * regionDD * 24 * 0.018;
 }
-co2Heating
+co2Heating;
 function btuHeatingOrCooling(surfaceHeatGainOrLoss, infiltrationHeatGainOrLoss, solarHeatGain) {
   // summer is positive, winter is negative
   return surfaceHeatGainOrLoss + infiltrationHeatGainOrLoss + solarHeatGain;
@@ -163,25 +166,32 @@ function btuHeatingOrCooling(surfaceHeatGainOrLoss, infiltrationHeatGainOrLoss, 
 
 function btuWaterHeating(regionGroundwaterTemp, waterHeatingModifier, houseBedPlusBath) {
   return (
-    ((120 - regionGroundwaterTemp - waterHeatingModifier) *
-      houseBedPlusBath *
-      8.33 *
-      17 *
-      365) /
-    2
+    ((120 - regionGroundwaterTemp - waterHeatingModifier) * houseBedPlusBath * 8.33 * 17 * 365) / 2
   );
 }
 
-function co2ElectricAppliances(houseKitchens, houseBedrooms, electricAppliancesBTU, carbonIntensityGrid) {
-    return (houseKitchens * 645 * 3,412.14) + (houseBedrooms * 250 * 3,412.14) + electricAppliancesBTU * carbonIntensityGrid;
+function co2ElectricAppliances(
+  houseKitchens,
+  houseBedrooms,
+  electricAppliancesBTU,
+  carbonIntensityGrid
+) {
+  return (
+    (houseKitchens * 645 * 3, 412.14) +
+    (houseBedrooms * 250 * 3, 412.14) +
+    electricAppliancesBTU * carbonIntensityGrid
+  );
 }
 
 function co2GasAppliances(btuGasAppliances) {
-    return btuGasAppliances * 0.000117;
+  return btuGasAppliances * 0.000117;
 }
 
 function co2Lighting(houseLEDLightingPercent, houseHomeSize, carbonIntensityGrid) {
-    return ((131 - (houseLEDLightingPercent * 105)) * 6 * 0.001 * houseHomeSize) * 3,412.14 * carbonIntensityGrid;
+  return (
+    (131 - houseLEDLightingPercent * 105) * 6 * 0.001 * houseHomeSize * 3,
+    412.14 * carbonIntensityGrid
+  );
 }
 
 function co2WaterHeating(btuWaterHeating, carbonIntensityWaterHeating) {
@@ -205,16 +215,18 @@ function co2Total(
   co2GasAppliances,
   co2Lighting
 ) {
-  return co2Heating +
+  return (
+    co2Heating +
     co2Cooling +
     co2WaterHeating +
     co2ElectricAppliances +
     co2GasAppliances +
-    co2Lighting;
+    co2Lighting
+  );
 }
 
-function Score(co2_total){
-    return 100 * (16000 / (16000 + co2_total));
+function Score(co2_total) {
+  return 100 * (16000 / (16000 + co2_total));
 }
 
 export {

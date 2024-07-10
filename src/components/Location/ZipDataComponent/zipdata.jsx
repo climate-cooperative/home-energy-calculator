@@ -20,7 +20,6 @@ const Zipdata = ({ zipcode }) => {
     } else {
       const convertedState = convertZipToState(zipcode);
       return getState(convertedState.long).then(({ breakdown }) => {
-
         if (!breakdown) {
           return null;
         }
@@ -85,7 +84,7 @@ const Zipdata = ({ zipcode }) => {
   useEffect(() => {
     if (convertZipToState(zipcode)) {
       emission_breakdown(zipcode).then((data) => {
-        console.log("the goodies: ", data);
+        console.log('the goodies: ', data);
         setTable(data);
       });
     }

@@ -16,19 +16,24 @@ const WaterHeating = (props) => {
 
   const getWaterHeater = () => {
     if (waterHeating === 'Heat Pump') {
-      return 'Geothermal Heat Pump'; 
+      return 'Geothermal Heat Pump';
     } else if (waterHeating === 'Tankless') {
-      return (fuelSource === 'Electric') ? 'Electric Tankless Water Heater' : 'Natural Gas Tankless Water Heater';
+      return fuelSource === 'Electric'
+        ? 'Electric Tankless Water Heater'
+        : 'Natural Gas Tankless Water Heater';
     } else if (waterHeating === 'Tank') {
-      return (fuelSource === 'Electric') ? 'Electric Tank Water Heater' : 
-        (fuelSource === 'Natural Gas') ? 'Natural Gas Tank Water Heater' :
-        (fuelSource === 'Propane') ? 'Propane Tank Water Heater' : 
-        'Fuel Oil Tank Water Heater';
+      return fuelSource === 'Electric'
+        ? 'Electric Tank Water Heater'
+        : fuelSource === 'Natural Gas'
+          ? 'Natural Gas Tank Water Heater'
+          : fuelSource === 'Propane'
+            ? 'Propane Tank Water Heater'
+            : 'Fuel Oil Tank Water Heater';
     }
-  }
+  };
 
   useEffect(() => {
-    if(waterHeating && waterHeating === 'Heat Pump') {
+    if (waterHeating && waterHeating === 'Heat Pump') {
       setFuelSource('Electric');
     }
   }, [waterHeating]);
@@ -45,7 +50,7 @@ const WaterHeating = (props) => {
       setError(null);
       props.handleNext();
       const waterHeater = getWaterHeater();
-      return { waterHeater, waterHeating, fuelSource, waterHeatingInstallYear};
+      return { waterHeater, waterHeating, fuelSource, waterHeatingInstallYear };
     }
   };
 

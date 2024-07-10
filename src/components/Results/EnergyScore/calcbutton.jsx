@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, Card, CardContent, Typography, Box, Grid } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Grid
+} from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { star } from 'ionicons/icons';
 
@@ -14,10 +24,22 @@ const getScoreColor = (score) => {
 };
 
 const ScoreBlock = ({ score }) => (
-  <Grid container direction="column" justifyContent="center" alignItems="center" style={{ height: '50vh' }}>
-    <Typography variant="h4" align="center">Your Home's Clean Energy Score:</Typography>
-    <Typography variant="h2" align="center" style={{ color: getScoreColor(score) }}>{score} out of 100</Typography>
-    <Typography variant="body1" align="center">Your score is based on the estimated CO2 emissions of your home.</Typography>
+  <Grid
+    container
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    style={{ height: '50vh' }}
+  >
+    <Typography variant="h4" align="center">
+      Your Home's Clean Energy Score:
+    </Typography>
+    <Typography variant="h2" align="center" style={{ color: getScoreColor(score) }}>
+      {score} out of 100
+    </Typography>
+    <Typography variant="body1" align="center">
+      Your score is based on the estimated CO2 emissions of your home.
+    </Typography>
     <Box mt={3}>
       <Typography variant="body1" align="center">
         <span style={{ color: 'darkred' }}>0</span> = the highest possible emissions
@@ -55,15 +77,17 @@ const ScoreDetailsCard = (props) => {
           The Science Behind Your Score
         </Typography>
         <Typography paragraph>
-          Many things go into estimating the CO₂ emissions of a home - the size of your home, the outside temperature through the year, the materials and insulation in your home, and much more!
+          Many things go into estimating the CO₂ emissions of a home - the size of your home, the
+          outside temperature through the year, the materials and insulation in your home, and much
+          more!
         </Typography>
         <Typography paragraph>
           Here's a look at what we estimated some of those factors to be based on your answers.
         </Typography>
-        
+
         <Box my={2}>
           <Typography variant="subtitle1">What we estimate:</Typography>
-          
+
           <Grid container>
             <Grid item xs={6}>
               <Typography variant="subtitle2">Your Location</Typography>
@@ -111,9 +135,7 @@ const CalcButton = (props) => {
         <DialogTitle>Calculation Guide:</DialogTitle>
         <DialogContent>
           <ScoreBlock score={props.score} />
-          <ScoreDetailsCard
-            props={props.details}
-          />
+          <ScoreDetailsCard props={props.details} />
         </DialogContent>
       </Dialog>
     </div>

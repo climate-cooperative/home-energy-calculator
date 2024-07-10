@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper
+} from '@mui/material';
 import {
   Box,
   Card,
@@ -34,7 +42,7 @@ const IndividualScore = (props) => {
     'C-': 'red',
     'D+': 'red',
     'D-': 'red',
-    'F': 'black'
+    F: 'black'
   };
 
   return (
@@ -72,7 +80,7 @@ const IndividualScore = (props) => {
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {props.content.map((item, index) => (
                 <Typography key={index} variant="body1" style={{ margin: '10px' }}>
-                  <IonIcon icon={item.icon}/> {item.title}
+                  <IonIcon icon={item.icon} /> {item.title}
                 </Typography>
               ))}
             </div>
@@ -107,17 +115,17 @@ const IndividualScore = (props) => {
         <DialogContent>
           <hr style={{ color: 'lightgray' }} />
           <Typography variant="h2" marginTop={2}>
-            <IonIcon icon={documentText} style={{ marginRight: '10px' }}/> System Report Card
+            <IonIcon icon={documentText} style={{ marginRight: '10px' }} /> System Report Card
           </Typography>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             {props.content.map((item, index) => (
               <Typography key={index} variant="body1" style={{ marginRight: '10px' }}>
-                <IonIcon icon={item.icon}/> {item.title}
+                <IonIcon icon={item.icon} /> {item.title}
               </Typography>
             ))}
           </div>
           <Typography variant="h2" marginTop={2}>
-            <IonIcon icon={bulb} style={{ marginRight: '10px' }}/> Recommendations
+            <IonIcon icon={bulb} style={{ marginRight: '10px' }} /> Recommendations
           </Typography>
           <TableContainer component={Paper}>
             <Table aria-label="Recommend table">
