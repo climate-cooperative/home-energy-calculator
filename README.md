@@ -1,4 +1,4 @@
-# Home Energy Calculator
+# Home Energy Calculator TEST
 
 This repo acts as the front-end React app of the energy calculator.
 
