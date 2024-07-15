@@ -4,7 +4,7 @@ https:/.zwellhome.com/api/zip_table/zipcode/98059
 https://api.zwellhome.com/api/appliances
 etc...
 
-/appliances
+/appliances-changed
 /hvac_appliances
 /home_decades
 /home_type
