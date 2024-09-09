@@ -1,4 +1,4 @@
-# Home Energy Calculator
+# Home Energy Calculator [![](https://img.shields.io/badge/discord-8A2BE2)](https://discord.com/channels/1234653337547440190)
 
 This repo acts as the front-end React app of the energy calculator.
 
